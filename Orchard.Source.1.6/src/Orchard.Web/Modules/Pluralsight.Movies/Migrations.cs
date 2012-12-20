@@ -35,7 +35,19 @@ namespace Pluralsight.Movies {
             return 2;
         }
         public int UpdateFrom2() {
-            string PatternDefinitions = "[{Name: 'Movie Title', Pattern: 'movies/{Content.Slug}', Description: 'movies/movie-titles' }, {Name: 'Film Title', Pattern: 'films/{Content.Slug}', Description: 'films/film-titles'}]";
+         
+            var jb = new JSONBuilder();
+            jb.AddNewObject();
+            jb.AddProperty("Name", "Movie Title");
+            jb.AddProperty("Pattern", "movies/{Content.Slug}");
+            jb.AddProperty("Description", "movies/movie-titles");
+
+            jb.AddNewObject();
+            jb.AddProperty("Name", "Film Title");
+            jb.AddProperty("Pattern", "films/{Content.Slug}");
+            jb.AddProperty("Description", "films/film-titles");
+
+            var patternDefinitions = jb.Build();
 
             ContentDefinitionManager.AlterTypeDefinition("Movie", builder =>
                 builder.WithPart("BodyPart", partBuilder=>
@@ -44,10 +56,12 @@ namespace Pluralsight.Movies {
                     routePart.WithSetting("AutorouteSettings.PerItemConfiguration", "false")
                     .WithSetting("AutorouteSettings.AllowCustomPattern", "true")
                     .WithSetting("AutorouteSettings.AutomaticAdjustmentOnEdit", "false")
-                    .WithSetting("AutorouteSettings.PatternDefinitions", PatternDefinitions)
+                    .WithSetting("AutorouteSettings.PatternDefinitions", patternDefinitions)
                     .WithSetting("AutorouteSettings.DefaultPatternIndex", "0"))
                 );
             return 3;
         }
+
+
     }
 }
