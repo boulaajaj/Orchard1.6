@@ -1,0 +1,5 @@
+Orchard 
+
+open Orchard.exe command line
+
+>feature enable Orchard.CodeGeneration
