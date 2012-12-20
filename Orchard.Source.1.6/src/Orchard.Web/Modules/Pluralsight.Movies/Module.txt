@@ -1,0 +1,10 @@
+﻿Name: Pluralsight.Movies
+AntiForgery: enabled
+Author: Rich Smith
+Website: http://orchardproject.net
+Version: 1.0
+OrchardVersion: 1.6
+Description: Pluralsight learning module
+Features:
+    Pluralsight.Movies:
+        Description: Description for feature Pluralsight.Movies.

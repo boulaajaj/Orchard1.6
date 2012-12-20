@@ -3,3 +3,5 @@ Orchard
 open Orchard.exe command line
 
 >feature enable Orchard.CodeGeneration
+
+>codegen module Pluralsight.Movies /IncludeInSolution:true
