@@ -14,3 +14,5 @@ This creates migration.cs
 
 In migration.cs you can add new parts....
 
+Also do updates for data in tables
+
