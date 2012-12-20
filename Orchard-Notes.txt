@@ -1,7 +1,16 @@
-Orchard 
+	Orchard 
 
 open Orchard.exe command line
 
 >feature enable Orchard.CodeGeneration
 
 >codegen module Pluralsight.Movies /IncludeInSolution:true
+
+	Migrations (Orchard_Framework_Datamigrations table in database)
+	
+>codegen datamigration Pluralsight.Movies
+
+This creates migration.cs
+
+In migration.cs you can add new parts....
+
