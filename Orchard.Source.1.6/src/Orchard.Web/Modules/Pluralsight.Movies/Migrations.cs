@@ -66,7 +66,7 @@ namespace Pluralsight.Movies {
 
             SchemaBuilder.CreateTable("MoviePartRecord", builder =>
                                                          builder.ContentPartRecord()
-                                                             .Column<string>("IMBD_ID")
+                                                             .Column<string>("IMDB_ID")
                                                              .Column<int>("YearReleased")
                                                              .Column<string>("Rating", col=>col.WithLength(4))
                 );
