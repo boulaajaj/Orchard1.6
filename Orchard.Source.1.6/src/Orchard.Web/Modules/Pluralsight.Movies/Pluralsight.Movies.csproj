@@ -80,12 +80,18 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Drivers\MoviePartDriver.cs" />
     <Compile Include="JSONBuilder.cs" />
     <Compile Include="Migrations.cs" />
+    <Compile Include="Models\MoviePart.cs" />
+    <Compile Include="Models\MoviePartRecord.cs" />
+    <Compile Include="Models\MPAARating.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\EditorTemplates\Parts\Movie.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
