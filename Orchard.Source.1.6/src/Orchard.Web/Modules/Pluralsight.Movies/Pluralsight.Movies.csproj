@@ -60,6 +60,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Handlers\ReadMe.txt" />
     <Content Include="Web.config" />
     <Content Include="Views\Web.config" />
     <Content Include="Scripts\Web.config">
@@ -81,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Drivers\MoviePartDriver.cs" />
+    <Compile Include="Handlers\MovieHandler.cs" />
     <Compile Include="JSONBuilder.cs" />
     <Compile Include="Migrations.cs" />
     <Compile Include="Models\MoviePart.cs" />
@@ -92,6 +94,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\EditorTemplates\Parts\Movie.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Placement.Info" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

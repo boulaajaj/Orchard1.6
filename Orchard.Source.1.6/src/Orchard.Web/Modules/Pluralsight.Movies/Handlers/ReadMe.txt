@@ -1,0 +1,1 @@
+﻿Handlers only get registered when site starts - you must re-start the web app when creating new handlers

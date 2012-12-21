@@ -3,8 +3,8 @@
 namespace Pluralsight.Movies.Models {
     public class MoviePart:ContentPart<MoviePartRecord> {
         public string IMDB_Id {
-            get { return Record.IMDB_Id; }
-            set { Record.IMDB_Id = value; }
+            get { return Record.IMDB_ID; }
+            set { Record.IMDB_ID = value; }
         }
 
         public int YearReleased
