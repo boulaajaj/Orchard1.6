@@ -10,6 +10,12 @@ namespace Pluralsight.Movies.Drivers {
         {
             get { return "Movie"; }
         }
+
+        protected override DriverResult Display(MoviePart part, string displayType, dynamic shapeHelper)
+        {
+            //displayType could be Detail, Summary, Summary_Admin
+            return ContentShape("Parts_Movie", () => shapeHelper.Parts_Movie(MoviePart: part));
+        }
        //get
         protected override DriverResult Editor(MoviePart part, dynamic shapeHelper) {
             return ContentShape("Parts_Movie_Edit", () =>
