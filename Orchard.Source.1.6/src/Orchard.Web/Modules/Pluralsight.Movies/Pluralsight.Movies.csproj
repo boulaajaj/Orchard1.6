@@ -85,6 +85,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminMenu.cs" />
+    <Compile Include="Controllers\ActorsAdminController.cs" />
     <Compile Include="Drivers\MoviePartDriver.cs" />
     <Compile Include="Handlers\MovieFeatureEventHandler.cs" />
     <Compile Include="Handlers\MovieHandler.cs" />
@@ -95,17 +97,19 @@
     <Compile Include="Models\MoviePart.cs" />
     <Compile Include="Models\MoviePartRecord.cs" />
     <Compile Include="Models\MPAARating.cs" />
+    <Compile Include="Services\IMovieService.cs" />
+    <Compile Include="Services\MovieService.cs" />
+    <Compile Include="ViewModels\ActorsIndexViewModel.cs" />
     <Compile Include="ViewModels\MovieEditViewModel.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Views\EditorTemplates\Parts\Movie.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Placement.info" />
     <Content Include="Views\Parts\Movie.cshtml" />
+    <Content Include="Views\ActorsAdmin\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -3,14 +3,17 @@ using Orchard.ContentManagement;
 using Orchard.ContentManagement.Drivers;
 using Orchard.Data;
 using Pluralsight.Movies.Models;
+using Pluralsight.Movies.Services;
 using Pluralsight.Movies.ViewModels;
 
 namespace Pluralsight.Movies.Drivers {
     public class MoviePartDriver:ContentPartDriver<MoviePart> {
         private readonly IRepository<ActorRecord> _actorRepository;
+        private readonly IMovieService _movieService;
 
-        public MoviePartDriver(IRepository<ActorRecord> actorRepository) {
+        public MoviePartDriver(IRepository<ActorRecord> actorRepository, IMovieService movieService) {
             _actorRepository = actorRepository;
+            _movieService = movieService;
         }
 
         protected override string Prefix
@@ -31,7 +34,11 @@ namespace Pluralsight.Movies.Drivers {
 
         //post
         protected override DriverResult Editor(MoviePart part, IUpdateModel updater, dynamic shapeHelper) {
-            updater.TryUpdateModel(part, Prefix, null, null);
+            var movieEditViewModel = new MovieEditViewModel();
+
+            updater.TryUpdateModel(movieEditViewModel, Prefix, null, new string[] { "AllActors" });
+
+            _movieService.UpdateMovie(movieEditViewModel, part);
             return Editor(part, shapeHelper);
         }
 

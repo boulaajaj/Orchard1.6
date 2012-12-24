@@ -1,0 +1,16 @@
+﻿@model Pluralsight.Movies.ViewModels.ActorsIndexViewModel
+
+@{
+    Layout.Title = T("Actors");
+}
+
+<fieldset class="contentItems">
+    <ul>
+        @foreach(var actor in Model.Actors) {
+            <li>@actor.Name</li>
+        }
+    </ul>    
+
+</fieldset>
+
+@Display(Model.Pager)
