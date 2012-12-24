@@ -1,0 +1,35 @@
+﻿@model Pluralsight.Movies.ViewModels.MovieLookupViewModel
+
+@using(Html.BeginFormAntiForgeryPost()) {
+    <fieldset>
+        <legend>Movie Lookup</legend>
+        <span class="hint">Enter a movie title or the IMDB ID to search for Movies from The Open Movie Database site (themoviedb.org)</span>
+        @Html.ValidationSummary()
+        @Html.LabelFor(m => m.MovieTitle, T("Movie Title"))
+        @Html.TextBoxFor(m => m.MovieTitle)
+        @Html.LabelFor(m => m.IMDB_Id, T("IMDB ID"))
+        @Html.TextBoxFor(m => m.IMDB_Id)
+        <div style="margin-top: 10px;">
+            <button type="submit" class="primaryAction">@T("Lookup")</button>
+        </div>  
+    </fieldset>
+}
+
+@if(Model.MovieResults.Any()) {
+    int i = 0;
+    <h2>Found the following movies:</h2>
+    using (Html.BeginFormAntiForgeryPost("Import", FormMethod.Post)) {
+        <ul>
+            @foreach (var movie in Model.MovieResults) {
+                string checkboxId = String.Format("SelectedMovieIDs[{0}]", i);
+                <li><input type="checkbox" name="SelectedMovieIDs" id="@checkboxId" value="@movie.Id"/><label for="@checkboxId" class="forcheckbox">@movie.Name (@movie.Released)</label></li>
+                i++;
+            }
+        </ul>
+        <div style="margin-top: 10px;">
+            <button type="submit" class="primaryAction">@T("Import")</button>
+        </div>
+    }
+} else if (Model.NoMatch) {
+    <h2>No match found. Please try again.</h2>
+}

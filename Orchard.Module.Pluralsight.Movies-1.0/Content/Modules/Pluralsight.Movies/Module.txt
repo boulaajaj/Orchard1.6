@@ -1,0 +1,11 @@
+Name: Pluralsight.Movies
+AntiForgery: enabled
+Author: Kevin Kuebler
+Website: http://orchardproject.net
+Version: 1.0
+OrchardVersion: 1.4
+Description: This module is used to demonstrate how to build modules in Orchard. It introduces a content type called Movie and includes features to enter and edit movies & actors, as well as the ability to import them from theopenmoviedb.org. It requires Orchard 1.4 as well as the Orchard.Indexing and Contrib.Taxonomies modules.
+Features:
+    Pluralsight.Movies:
+        Description: This module is used to demonstrate how to build modules in Orchard. It introduces a content type called Movie and includes features to enter and edit movies & actors, as well as the ability to import them from theopenmoviedb.org.
+		Dependencies: Contrib.Taxonomies, Lucene

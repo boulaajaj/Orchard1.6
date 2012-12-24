@@ -1,0 +1,18 @@
+﻿<table class="items">
+    <thead>
+        <tr>
+            <th>@T("Name")</th>
+            <th></th>
+        </tr>
+    </thead>
+@foreach(var actor in Model.Actors) {
+    <tr>
+        <td>@actor.Name</td>
+        <td>
+            @Html.ActionLink(T("Edit").Text, "Edit", "ActorsAdmin", new { area = "Pluralsight.Movies", actorId = actor.Id }, null) |
+            @Html.ActionLink(T("Delete").Text, "Delete", "ActorsAdmin", new { area = "Pluralsight.Movies", actorId = actor.Id }, null)
+        </td>
+    </tr>
+}
+</table>
+@Display(Model.Pager)

@@ -1,0 +1,55 @@
+﻿@{
+    Script.Require("jQuery");
+    Layout.Title = T("Actors");
+}
+
+<div class="bulk-actions">
+    <label for="nameFilter">Filter:</label> <input type="text" name="nameFilter" id="nameFilter" class="text-box"/>
+</div>
+<div class="manage">
+    @Html.ActionLink(T("New Actor").Text, "Create", "ActorsAdmin", new { area = "Pluralsight.Movies" }, new { @class = "button primaryAction" })
+</div>
+<div id="actorTable">
+    @Display(Model.ActorTable)
+</div>
+
+@using(Script.Foot()) {
+    <script type="text/javascript">
+        var filterUrl = '@Url.Action("FilterActors", "ActorsAdmin")';
+
+        $(function () {
+            $("#nameFilter")
+                .data("timeout", null)
+                .keyup(function () {
+                    clearTimeout($(this).data("timeout"));
+                    $(this).data("timeout", setTimeout(filterActors, 500));
+                });
+
+            $("#actorTable").on("click", "ul.pager a", function () {
+                filterActors(this);
+                return false;
+            });
+        });
+
+        function filterActors(pageLink) {
+            var actorNameFilter = $.trim($("#nameFilter").val());
+
+            var params = { actorName: actorNameFilter };
+            if (pageLink != null) {
+                params.page = getPageNumber(pageLink);
+            }
+            $.get(filterUrl, params, function (result) {
+                $("#actorTable").html(result);
+            });
+        }
+
+        function getPageNumber(pageLink) {
+            var href = $(pageLink).attr("href");
+            var pageParamIndex = href.indexOf("page=");
+            if (pageParamIndex > 0) {
+                return href.slice((pageParamIndex + 5));
+            }
+            return 1;
+        }
+    </script>
+}

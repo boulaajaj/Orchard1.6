@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <id>Orchard.Module.Pluralsight.Movies</id>
+    <version>1.0</version>
+    <title>Pluralsight.Movies</title>
+    <authors>Kevin Kuebler</authors>
+    <owners>Kevin Kuebler</owners>
+    <projectUrl>http://orchardproject.net</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>This module is used to demonstrate how to build modules in Orchard. It introduces a content type called Movie and includes features to enter and edit movies &amp; actors, as well as the ability to import them from theopenmoviedb.org. It requires Orchard 1.4 as well as the Orchard.Indexing and Contrib.Taxonomies modules.</description>
+  </metadata>
+</package>

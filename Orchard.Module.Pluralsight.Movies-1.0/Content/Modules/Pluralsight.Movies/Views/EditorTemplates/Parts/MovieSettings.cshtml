@@ -1,0 +1,8 @@
+﻿@model Pluralsight.Movies.Models.MovieSettingsPart
+
+<fieldset>
+    <legend>Pluralsight Movies</legend>
+    @Html.LabelFor(m => m.TMDB_APIKey, T("API Key"))
+    @Html.TextBoxFor(m => m.TMDB_APIKey)
+    <span class="hint">@T("This is your API Key for themoviedb.org. You will need this is you wish to use the Movie Lookup feature to load movies from The Open Movie Database site.")</span>
+</fieldset>

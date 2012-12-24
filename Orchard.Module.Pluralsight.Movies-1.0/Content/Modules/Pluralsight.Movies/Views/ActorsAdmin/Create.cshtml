@@ -1,0 +1,11 @@
+﻿@model Pluralsight.Movies.ViewModels.CreateActorViewModel
+
+<h2>New Actor</h2>           
+@using (Html.BeginFormAntiForgeryPost("Create")) {
+    @Html.LabelFor(m => m.Name)
+    @Html.TextBoxFor(m => m.Name)
+    @Html.ValidationMessageFor(m => m.Name)
+    <div style="margin-top: 10px;">
+        <button type="submit" class="primaryAction">@T("Create")</button>
+    </div>
+}
