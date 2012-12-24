@@ -1,4 +1,6 @@
-﻿using Orchard.ContentManagement;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Orchard.ContentManagement;
 
 namespace Pluralsight.Movies.Models {
     public class MoviePart:ContentPart<MoviePartRecord> {
@@ -17,6 +19,10 @@ namespace Pluralsight.Movies.Models {
         {
             get { return Record.Rating; }
             set { Record.Rating = value; }
+        }
+
+        public IEnumerable<ActorRecord> Cast {
+            get { return Record.MovieActors.ToList().Select(c => c.ActorRecord); }
         }
     }
 }

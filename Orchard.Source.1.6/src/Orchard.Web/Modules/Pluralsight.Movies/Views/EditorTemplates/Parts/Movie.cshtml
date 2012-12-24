@@ -1,7 +1,8 @@
 ﻿@using Pluralsight.Movies.Models
-@model MoviePart
+@model Pluralsight.Movies.ViewModels.MovieEditViewModel
 
 @{
+    Script.Require("jQuery");
     var ratingSelecListItems = Enum.GetNames(typeof (MPAARating))
         .Select(r => new SelectListItem() {Text = r, Value = r, Selected = r == Model.Rating.ToString()});
 }

@@ -79,15 +79,23 @@
       <Project>{9916839C-39FC-4CEB-A5AF-89CA7E87119F}</Project>
       <Name>Orchard.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Contrib.Taxonomies\Contrib.Taxonomies.csproj">
+      <Project>{E649EA64-D213-461B-87F7-D67035801443}</Project>
+      <Name>Contrib.Taxonomies</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Drivers\MoviePartDriver.cs" />
+    <Compile Include="Handlers\MovieFeatureEventHandler.cs" />
     <Compile Include="Handlers\MovieHandler.cs" />
     <Compile Include="JSONBuilder.cs" />
     <Compile Include="Migrations.cs" />
+    <Compile Include="Models\ActorRecord.cs" />
+    <Compile Include="Models\MovieActorRecord.cs" />
     <Compile Include="Models\MoviePart.cs" />
     <Compile Include="Models\MoviePartRecord.cs" />
     <Compile Include="Models\MPAARating.cs" />
+    <Compile Include="ViewModels\MovieEditViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />

@@ -8,3 +8,4 @@ Description: Pluralsight learning module
 Features:
     Pluralsight.Movies:
         Description: Description for feature Pluralsight.Movies.
+		Dependencies: Contrib.Taxonomies
