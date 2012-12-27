@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Controllers\ActorController.cs" />
     <Content Include="Handlers\ReadMe.txt" />
+    <Content Include="Styles\Pluralsight-Movies.css" />
     <Content Include="Web.config" />
     <Content Include="Views\Web.config" />
     <Content Include="Scripts\Web.config">
@@ -88,6 +89,7 @@
   <ItemGroup>
     <Compile Include="AdminMenu.cs" />
     <Compile Include="Controllers\ActorsAdminController.cs" />
+    <Compile Include="ResourceManifest.cs" />
     <Compile Include="ViewModels\ActorViewModel.cs" />
     <Compile Include="ViewModels\EditActorViewModel.cs" />
     <Compile Include="ViewModels\CreateActorViewModel.cs" />
@@ -119,6 +121,7 @@
     <Content Include="Views\ActorsAdmin\Edit.cshtml" />
     <Content Include="Views\ActorsAdmin\Delete.cshtml" />
     <Content Include="Views\Actor\Details.cshtml" />
+    <None Include="Views\Parts\Parts.Common.Body-Movie.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
