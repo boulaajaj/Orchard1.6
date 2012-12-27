@@ -89,6 +89,10 @@
   <ItemGroup>
     <Compile Include="AdminMenu.cs" />
     <Compile Include="Controllers\ActorsAdminController.cs" />
+    <Compile Include="Drivers\MovieSettingsPartDriver.cs" />
+    <Compile Include="Handlers\MovieSettingsHandler.cs" />
+    <Compile Include="Models\MovieSettingsPart.cs" />
+    <Compile Include="Models\MovieSettingsPartRecord.cs" />
     <Compile Include="ResourceManifest.cs" />
     <Compile Include="ViewModels\ActorViewModel.cs" />
     <Compile Include="ViewModels\EditActorViewModel.cs" />
@@ -121,7 +125,9 @@
     <Content Include="Views\ActorsAdmin\Edit.cshtml" />
     <Content Include="Views\ActorsAdmin\Delete.cshtml" />
     <Content Include="Views\Actor\Details.cshtml" />
-    <None Include="Views\Parts\Parts.Common.Body-Movie.cshtml" />
+    <Content Include="Views\Content-Movie.Detail.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\MovieSettings.cshtml" />
+    <None Include="Views\Parts.Common.Body-Movie.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

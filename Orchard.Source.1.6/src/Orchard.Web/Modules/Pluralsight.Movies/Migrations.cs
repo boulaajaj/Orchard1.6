@@ -120,5 +120,14 @@ namespace Pluralsight.Movies {
             return 7;
         }
 
+        public int UpdateFrom7()
+        {
+            SchemaBuilder.CreateTable("MovieSettingsPartRecord", table =>
+                table
+                .ContentPartRecord()
+                .Column<string>("TMDB_APIKey"));
+            return 8;
+        }
+
     }
 }
