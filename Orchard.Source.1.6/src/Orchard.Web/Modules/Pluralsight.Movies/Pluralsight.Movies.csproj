@@ -135,6 +135,7 @@
     <Content Include="Views\Actor\Details.cshtml" />
     <Content Include="Views\Content-Movie.Detail.cshtml" />
     <Content Include="Views\EditorTemplates\Parts\MovieSettings.cshtml" />
+    <Content Include="Views\MovieLookup\Index.cshtml" />
     <None Include="Views\Parts.Common.Body-Movie.cshtml" />
   </ItemGroup>
   <PropertyGroup>

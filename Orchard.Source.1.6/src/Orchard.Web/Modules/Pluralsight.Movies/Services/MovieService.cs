@@ -10,7 +10,9 @@ using Orchard.Core.Title.Models;
 using Orchard.Data;
 using Pluralsight.Movies.Models;
 using Pluralsight.Movies.ViewModels;
-//using TheMovieDb;
+using TheMovieDb;
+
+using TheMovieDb;
 
 namespace Pluralsight.Movies.Services
 {
@@ -21,7 +23,7 @@ namespace Pluralsight.Movies.Services
         private readonly IOrchardServices _orchardServices;
         private readonly ITaxonomyService _taxonomyService;
 
-       // private Lazy<TmdbApi> _tmdbAPI;
+        private Lazy<TmdbApi> _tmdbAPI;
 
         public MovieService(IRepository<ActorRecord> actorRepository,
             IRepository<MovieActorRecord> movieActorRepository,
@@ -33,8 +35,8 @@ namespace Pluralsight.Movies.Services
             _orchardServices = orchardServices;
             _taxonomyService = taxonomyService;
 
-            //_tmdbAPI = new Lazy<TmdbApi>(() =>
-            //    new TmdbApi(_orchardServices.WorkContext.CurrentSite.As<MovieSettingsPart>().TMDB_APIKey));
+            _tmdbAPI = new Lazy<TmdbApi>(() =>
+                new TmdbApi(_orchardServices.WorkContext.CurrentSite.As<MovieSettingsPart>().TMDB_APIKey));
         }
 
         public void UpdateMovie(MovieEditViewModel model, MoviePart part)
@@ -57,79 +59,79 @@ namespace Pluralsight.Movies.Services
             }
         }
 
-        //public void ImportMovie(int tmdbMovieId)
-        //{
-        //    try
-        //    {
-        //        var movieInfo = _tmdbAPI.Value.GetMovieInfo(tmdbMovieId);
-        //        var movie = _orchardServices.ContentManager.New("Movie");
+        public void ImportMovie(int tmdbMovieId)
+        {
+            try
+            {
+                var movieInfo = _tmdbAPI.Value.GetMovieInfo(tmdbMovieId);
+                var movie = _orchardServices.ContentManager.New("Movie");
 
-        //        movie.As<TitlePart>().Title = movieInfo.Name;
-        //        movie.As<BodyPart>().Text = movieInfo.Overview;
-        //        if (movieInfo.Released.Contains("-"))
-        //        {
-        //            //TMDB Released format is YYYY-MM-DD
-        //            movie.As<MoviePart>().YearReleased = int.Parse(movieInfo.Released.Split('-')[0]);
-        //        }
-        //        movie.As<MoviePart>().Rating = (MPAARating)Enum.Parse(typeof(MPAARating), movieInfo.Certification.Replace("-", ""));
-        //        movie.As<MoviePart>().IMDB_Id = movieInfo.ImdbId;
-        //        movie.As<MoviePart>().Tagline = movieInfo.Tagline;
-        //        movie.As<MoviePart>().Keywords = String.Join(",", movieInfo.Keywords.Select(k => k.Trim()));
+                movie.As<TitlePart>().Title = movieInfo.Name;
+                movie.As<BodyPart>().Text = movieInfo.Overview;
+                if (movieInfo.Released.Contains("-"))
+                {
+                    //TMDB Released format is YYYY-MM-DD
+                    movie.As<MoviePart>().YearReleased = int.Parse(movieInfo.Released.Split('-')[0]);
+                }
+                movie.As<MoviePart>().Rating = (MPAARating)Enum.Parse(typeof(MPAARating), movieInfo.Certification.Replace("-", ""));
+                movie.As<MoviePart>().IMDB_Id = movieInfo.ImdbId;
+                //movie.As<MoviePart>().Tagline = movieInfo.Tagline;
+                //movie.As<MoviePart>().Keywords = String.Join(",", movieInfo.Keywords.Select(k => k.Trim()));
 
-        //        AssignGenres(movie, movieInfo);
-        //        AssignActors(movie.As<MoviePart>(), movieInfo);
-        //        _orchardServices.ContentManager.Create(movie, VersionOptions.Published);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        _orchardServices.TransactionManager.Cancel();
-        //        throw;
-        //    }
-        //}
+                AssignGenres(movie, movieInfo);
+                AssignActors(movie.As<MoviePart>(), movieInfo);
+                _orchardServices.ContentManager.Create(movie, VersionOptions.Published);
+            }
+            catch (Exception)
+            {
+                _orchardServices.TransactionManager.Cancel();
+                throw;
+            }
+        }
 
-        //public void ImportMovies(IEnumerable<int> tmdbMovieIds)
-        //{
-        //    foreach (var movieId in tmdbMovieIds)
-        //    {
-        //        ImportMovie(movieId);
-        //    }
-        //}
+        public void ImportMovies(IEnumerable<int> tmdbMovieIds)
+        {
+            foreach (var movieId in tmdbMovieIds)
+            {
+                ImportMovie(movieId);
+            }
+        }
 
-        //private void AssignGenres(ContentItem movie, TmdbMovie tmdbMovie)
-        //{
-        //    var genreTaxonomy = _taxonomyService.GetTaxonomyByName("Genre");
-        //    var allGenres = _taxonomyService.GetTerms(genreTaxonomy.Id);
-        //    var movieGenres = new List<TermPart>();
+        private void AssignGenres(ContentItem movie, TmdbMovie tmdbMovie)
+        {
+            var genreTaxonomy = _taxonomyService.GetTaxonomyByName("Genre");
+            var allGenres = _taxonomyService.GetTerms(genreTaxonomy.Id);
+            var movieGenres = new List<TermPart>();
 
-        //    foreach (var tmdbGenre in tmdbMovie.Genres)
-        //    {
-        //        var genre = allGenres.SingleOrDefault(g => g.Name == tmdbGenre.Name);
-        //        if (genre == null)
-        //        {
-        //            genre = _taxonomyService.NewTerm(genreTaxonomy);
-        //            genre.Name = tmdbGenre.Name;
-        //            _orchardServices.ContentManager.Create(genre, VersionOptions.Published);
-        //        }
-        //        movieGenres.Add(genre);
-        //    }
-        //    _taxonomyService.UpdateTerms(movie, movieGenres, "Genre");
-        //}
+            foreach (var tmdbGenre in tmdbMovie.Genres)
+            {
+                var genre = allGenres.SingleOrDefault(g => g.Name == tmdbGenre.Name);
+                if (genre == null)
+                {
+                    genre = _taxonomyService.NewTerm(genreTaxonomy);
+                    genre.Name = tmdbGenre.Name;
+                    _orchardServices.ContentManager.Create(genre, VersionOptions.Published);
+                }
+                movieGenres.Add(genre);
+            }
+            _taxonomyService.UpdateTerms(movie, movieGenres, "Genre");
+        }
 
-        //private void AssignActors(MoviePart movie, TmdbMovie movieInfo)
-        //{
-        //    var movieActors = new List<MovieActorRecord>();
+        private void AssignActors(MoviePart movie, TmdbMovie movieInfo)
+        {
+            var movieActors = new List<MovieActorRecord>();
 
-        //    foreach (var tmdbCastMember in movieInfo.Cast.Where(c => c.Job == "Actor").OrderBy(c => c.Order).Take(5))
-        //    {
-        //        var actor = _actorRepository.Fetch(a => a.Name == tmdbCastMember.Name).SingleOrDefault();
-        //        if (actor == null)
-        //        {
-        //            actor = new ActorRecord { Name = tmdbCastMember.Name };
-        //            _actorRepository.Create(actor);
-        //        }
-        //        movieActors.Add(new MovieActorRecord { ActorRecord = actor, MoviePartRecord = movie.Record });
-        //    }
-        //    movieActors.ForEach(ma => _movieActorRepository.Create(ma));
-        //}
+            foreach (var tmdbCastMember in movieInfo.Cast.Where(c => c.Job == "Actor").OrderBy(c => c.Order).Take(5))
+            {
+                var actor = _actorRepository.Fetch(a => a.Name == tmdbCastMember.Name).SingleOrDefault();
+                if (actor == null)
+                {
+                    actor = new ActorRecord { Name = tmdbCastMember.Name };
+                    _actorRepository.Create(actor);
+                }
+                movieActors.Add(new MovieActorRecord { ActorRecord = actor, MoviePartRecord = movie.Record });
+            }
+            movieActors.ForEach(ma => _movieActorRepository.Create(ma));
+        }
     }
 }
