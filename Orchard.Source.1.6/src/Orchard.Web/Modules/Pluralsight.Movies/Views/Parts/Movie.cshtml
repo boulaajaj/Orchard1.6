@@ -2,4 +2,12 @@
 <div>
     <p>Released: @Model.MoviePart.YearReleased</p>
     <p>Rating: @Model.MoviePart.Rating</p>
+    
+    <h2>Cast</h2>
+    <ul>
+        @foreach(var actor in Model.MoviePart.Cast) {
+            string actorName = actor.Name;
+            <li>@Html.ActionLink(actorName, "Details", "Actor", new {area = "Pluralsight.Movies", actorId = actor.Id},null)</li>
+        }
+    </ul>
 </div>

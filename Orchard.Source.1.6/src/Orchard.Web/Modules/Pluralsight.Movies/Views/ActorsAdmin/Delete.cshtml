@@ -1,0 +1,11 @@
+﻿@model Pluralsight.Movies.ViewModels.EditActorViewModel
+
+<h2>Edit Actor</h2>           
+@using (Html.BeginFormAntiForgeryPost("Delete")) {
+    @Html.Hidden("actorId", Model.Id)
+    @Html.LabelFor(m => m.Name)
+    @Html.TextBoxFor(m => m.Name)    
+    <div style="margin-top: 10px;">
+        <button type="submit" class="primaryAction">@T("Delete")</button>
+    </div>
+}

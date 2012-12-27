@@ -1,0 +1,20 @@
+﻿@model Pluralsight.Movies.ViewModels.EditActorViewModel
+
+<h2>Edit Actor</h2>           
+@using (Html.BeginFormAntiForgeryPost("Edit")) {
+    @Html.HiddenFor(m => m.Id)
+    @Html.LabelFor(m => m.Name)
+    @Html.TextBoxFor(m => m.Name)
+    @Html.ValidationMessageFor(m => m.Name)
+    <div style="margin-top: 10px;">
+        <button type="submit" class="primaryAction">@T("Save")</button>
+    </div>
+}
+
+<br/>
+<h2>Filmography</h2>
+<ul>
+    @foreach(var movie in Model.Movies) {
+        <li>@Html.ItemEditLink(movie)</li>
+    }
+</ul>
