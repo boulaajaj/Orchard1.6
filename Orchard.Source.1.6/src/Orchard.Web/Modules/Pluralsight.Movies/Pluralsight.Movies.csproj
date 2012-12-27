@@ -58,9 +58,14 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="TheMovieDb">
+      <HintPath>..\..\..\packages\TheMovieDb.2.0\lib\net40\TheMovieDb.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ActorController.cs" />
+    <Compile Include="ViewModels\MovieLookupViewModel.cs" />
+    <Compile Include="ViewModels\MovieResult.cs" />
     <Content Include="Handlers\ReadMe.txt" />
     <Content Include="Styles\Pluralsight-Movies.css" />
     <Content Include="Web.config" />
@@ -89,10 +94,12 @@
   <ItemGroup>
     <Compile Include="AdminMenu.cs" />
     <Compile Include="Controllers\ActorsAdminController.cs" />
+    <Compile Include="Controllers\MovieLookupController.cs" />
     <Compile Include="Drivers\MovieSettingsPartDriver.cs" />
     <Compile Include="Handlers\MovieSettingsHandler.cs" />
     <Compile Include="Models\MovieSettingsPart.cs" />
     <Compile Include="Models\MovieSettingsPartRecord.cs" />
+    <Compile Include="Permissions.cs" />
     <Compile Include="ResourceManifest.cs" />
     <Compile Include="ViewModels\ActorViewModel.cs" />
     <Compile Include="ViewModels\EditActorViewModel.cs" />
@@ -118,6 +125,7 @@
     <Content Include="Views\EditorTemplates\Parts\Movie.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="packages.config" />
     <None Include="Placement.info" />
     <Content Include="Views\Parts\Movie.cshtml" />
     <Content Include="Views\ActorsAdmin\Index.cshtml" />

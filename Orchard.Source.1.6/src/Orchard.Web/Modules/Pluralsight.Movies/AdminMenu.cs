@@ -25,8 +25,8 @@ namespace Pluralsight.Movies
             menu.Add(T("New Movie"), "1.1", item =>
                 item.Action("Create", "Admin", new { area = "Contents", id = "Movie" }));
 
-            //menu.Add(T("Movie Lookup"), "1.2", item =>
-            //    item.Action("Index", "MovieLookup", new { area = "Pluralsight.Movies" }).Permission(Permissions.LookupMovie));
+            menu.Add(T("Movie Lookup"), "1.2", item =>
+                item.Action("Index", "MovieLookup", new { area = "Pluralsight.Movies" }).Permission(Permissions.LookupMovie));
 
             menu.Add(T("Actors"), "2.0", item =>
                 item.Action("Index", "ActorsAdmin", new { area = "Pluralsight.Movies" }));
