@@ -1,13 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
+using System.Web.Http;
+using System.Web.Http.Dependencies;
 using System.Web.Mvc;
+using System.Web.Routing;
+using Autofac;
 using Orchard;
 using Orchard.ContentManagement;
 using Orchard.Localization;
 using Orchard.Security;
 using Orchard.UI.Admin;
 using Orchard.UI.Notify;
+using Pluralsight.Movies.Attributes;
 using Pluralsight.Movies.Models;
 using Pluralsight.Movies.Services;
 using Pluralsight.Movies.ViewModels;
@@ -15,7 +21,7 @@ using TheMovieDb;
 
 namespace Pluralsight.Movies.Controllers
 {
-    [Admin]
+    [Admin, AuthoriseOrchard(PermissionEnum.LookupMovie)]
     public class MovieLookupController : Controller
     {
         private readonly IOrchardServices _orchardServices;
@@ -24,34 +30,24 @@ namespace Pluralsight.Movies.Controllers
 
         public MovieLookupController(
             IOrchardServices orchardServices,
-            IMovieService movieService,
-            IAuthorizer authorizer)
+            IMovieService movieService)
         {
             _orchardServices = orchardServices;
             _movieService = movieService;
-            _authorizer = authorizer;
         }
 
         public Localizer T { get; set; }
 
-        [HttpGet]
+        [System.Web.Mvc.HttpGet]
         public ActionResult Index()
         {
-            if (!_authorizer.Authorize(Permissions.LookupMovie))
-            {
-                return new HttpUnauthorizedResult();
-            }
             return View(new MovieLookupViewModel());
         }
 
-        [HttpPost, ActionName("Index")]
+        [System.Web.Mvc.HttpPost, System.Web.Mvc.ActionName("Index")]
         public ActionResult IndexPost(MovieLookupViewModel viewModel)
         {
-            if (!_authorizer.Authorize(Permissions.LookupMovie))
-            {
-                return new HttpUnauthorizedResult();
-            }
-
+          
             if ((string.IsNullOrWhiteSpace(viewModel.MovieTitle) && string.IsNullOrWhiteSpace(viewModel.IMDB_Id)) ||
                 (!string.IsNullOrWhiteSpace(viewModel.MovieTitle) && !string.IsNullOrWhiteSpace(viewModel.IMDB_Id)))
             {
@@ -95,7 +91,7 @@ namespace Pluralsight.Movies.Controllers
             return View("Index", viewModel);
         }
 
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         public ActionResult Import(IEnumerable<int> selectedMovieIDs)
         {
             if (selectedMovieIDs.Any())

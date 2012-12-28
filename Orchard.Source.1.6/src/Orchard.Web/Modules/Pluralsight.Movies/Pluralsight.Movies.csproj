@@ -41,6 +41,7 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=2.6.3.862, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -48,6 +49,8 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\aspnetmvc\System.Web.Mvc.dll</HintPath>
@@ -63,7 +66,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\PermissionEnum.cs" />
     <Compile Include="Controllers\ActorController.cs" />
+    <Compile Include="Attributes\AuthoriseOrchardAttribute.cs" />
+    <Compile Include="Dependency\DependencyResolverMovies.cs" />
+    <Compile Include="IOC\Dependencies.cs" />
     <Compile Include="ViewModels\MovieLookupViewModel.cs" />
     <Compile Include="ViewModels\MovieResult.cs" />
     <Content Include="Handlers\ReadMe.txt" />
