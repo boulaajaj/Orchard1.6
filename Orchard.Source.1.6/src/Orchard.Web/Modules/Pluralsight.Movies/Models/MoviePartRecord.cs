@@ -11,7 +11,9 @@ namespace Pluralsight.Movies.Models {
 // ReSharper restore InconsistentNaming
         public virtual int YearReleased { get; set; }
         public virtual MPAARating Rating { get; set; }
-
+        public virtual string Tagline { get; set; }
+        public virtual string Keywords { get; set; }
+       
         public virtual IList<MovieActorRecord> MovieActors { get; set; }
     }
 }

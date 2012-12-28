@@ -21,10 +21,10 @@ namespace Pluralsight.Movies.Drivers {
             get { return "Movie"; }
         }
 
-        protected override DriverResult Display(MoviePart part, string displayType, dynamic shapeHelper)
-        {
-            //displayType could be Detail, Summary, Summary_Admin
-            return ContentShape("Parts_Movie", () => shapeHelper.Parts_Movie(MoviePart: part));
+        protected override DriverResult Display(MoviePart part, string displayType, dynamic shapeHelper) {
+            return Combined(
+                ContentShape("Parts_Movie", () => shapeHelper.Parts_Movie(MoviePart: part)),
+                ContentShape("Parts_Movie_Tagline", () => shapeHelper.Parts_Movie_Tagline(MoviePart: part, Tagline: part.Tagline)));
         }
        //get
         protected override DriverResult Editor(MoviePart part, dynamic shapeHelper) {
@@ -47,6 +47,8 @@ namespace Pluralsight.Movies.Drivers {
                 IMDB_Id = part.IMDB_Id,
                 YearReleased = part.YearReleased,
                 Rating = part.Rating,
+                Tagline = part.Tagline,
+                Keywords = part.Keywords,
                 Actors = part.Cast.Select(c=>c.Id).ToList(),
                 AllActors = _actorRepository.Table.OrderBy(a=>a.Name).ToList()
             };

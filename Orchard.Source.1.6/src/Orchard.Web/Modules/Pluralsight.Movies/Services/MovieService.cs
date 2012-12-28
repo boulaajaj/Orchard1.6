@@ -44,8 +44,8 @@ namespace Pluralsight.Movies.Services
             part.IMDB_Id = model.IMDB_Id;
             part.YearReleased = model.YearReleased;
             part.Rating = model.Rating;
-            //part.Tagline = model.Tagline;
-            //part.Keywords = model.Keywords;
+            part.Tagline = model.Tagline;
+            part.Keywords = model.Keywords;
 
             var oldCast = _movieActorRepository.Fetch(ma => ma.MoviePartRecord.Id == part.Id).Select(r => r.ActorRecord.Id).ToList();
             foreach (var oldActorId in oldCast.Except(model.Actors))
@@ -75,8 +75,8 @@ namespace Pluralsight.Movies.Services
                 }
                 movie.As<MoviePart>().Rating = (MPAARating)Enum.Parse(typeof(MPAARating), movieInfo.Certification.Replace("-", ""));
                 movie.As<MoviePart>().IMDB_Id = movieInfo.ImdbId;
-                //movie.As<MoviePart>().Tagline = movieInfo.Tagline;
-                //movie.As<MoviePart>().Keywords = String.Join(",", movieInfo.Keywords.Select(k => k.Trim()));
+                movie.As<MoviePart>().Tagline = movieInfo.Tagline;
+                movie.As<MoviePart>().Keywords = String.Join(",", movieInfo.Keywords.Select(k => k.Trim()));
 
                 AssignGenres(movie, movieInfo);
                 AssignActors(movie.As<MoviePart>(), movieInfo);

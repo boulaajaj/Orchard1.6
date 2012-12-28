@@ -129,5 +129,16 @@ namespace Pluralsight.Movies {
             return 8;
         }
 
+        public int UpdateFrom8()
+        {
+            SchemaBuilder.AlterTable("MoviePartRecord", table =>
+                table.AddColumn<string>("Tagline", col=>col.WithLength(1000)));
+
+            SchemaBuilder.AlterTable("MoviePartRecord", table =>
+                table.AddColumn<string>("Keywords", col=>col.WithLength(500)));
+
+            return 9;
+        }
+
     }
 }

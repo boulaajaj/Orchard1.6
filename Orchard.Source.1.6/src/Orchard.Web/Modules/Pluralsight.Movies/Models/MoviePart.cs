@@ -21,6 +21,18 @@ namespace Pluralsight.Movies.Models {
             set { Record.Rating = value; }
         }
 
+        public string Tagline
+        {
+            get { return Record.Tagline; }
+            set { Record.Tagline = value; }
+        }
+
+        public string Keywords
+        {
+            get { return Record.Keywords; }
+            set { Record.Keywords = value; }
+        }
+
         public IEnumerable<ActorRecord> Cast {
             get { return Record.MovieActors.ToList().Select(c => c.ActorRecord); }
         }

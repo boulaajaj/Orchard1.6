@@ -25,8 +25,7 @@ namespace Pluralsight.Movies.Controllers
     public class MovieLookupController : Controller
     {
         private readonly IOrchardServices _orchardServices;
-        private readonly IMovieService _movieService;
-        private readonly IAuthorizer _authorizer;
+        private readonly IMovieService _movieService;        
 
         public MovieLookupController(
             IOrchardServices orchardServices,

@@ -7,8 +7,9 @@
 
   <Match ContentType="Movie">
     <Match DisplayType="Detail">
+      <!--<Place Parts_Movie="MovieDetails"/>-->
       <Place Parts_Movie="MovieDetails"/>
-      <!--<Place Parts_Movie_Tagline="Content:10"/>-->
+      <Place Parts_Movie_Tagline="Content:10"/>
     </Match>
     <Match DisplayType="Summary">
       <!--<Place Parts_Common_Body_Summary="-"/>-->

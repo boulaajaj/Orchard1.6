@@ -16,10 +16,10 @@
     @Html.TextBoxFor(m => m.YearReleased)
     @Html.LabelFor(m => m.Rating, T("MPAA Rating"))
     @Html.DropDownListFor(m => m.Rating, ratingSelectListItems)
-@*    @Html.LabelFor(m => m.Tagline, T("Tagline"))
+    @Html.LabelFor(m => m.Tagline, T("Tagline"))
     @Html.TextBoxFor(m => m.Tagline, new { @class = "large text" })
     @Html.LabelFor(m => m.Keywords, T("Keywords"))
-    @Html.TextBoxFor(m => m.Keywords, new { @class = "large text" })*@
+    @Html.TextBoxFor(m => m.Keywords, new { @class = "large text" })
     <span class="hint">Enter multiple keywords separated by commas. This is used to generate the Similar Movies list.</span>
 </fieldset>
 <fieldset>
