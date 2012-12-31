@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using Orchard;
 using Orchard.ContentManagement;
@@ -6,6 +7,7 @@ using Orchard.Data;
 using Orchard.DisplayManagement;
 using Orchard.DisplayManagement.Shapes;
 using Orchard.Localization;
+using Orchard.Mvc;
 using Orchard.Settings;
 using Orchard.UI.Admin;
 using Orchard.UI.Navigation;
@@ -18,6 +20,7 @@ namespace Pluralsight.Movies.Controllers {
         private readonly IOrchardServices _orchardServices;
         private readonly ISiteService _siteService;
         private readonly IRepository<ActorRecord> _actorRepository;
+        private IQueryable<ActorRecord> actorQueryable;
 
         public ActorsAdminController(
             IOrchardServices orchardServices,
@@ -37,19 +40,41 @@ namespace Pluralsight.Movies.Controllers {
 
         [Admin]
         public ActionResult Index(PagerParameters pagerParameters) {
-             var pager = new Pager(_siteService.GetSiteSettings(), pagerParameters);
-             var count = _actorRepository.Table.Count();
-             var actors = _actorRepository.Table
-                 .OrderBy(a=>a.Name)
-                 .Skip((pager.Page - 1)*pager.PageSize)
-                 .Take(pager.PageSize)
-                 .ToList();
-             var pagerShape= Shape.Pager(pager).TotalItemCount(count);
+          
+            var actorTable = GetActorTableShape(pagerParameters, string.Empty);
+            var viewModel = Shape.ViewModel();
 
-             var viewModel = new ActorsIndexViewModel { Actors = actors, Pager = pagerShape };
+            viewModel.ActorTable(actorTable);
 
-             return View(viewModel);
+            return View(viewModel);
          }
+
+
+        public ActionResult FilterActors(PagerParameters pagerParameters, string actorName) {
+            var actorTable = GetActorTableShape(pagerParameters, actorName);
+            return new ShapeResult(this, actorTable);
+        }
+
+        private dynamic GetActorTableShape(PagerParameters pagerParameters, string actorName) {
+            var actorTable = Shape.ActorTable();
+            var pager = new Pager(_siteService.GetSiteSettings(), pagerParameters);
+            actorQueryable = _actorRepository.Table;
+            if (!string.IsNullOrWhiteSpace(actorName))
+                actorQueryable=actorQueryable.Where(x => x.Name.ToLower().Contains(actorName.ToLower()));
+
+            var count = actorQueryable.Count();
+            var actors = actorQueryable                
+                .OrderBy(a => a.Name)
+                .Skip((pager.Page - 1)*pager.PageSize)
+                .Take(pager.PageSize)
+                .ToList();
+            var pagerShape = Shape.Pager(pager).TotalItemCount(count);
+
+            actorTable.Actors(actors);
+            actorTable.Pager(pagerShape);
+
+            return actorTable;
+        }
 
         [HttpGet, Admin]
         public ActionResult Create() {

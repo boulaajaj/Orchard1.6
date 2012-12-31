@@ -70,6 +70,7 @@
     <Compile Include="Controllers\ActorController.cs" />
     <Compile Include="Attributes\AuthoriseOrchardAttribute.cs" />
     <Compile Include="Dependency\DependencyResolverMovies.cs" />
+    <Compile Include="Shapes.cs" />
     <Compile Include="ViewModels\MovieLookupViewModel.cs" />
     <Compile Include="ViewModels\MovieResult.cs" />
     <Content Include="Handlers\ReadMe.txt" />
@@ -142,8 +143,10 @@
     <Content Include="Views\Content-Movie.Detail.cshtml" />
     <Content Include="Views\EditorTemplates\Parts\MovieSettings.cshtml" />
     <Content Include="Views\MovieLookup\Index.cshtml" />
+    <Content Include="Views\ActorTable.cshtml" />
     <None Include="Views\Parts.Common.Body-Movie.cshtml" />
     <Content Include="Views\Parts\Movie.Tagline.cshtml" />
+    <Content Include="Views\Parts\Movie.Tagline.Summary.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

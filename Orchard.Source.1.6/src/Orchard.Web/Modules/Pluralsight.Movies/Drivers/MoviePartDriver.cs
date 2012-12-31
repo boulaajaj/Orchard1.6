@@ -23,7 +23,7 @@ namespace Pluralsight.Movies.Drivers {
 
         protected override DriverResult Display(MoviePart part, string displayType, dynamic shapeHelper) {
             return Combined(
-                ContentShape("Parts_Movie", () => shapeHelper.Parts_Movie(MoviePart: part)),
+                ContentShape("Parts_Movie", () => shapeHelper.Parts_Movie(MoviePart: part)),                
                 ContentShape("Parts_Movie_Tagline", () => shapeHelper.Parts_Movie_Tagline(MoviePart: part, Tagline: part.Tagline)));
         }
        //get

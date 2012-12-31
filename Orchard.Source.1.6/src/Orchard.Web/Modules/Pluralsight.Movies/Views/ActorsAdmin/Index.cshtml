@@ -1,32 +1,63 @@
-﻿@model Pluralsight.Movies.ViewModels.ActorsIndexViewModel
-
-@{
+﻿@{
+    Script.Require("jQuery");
     Layout.Title = T("Actors");
 }
 
-<div class="manage">
-    @Html.ActionLink(T("New Actor").Text, "Create", "ActorsAdmin", new {area = "Pluralsight.Movies"}, new {@class = "button primaryAction"})
+<div class="bulk-actions">
+    <label for="nameFilter">Filter:</label> <input type="text" name="nameFilter" id="nameFilter" class="text-box"/><a href="#" style="display: none" id="clearBox"/>X 
 </div>
-<table class="items">
-    <thead>
-        <tr>
-            <th>@T("Name")</th>
-            <th></th>
-        </tr>
-    </thead>
-    @foreach(var actor in Model.Actors)
-    {
-    <tr>        
-        <td>@actor.Name</td>
-        <td>
-            @Html.ActionLink((T("Edit")).Text, "Edit", "ActorsAdmin", new { area = "Pluralsight.Movies", actorId=actor.Id }, null)
-            |
-            @Html.ActionLink((T("Delete")).Text, "Delete", "ActorsAdmin", new { area = "Pluralsight.Movies", actorId = actor.Id, name = actor.Name}, null)
-        </td>
-        
-    </tr>    
-    }
+<div class="manage">
+    @Html.ActionLink(T("New Actor").Text, "Create", "ActorsAdmin", new { area = "Pluralsight.Movies" }, new { @class = "button primaryAction" })
+</div>
+<div id="actorTable">
+    @Display(Model.ActorTable)
+</div>
 
-</table>
+@using(Script.Foot()) {
+    <script type="text/javascript">
+        var filterUrl = '@Url.Action("FilterActors", "ActorsAdmin")';
 
-@Display(Model.Pager)
+        $(function () {
+            $("#nameFilter")
+                .data("timeout", null)
+                .keyup(function () {
+                    $('#clearBox').show();
+                    clearTimeout($(this).data("timeout"));
+                    $(this).data("timeout", setTimeout(filterActors, 500));
+                });
+
+            $("#actorTable").on("click", "ul.pager a", function () {
+                filterActors(this);
+                return false;
+            });
+        });
+
+        function filterActors(pageLink) {
+            var actorNameFilter = $.trim($("#nameFilter").val());
+
+            var params = { actorName: actorNameFilter };
+            if (pageLink != null) {
+                params.page = getPageNumber(pageLink);
+            }
+            $.get(filterUrl, params, function (result) {
+                $("#actorTable").html(result);
+            });
+        }
+
+        function getPageNumber(pageLink) {
+            var href = $(pageLink).attr("href");
+            var pageParamIndex = href.indexOf("page=");
+            if (pageParamIndex > 0) {
+                return href.slice((pageParamIndex + 5));
+            }
+            return 1;
+        }
+
+        $("#clearBox").click(function () {
+            $('#clearBox').hide();
+            $("#nameFilter").val('');
+            $(this).data("timeout", setTimeout(filterActors, 0));
+        });
+       
+    </script>
+}
