@@ -147,6 +147,7 @@
     <None Include="Views\Parts.Common.Body-Movie.cshtml" />
     <Content Include="Views\Parts\Movie.Tagline.cshtml" />
     <Content Include="Views\Parts\Movie.Tagline.Summary.cshtml" />
+    <Content Include="Views\SimilarMovies.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

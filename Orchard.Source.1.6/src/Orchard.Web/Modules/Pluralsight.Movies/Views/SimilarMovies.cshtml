@@ -1,0 +1,9 @@
+﻿@using Orchard.ContentManagement
+<header>
+    <h1>Similar Movies </h1>
+</header>
+<ul>
+    @foreach (IContent movie in Model.Movies) {
+        <li>@Html.ItemDisplayLink(movie)</li>
+    }
+</ul>

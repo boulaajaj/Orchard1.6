@@ -8,6 +8,7 @@ using Orchard.ContentManagement.MetaData.Builders;
 using Orchard.Core.Contents.Extensions;
 using Orchard.Data;
 using Orchard.Data.Migration;
+using Orchard.Indexing;
 using Pluralsight.Movies.Models;
 
 namespace Pluralsight.Movies {
@@ -15,7 +16,8 @@ namespace Pluralsight.Movies {
     {
         private readonly IRepository<ActorRecord> _actorRepository;
 
-        public Migrations(IRepository<ActorRecord> actorRepository) {
+        public Migrations(IRepository<ActorRecord> actorRepository)
+        {
             _actorRepository = actorRepository;
         }
 
@@ -23,7 +25,8 @@ namespace Pluralsight.Movies {
         /// default method - only runs once on the first time
         /// </summary>
         /// <returns></returns>
-        public int Create() {
+        public int Create()
+        {
 
             ContentDefinitionManager.AlterTypeDefinition("Movie", builder => builder.WithPart("CommonPart")
                    .WithPart("TitlePart")
@@ -33,17 +36,19 @@ namespace Pluralsight.Movies {
             return 1;
         }
 
-        public int UpdateFrom1() {
+        public int UpdateFrom1()
+        {
 
-            ContentDefinitionManager.AlterTypeDefinition("Movie", builder => 
+            ContentDefinitionManager.AlterTypeDefinition("Movie", builder =>
                 builder.WithPart("BodyPart")
                 .Creatable()
                 .Draftable()
                 );
             return 2;
         }
-        public int UpdateFrom2() {
-         
+        public int UpdateFrom2()
+        {
+
             var jb = new JSONBuilder();
             jb.AddNewObject();
             jb.AddProperty("Name", "Movie Title");
@@ -58,9 +63,9 @@ namespace Pluralsight.Movies {
             var patternDefinitions = jb.Build();
 
             ContentDefinitionManager.AlterTypeDefinition("Movie", builder =>
-                builder.WithPart("BodyPart", partBuilder=>
+                builder.WithPart("BodyPart", partBuilder =>
                     partBuilder.WithSetting("BodyTypePartSettings.Flavor", "text"))
-                  .WithPart("AutoroutePart", routePart => 
+                  .WithPart("AutoroutePart", routePart =>
                     routePart.WithSetting("AutorouteSettings.PerItemConfiguration", "false")
                     .WithSetting("AutorouteSettings.AllowCustomPattern", "true")
                     .WithSetting("AutorouteSettings.AutomaticAdjustmentOnEdit", "false")
@@ -70,24 +75,25 @@ namespace Pluralsight.Movies {
             return 3;
         }
 
-        public int UpdateFrom3() {
+        public int UpdateFrom3()
+        {
 
             SchemaBuilder.CreateTable("MoviePartRecord", builder =>
                                                          builder.ContentPartRecord()
                                                              .Column<string>("IMDB_ID")
                                                              .Column<int>("YearReleased")
-                                                             .Column<string>("Rating", col=>col.WithLength(4))
+                                                             .Column<string>("Rating", col => col.WithLength(4))
                 );
 
-            ContentDefinitionManager.AlterTypeDefinition("Movie", builder=>
+            ContentDefinitionManager.AlterTypeDefinition("Movie", builder =>
                 builder.WithPart("MoviePart"));
             return 4;
         }
 
         public int UpdateFrom4()
         {
-            ContentDefinitionManager.AlterPartDefinition("MoviePart", builder=>
-                builder.WithField("Genre", fld=>
+            ContentDefinitionManager.AlterPartDefinition("MoviePart", builder =>
+                builder.WithField("Genre", fld =>
                 fld.OfType("TaxonomyField")
                 .WithSetting("DisplayName", "Genre")
                 .WithSetting("TaxonomyFieldSettings.Taxonomy", "Genre")
@@ -98,7 +104,8 @@ namespace Pluralsight.Movies {
             return 5;
         }
 
-        public int UpdateFrom5() {
+        public int UpdateFrom5()
+        {
             SchemaBuilder.CreateTable("ActorRecord", table =>
                 table
                 .Column<int>("Id", col => col.PrimaryKey().Identity())
@@ -112,11 +119,12 @@ namespace Pluralsight.Movies {
             return 6;
         }
 
-        public int UpdateFrom6() {
-            _actorRepository.Create(new ActorRecord(){Name = "Mark Hamill"});
-            _actorRepository.Create(new ActorRecord(){Name = "Carrie Fisher"});
-            _actorRepository.Create(new ActorRecord(){Name = "Harrison Ford"});
-            _actorRepository.Create(new ActorRecord(){Name = "Peter Cushing"});
+        public int UpdateFrom6()
+        {
+            _actorRepository.Create(new ActorRecord() { Name = "Mark Hamill" });
+            _actorRepository.Create(new ActorRecord() { Name = "Carrie Fisher" });
+            _actorRepository.Create(new ActorRecord() { Name = "Harrison Ford" });
+            _actorRepository.Create(new ActorRecord() { Name = "Peter Cushing" });
             return 7;
         }
 
@@ -132,13 +140,19 @@ namespace Pluralsight.Movies {
         public int UpdateFrom8()
         {
             SchemaBuilder.AlterTable("MoviePartRecord", table =>
-                table.AddColumn<string>("Tagline", col=>col.WithLength(1000)));
+                table.AddColumn<string>("Tagline", col => col.WithLength(1000)));
 
             SchemaBuilder.AlterTable("MoviePartRecord", table =>
-                table.AddColumn<string>("Keywords", col=>col.WithLength(500)));
+                table.AddColumn<string>("Keywords", col => col.WithLength(500)));
 
             return 9;
         }
 
+        public int UpdateFrom9()
+        {
+            ContentDefinitionManager.AlterTypeDefinition("Movie", builder =>
+                                                                  builder.Indexed());
+            return 10;
+        }
     }
 }
