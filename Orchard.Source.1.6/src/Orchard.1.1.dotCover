@@ -1,0 +1,11 @@
+<Configuration>
+  <CoverageFilters>
+    <IncludeFilters>
+      <Filter ModuleMask="*" ClassMask="*" FunctionMask="*" />
+    </IncludeFilters>
+    <ExcludeFilters />
+  </CoverageFilters>
+  <SnapshotDialog>
+    <InitialDirectory>C:\Projects\OrchardPluralSight\Orchard1.6\Orchard.Source.1.6\src</InitialDirectory>
+  </SnapshotDialog>
+</Configuration>
