@@ -19,6 +19,7 @@ namespace Pluralsight.Movies
 
         private void BuildMenu(NavigationItemBuilder menu)
         {
+           // Admin/Contents/List/Movie
             menu.Add(T("List"), "1.0", item =>
                 item.Action("List", "Admin", new { area = "Contents", id = "Movie" }));
 
@@ -30,6 +31,10 @@ namespace Pluralsight.Movies
 
             menu.Add(T("Actors"), "2.0", item =>
                 item.Action("Index", "ActorsAdmin", new { area = "Pluralsight.Movies" }));
+
+            //Admin/Contents/List/PrettyGallery
+             menu.Add(T("Image Gallery"), "3.0", item =>
+                item.Action("List", "Admin", new { area = "Contents", id = "PrettyGallery" }));
         }
     }
 }
