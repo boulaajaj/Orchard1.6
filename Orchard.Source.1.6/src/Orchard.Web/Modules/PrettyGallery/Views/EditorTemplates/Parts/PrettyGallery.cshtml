@@ -1,4 +1,5 @@
-﻿@model PrettyGallery.ViewModels.EditPrettyGalleryViewModel
+﻿@using System.Web.UI.WebControls
+@model PrettyGallery.ViewModels.EditPrettyGalleryViewModel
 @{
     var editMode = ViewContext.RouteData.Values["action"].ToString().ToLower() == "edit";
     var createMode = !editMode;

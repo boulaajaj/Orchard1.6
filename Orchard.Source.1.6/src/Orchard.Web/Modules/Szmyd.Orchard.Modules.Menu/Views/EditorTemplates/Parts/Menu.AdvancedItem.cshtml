@@ -1,0 +1,90 @@
+﻿@model Szmyd.Orchard.Modules.Menu.Models.AdvancedMenuItemPart
+@using Orchard.ContentManagement;
+
+@{ Layout.Title = T("Menu Item for '{0}'", Model.MenuName).ToString(); }
+
+<fieldset>
+<legend>@T("Menu item link")</legend>
+    <div>
+        @Html.LabelFor(m => m.Url, @T("Static Url"))
+        @Html.EditorFor(m => m.Url)
+        @Html.ValidationMessageFor(m => m.Url, "*")
+        <span class="hint">
+            @T("Provide static Url to the desired page")
+        </span>
+        <div><i>or</i></div>
+        @Html.LabelFor(m => m.ChosenItemId, @T("Choose content item"))
+        @Html.DropDownListFor(m => m.ChosenItemId, Model.AvailableItems)
+        @Html.ValidationMessageFor(m => m.ChosenItemId, "*")
+        <span class="hint">
+            @T("Choose a content item this menu item points to")
+        </span><br/>
+    </div>
+    <div>
+        @Html.LabelFor(m => m.Classes, @T("Additional CSS classes"))
+        @Html.EditorFor(m => m.Classes)
+        @Html.ValidationMessageFor(m => m.Classes, "*")
+        <span class="hint">
+            @T("Optional additional CSS classes to apply to this item.")
+        </span>
+    </div>
+    <div>
+        @Html.EditorFor(m => m.IncludeReturnUrl)
+        <label class="forcheckbox" for="@Html.FieldIdFor(m => m.IncludeReturnUrl)">@T("Should include return url?")</label>
+        <span class="hint">
+            @T("This will append a ReturnUrl parameter to the query string of the link. This can be useful for example with Login and Logout links.")
+        </span>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>@T("Menu item settings")</legend>
+    <div>
+        @Html.LabelFor(m => m.Text, @T("Displayed text"))
+        @Html.EditorFor(m => m.Text)
+        @Html.ValidationMessageFor(m => m.Text, "*")
+    </div>
+    <div>
+        @Html.LabelFor(m => m.SubTitle, @T("Subtitle"))
+        @Html.EditorFor(m => m.SubTitle)
+        @Html.ValidationMessageFor(m => m.SubTitle, "*")
+        <span class="hint">
+            @T("Optional subtitle to display.")
+        </span>
+    </div>
+    <div>
+        @Html.LabelFor(m => m.Position, @T("Position"))
+        @Html.EditorFor(m => m.Position)
+        @Html.ValidationMessageFor(m => m.Position, "*")
+        <span class="hint">
+            @T("Menu item position in menu, using dot-notation (eg. 1, 1.1, 1.1.2 etc.)")
+        </span>
+    </div>
+    <div>
+        @Html.EditorFor(m => m.DisplayText)
+        <label class="forcheckbox" for="@Html.FieldIdFor(m => m.DisplayText)">@T("Should display item text?")</label>
+    </div>
+    <div>
+        @Html.EditorFor(m => m.DisplayHref)
+        <label class="forcheckbox" for="@Html.FieldIdFor(m => m.DisplayHref)">@T("Should display item as link?")</label>
+    </div>
+    <div>
+        @Html.LabelFor(m => m.RequiresPermission, @T("Requires permission"))
+        @Html.DropDownListFor(m => m.RequiresPermission, Model.AvailablePermissions)
+        @Html.ValidationMessageFor(m => m.RequiresPermission, "*")
+        <span class="hint">
+            @T("Choose a permission required to show this menu item (and all items below)")
+        </span><br/>
+    </div>
+    <div>
+        @Html.LabelFor(m => m.AuthenticationLevel, T("Show to users"))
+        @Html.DropDownListFor(m => m.AuthenticationLevel, Model.AvailableAuthenticationLevels)
+        <span class="hint">
+            @T("Choose whether this menu item (and all items below) will be shown to any user, or only to anonymous or authenticated users")
+        </span><br/>
+    </div>
+    @Html.HiddenFor(m => m.MenuName)
+    @if (Model.Id != default(int))
+    {
+        <input type="hidden" name="type" value="@(Model.Is<Orchard.Core.Common.Models.BodyPart>() ? "Templated" : "Simple")" />
+    }
+</fieldset>
