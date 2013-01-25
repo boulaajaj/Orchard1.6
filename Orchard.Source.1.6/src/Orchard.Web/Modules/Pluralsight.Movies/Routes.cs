@@ -92,7 +92,15 @@ namespace Pluralsight.Movies
                             {"area", "Pluralsight.Movies"}
                         },
                         new MvcRouteHandler())
-                }
+                },
+                new HttpRouteDescriptor {
+                Name = "HelloApi",
+                Priority = -10,
+                RouteTemplate = "HelloApi",
+                Defaults = new { 
+                    area = "Pluralsight.Movies", 
+                    controller = "Hello" 
+                }}
             };
         }
 
