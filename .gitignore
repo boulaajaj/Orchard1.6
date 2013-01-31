@@ -108,3 +108,4 @@ Backup*/
 UpgradeLog*.XML
 *.ReSharper
 
+/Orchard.Source.1.6/src/Orchard.Web/App_Data_OLD/*.*
