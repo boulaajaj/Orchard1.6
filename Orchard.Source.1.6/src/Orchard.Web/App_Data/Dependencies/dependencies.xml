@@ -266,8 +266,8 @@
   </Dependency>
   <Dependency>
     <ModuleName>Orchard.CustomForms</ModuleName>
-    <VirtualPath>~/Modules/Orchard.CustomForms/Orchard.CustomForms.csproj</VirtualPath>
-    <LoaderName>DynamicExtensionLoader</LoaderName>
+    <VirtualPath>~/Modules/Orchard.CustomForms/bin/Orchard.CustomForms.dll</VirtualPath>
+    <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <References>
       <Reference>
         <Name>Orchard.Tokens</Name>
@@ -325,7 +325,13 @@
     <ModuleName>Orchard.Email</ModuleName>
     <VirtualPath>~/Modules/Orchard.Email/bin/Orchard.Email.dll</VirtualPath>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
-    <References />
+    <References>
+      <Reference>
+        <Name>Orchard.Tokens</Name>
+        <LoaderName>PrecompiledExtensionLoader</LoaderName>
+        <VirtualPath>~/Modules/Orchard.Tokens/bin/Orchard.Tokens.dll</VirtualPath>
+      </Reference>
+    </References>
   </Dependency>
   <Dependency>
     <ModuleName>Orchard.Forms</ModuleName>
