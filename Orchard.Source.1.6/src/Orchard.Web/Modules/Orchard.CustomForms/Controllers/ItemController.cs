@@ -162,7 +162,8 @@ namespace Orchard.CustomForms.Controllers {
             // writes a confirmation message
             if (customForm.CustomMessage) {
                 if (!String.IsNullOrWhiteSpace(customForm.Message)) {
-                    Services.Notifier.Information(T(customForm.Message));
+                    var message = _tokenizer.Replace(customForm.Message, new Dictionary<string, object> { { "Content", contentItem } });
+                    Services.Notifier.Information(T(message));
                 }
             }
 
