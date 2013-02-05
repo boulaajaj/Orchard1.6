@@ -6,11 +6,14 @@ using Orchard.Indexing;
 using Orchard.Rules.Models;
 using Orchard.Rules.Services;
 
-namespace RichSite {
-    public class Migrations : DataMigrationImpl {
+namespace RichSite
+{
+    public class Migrations : DataMigrationImpl
+    {
         private readonly IRulesServices _rulesServices;
 
-        public Migrations(IRulesServices rulesServices) {
+        public Migrations(IRulesServices rulesServices)
+        {
             _rulesServices = rulesServices;
         }
 
@@ -66,7 +69,7 @@ namespace RichSite {
                     fld.OfType("InputField")
                     .WithSetting("DisplayName", "Email")
                     .WithSetting("InputFieldSettings.Type", "Text")
-                    .WithSetting("InputFieldSettings.Required", "True")                    
+                    .WithSetting("InputFieldSettings.Required", "True")
                     .WithSetting("InputFieldSettings.AutoComplete", "True")
                     .WithSetting("InputFieldSettings.Pattern", EMailRegexPattern)
                 ));
@@ -77,21 +80,36 @@ namespace RichSite {
                     .WithSetting("DisplayName", "Receive Newsletter")
                     .WithSetting("BooleanFieldSettings.SelectionMode", "Checkbox")
                 ));
-           
+
             ContentDefinitionManager.AlterPartDefinition("RichDependencyPart", builder =>
                 builder.WithField("Message", fld =>
                     fld.OfType("TextField")
-                    .WithSetting("DisplayName", "Message")                   
+                    .WithSetting("DisplayName", "Message")
                 ));
-         
+
             return 4;
         }
 
-        public int UpdateFrom4() {
+        public int UpdateFrom4()
+        {
+            const string actionParameters = "<Form><Recipient>other</Recipient><RecipientOther>rich__smith@hotmail.com</RecipientOther><Subject>from {Content.Fields.RichDependencyPart.Name} </Subject><Body>{Content.Fields.RichDependencyPart.Message}</Body><__RequestVerificationToken>qseK-jMuPJ_Q6nbzdaAmHTGRyQcSKohKW07CO6mDdx4e6e9ptYAOyyNpt26Kct2TH_zV4Ze4DZiqTqKzK4DjZLbX9pU5KWm86dMqO8r7bt1myEPDIQqaWsQFzCK-oFEAdPHX3A2</__RequestVerificationToken><op>Save</op></Form>";
+            const string eventParameters = "<Form><contenttypes>RichDependency</contenttypes><__RequestVerificationToken>hY7JeLxufPjMEeAw8DkYy6w5t4iH-kdP-YoFS-tYx0_ss3idy933F3IYjKeBY88ZPfGJKY9cB-y4zqlpbLjpSl8eJxIgoGmQXaFr0YXqsqSZPYQsKP3it-OSpBOoufYu5n85eg2</__RequestVerificationToken><op>Save</op></Form>";
 
-            var rule =_rulesServices.CreateRule("SendEmail");
+            var rule = _rulesServices.CreateRule("SendEmail");
 
-            rule.Actions.Add(new ActionRecord { Category = "Messaging", Type = "SendEmail", Position = rule.Actions.Count + 1 });
+            rule.Actions.Add(new ActionRecord
+            {
+                Category = "Messaging",
+                Type = "SendEmail",
+                Position = rule.Actions.Count + 1,
+                Parameters = actionParameters
+            });
+
+            rule.Events.Add(new EventRecord() {
+                Category = "CustomForm",
+                Type="Submitted",
+                Parameters = eventParameters
+            });
 
             return 5;
         }
