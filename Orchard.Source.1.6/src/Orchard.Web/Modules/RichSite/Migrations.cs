@@ -3,9 +3,16 @@ using Orchard.Core.Contents.Extensions;
 using Orchard.Data;
 using Orchard.Data.Migration;
 using Orchard.Indexing;
+using Orchard.Rules.Models;
+using Orchard.Rules.Services;
 
 namespace RichSite {
     public class Migrations : DataMigrationImpl {
+        private readonly IRulesServices _rulesServices;
+
+        public Migrations(IRulesServices rulesServices) {
+            _rulesServices = rulesServices;
+        }
 
         public const string EMailRegexPattern = @"^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})";
 
@@ -34,19 +41,6 @@ namespace RichSite {
                 );
             return 2;
         }
-
-        //public int UpdateFrom2()
-        //{
-
-        //    SchemaBuilder.CreateTable("RichDependencyPartRecord", builder =>
-        //                                                 builder.ContentPartRecord()
-        //                                                     .Column<string>("Name")
-        //        );
-
-        //    ContentDefinitionManager.AlterTypeDefinition("Movie", builder =>
-        //        builder.WithPart("MoviePart"));
-        //    return 3;
-        //}
 
         public int UpdateFrom2()
         {
@@ -91,6 +85,15 @@ namespace RichSite {
                 ));
          
             return 4;
+        }
+
+        public int UpdateFrom4() {
+
+            var rule =_rulesServices.CreateRule("SendEmail");
+
+            rule.Actions.Add(new ActionRecord { Category = "Messaging", Type = "SendEmail", Position = rule.Actions.Count + 1 });
+
+            return 5;
         }
 
     }

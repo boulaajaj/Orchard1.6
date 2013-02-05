@@ -238,7 +238,7 @@
     <ExtensionId>Orchard.Rules</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/Orchard.Rules/bin/Orchard.Rules.dll</VirtualPath>
-    <Hash>24f3d1ed941540fc</Hash>
+    <Hash>24f3d4856b0a78d7</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>Orchard.Scripting</ExtensionId>
@@ -310,7 +310,7 @@
     <ExtensionId>Pluralsight.Movies</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/Pluralsight.Movies/bin/Pluralsight.Movies.dll</VirtualPath>
-    <Hash>b7a994e5b3e9f498</Hash>
+    <Hash>b7a998e7a6a68d3e</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>PrettyGallery</ExtensionId>
@@ -322,7 +322,7 @@
     <ExtensionId>RichSite</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/RichSite/bin/RichSite.dll</VirtualPath>
-    <Hash>48eaa8c7ffcf0236</Hash>
+    <Hash>6e32bda8fff10282</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>SysCache</ExtensionId>

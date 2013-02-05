@@ -649,7 +649,28 @@
     <ModuleName>RichSite</ModuleName>
     <VirtualPath>~/Modules/RichSite/bin/RichSite.dll</VirtualPath>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
-    <References />
+    <References>
+      <Reference>
+        <Name>Orchard.Forms</Name>
+        <LoaderName>PrecompiledExtensionLoader</LoaderName>
+        <VirtualPath>~/Modules/Orchard.Forms/bin/Orchard.Forms.dll</VirtualPath>
+      </Reference>
+      <Reference>
+        <Name>Orchard.Rules</Name>
+        <LoaderName>PrecompiledExtensionLoader</LoaderName>
+        <VirtualPath>~/Modules/Orchard.Rules/bin/Orchard.Rules.dll</VirtualPath>
+      </Reference>
+      <Reference>
+        <Name>Orchard.Scripting</Name>
+        <LoaderName>PrecompiledExtensionLoader</LoaderName>
+        <VirtualPath>~/Modules/Orchard.Scripting/bin/Orchard.Scripting.dll</VirtualPath>
+      </Reference>
+      <Reference>
+        <Name>Orchard.Tokens</Name>
+        <LoaderName>PrecompiledExtensionLoader</LoaderName>
+        <VirtualPath>~/Modules/Orchard.Tokens/bin/Orchard.Tokens.dll</VirtualPath>
+      </Reference>
+    </References>
   </Dependency>
   <Dependency>
     <ModuleName>SafeMode</ModuleName>
