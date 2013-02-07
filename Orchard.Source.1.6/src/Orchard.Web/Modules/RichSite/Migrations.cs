@@ -195,7 +195,7 @@ namespace RichSite
 
 
         private void CreateCustomForm(string title) {
-            const string subscriberFormDepdenency = "RichDependency";
+            const string subscriberFormDependency = "RichDependency";
 
             var formItem = _orchardServices.ContentManager.New("CustomForm");
 
@@ -207,7 +207,7 @@ namespace RichSite
 
             var customForm = form.As<CustomFormPart>();
 
-            customForm.ContentType = subscriberFormDepdenency;
+            customForm.ContentType = subscriberFormDependency;
             var contentItem = _orchardServices.ContentManager.New(customForm.ContentType);
 
             
@@ -216,11 +216,10 @@ namespace RichSite
 
             Create(contentItem, VersionOptions.Draft);
 
-            //new from here!
             contentItem.As<ICommonPart>().Container = customForm.ContentItem;
 
             customForm.CustomMessage = true;
-            customForm.Message = string.Format("Thanks '{{Content.Fields.{0}.Name}}' - your message has been sent!", subscriberFormDepdenency);
+            customForm.Message = string.Format("Thanks '{{Content.Fields.{0}Part.Name}}' - your message has been sent!", subscriberFormDependency);
 
         }
         private void Create(ContentItem contentItem, VersionOptions options)
