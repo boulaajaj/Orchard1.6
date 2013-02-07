@@ -651,6 +651,11 @@
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <References>
       <Reference>
+        <Name>Orchard.CustomForms</Name>
+        <LoaderName>PrecompiledExtensionLoader</LoaderName>
+        <VirtualPath>~/Modules/Orchard.CustomForms/bin/Orchard.CustomForms.dll</VirtualPath>
+      </Reference>
+      <Reference>
         <Name>Orchard.Forms</Name>
         <LoaderName>PrecompiledExtensionLoader</LoaderName>
         <VirtualPath>~/Modules/Orchard.Forms/bin/Orchard.Forms.dll</VirtualPath>

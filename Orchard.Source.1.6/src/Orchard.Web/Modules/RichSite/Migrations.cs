@@ -1,5 +1,16 @@
+using System.Linq;
+using System.Web.Mvc;
+using Orchard;
+using Orchard.ContentManagement;
+using Orchard.ContentManagement.Aspects;
+using Orchard.ContentManagement.Handlers;
 using Orchard.ContentManagement.MetaData;
+using Orchard.ContentManagement.MetaData.Models;
+using Orchard.ContentManagement.Records;
+using Orchard.Core.Contents;
 using Orchard.Core.Contents.Extensions;
+using Orchard.Core.Title.Models;
+using Orchard.CustomForms.Models;
 using Orchard.Data;
 using Orchard.Data.Migration;
 using Orchard.Indexing;
@@ -11,10 +22,22 @@ namespace RichSite
     public class Migrations : DataMigrationImpl
     {
         private readonly IRulesServices _rulesServices;
+        private readonly IOrchardServices _orchardServices;
+        private readonly IRepository<ContentTypeRecord> _contentTypeRepository;
+        private readonly IRepository<ContentItemRecord> _contentItemRepository;
+        private readonly IRepository<ContentItemVersionRecord> _contentItemVersionRepository;
 
-        public Migrations(IRulesServices rulesServices)
+        public Migrations(IRulesServices rulesServices,
+            IOrchardServices orchardServices,
+            IRepository<ContentTypeRecord> contentTypeRepository,
+            IRepository<ContentItemRecord> contentItemRepository,
+            IRepository<ContentItemVersionRecord> contentItemVersionRepository)
         {
             _rulesServices = rulesServices;
+            _orchardServices = orchardServices;
+            _contentTypeRepository = contentTypeRepository;
+            _contentItemRepository = contentItemRepository;
+            _contentItemVersionRepository = contentItemVersionRepository;
         }
 
         public const string EMailRegexPattern = @"^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})";
@@ -23,29 +46,31 @@ namespace RichSite
         /// default method - only runs once on the first time
         /// </summary>
         /// <returns></returns>
+
+
+        //public int Create()
+        //{
+
+        //    ContentDefinitionManager.AlterTypeDefinition("RichDependency", builder => builder.WithPart("CommonPart")
+        //           .WithPart("TitlePart")
+        //           .WithPart("AutoroutePart")
+        //           );
+
+        //    return 1;
+        //}
+
+        //public int UpdateFrom1()
+        //{
+
+        //    ContentDefinitionManager.AlterTypeDefinition("RichDependency", builder =>
+        //        builder.WithPart("BodyPart")
+        //        .Creatable()
+        //        .Draftable()
+        //        );
+        //    return 2;
+        //}
+
         public int Create()
-        {
-
-            ContentDefinitionManager.AlterTypeDefinition("RichDependency", builder => builder.WithPart("CommonPart")
-                   .WithPart("TitlePart")
-                   .WithPart("AutoroutePart")
-                   );
-
-            return 1;
-        }
-
-        public int UpdateFrom1()
-        {
-
-            ContentDefinitionManager.AlterTypeDefinition("RichDependency", builder =>
-                builder.WithPart("BodyPart")
-                .Creatable()
-                .Draftable()
-                );
-            return 2;
-        }
-
-        public int UpdateFrom2()
         {
             ContentDefinitionManager.AlterPartDefinition("RichDependencyPart", builder =>
                 builder.WithField("Name", fld =>
@@ -57,12 +82,18 @@ namespace RichSite
                     .WithSetting("InputFieldSettings.AutoComplete", "True")
                 ));
 
+
+            //bolt onto content type!
             ContentDefinitionManager.AlterTypeDefinition("RichDependency", builder =>
-                builder.WithPart("RichDependencyPart"));
-            return 3;
+                builder.Creatable()
+                .Draftable()
+                .WithPart("CommonPart")
+                .WithPart("RichDependencyPart")                
+                );
+            return 1;
         }
 
-        public int UpdateFrom3()
+        public int UpdateFrom1()
         {
             ContentDefinitionManager.AlterPartDefinition("RichDependencyPart", builder =>
                 builder.WithField("EMail", fld =>
@@ -87,10 +118,11 @@ namespace RichSite
                     .WithSetting("DisplayName", "Message")
                 ));
 
-            return 4;
+
+            return 2;
         }
 
-        public int UpdateFrom4()
+        public int UpdateFrom2()
         {
             const string actionParameters = "<Form><Recipient>other</Recipient><RecipientOther>rich__smith@hotmail.com</RecipientOther><Subject>from {Content.Fields.RichDependencyPart.Name} </Subject><Body>{Content.Fields.RichDependencyPart.Message}</Body><__RequestVerificationToken>qseK-jMuPJ_Q6nbzdaAmHTGRyQcSKohKW07CO6mDdx4e6e9ptYAOyyNpt26Kct2TH_zV4Ze4DZiqTqKzK4DjZLbX9pU5KWm86dMqO8r7bt1myEPDIQqaWsQFzCK-oFEAdPHX3A2</__RequestVerificationToken><op>Save</op></Form>";
             const string eventParameters = "<Form><contenttypes>RichDependency</contenttypes><__RequestVerificationToken>hY7JeLxufPjMEeAw8DkYy6w5t4iH-kdP-YoFS-tYx0_ss3idy933F3IYjKeBY88ZPfGJKY9cB-y4zqlpbLjpSl8eJxIgoGmQXaFr0YXqsqSZPYQsKP3it-OSpBOoufYu5n85eg2</__RequestVerificationToken><op>Save</op></Form>";
@@ -105,13 +137,156 @@ namespace RichSite
                 Parameters = actionParameters
             });
 
-            rule.Events.Add(new EventRecord() {
+            rule.Events.Add(new EventRecord()
+            {
                 Category = "CustomForm",
-                Type="Submitted",
+                Type = "Submitted",
                 Parameters = eventParameters
             });
 
+            return 3;
+        }
+
+        public int UpdateFrom3()
+        {
+
+            //var contentItem = _orchardServices.ContentManager.New("CustomForm");
+
+            //Create(contentItem, VersionOptions.Draft);
+
+            //Publish(contentItem);
+
+            CreateCustomForm("RichTitle");
+
+            return 4;
+        }
+
+        public int UpdateFrom4()
+        {
+
+            //var smtpSettings = _orchardServices.WorkContext.CurrentSite.As<SmtpSettingsPart>();
+            CreateCustomForm("Subscriber form");
             return 5;
+        }
+
+        public int UpdateFrom5()
+        {
+
+            //var smtpSettings = _orchardServices.WorkContext.CurrentSite.As<SmtpSettingsPart>();
+            CreateCustomForm("Subscriber form2");
+            return 6;
+        }
+
+        public int UpdateFrom6()
+        {
+
+            //var smtpSettings = _orchardServices.WorkContext.CurrentSite.As<SmtpSettingsPart>();
+            CreateCustomForm("Subscriberform3");
+            return 7;
+        }
+
+        public int UpdateFrom7()
+        {
+
+            //var smtpSettings = _orchardServices.WorkContext.CurrentSite.As<SmtpSettingsPart>();
+            CreateCustomForm("Subscriber form4");
+            return 8;
+        }
+
+
+        private void CreateCustomForm(string title) {
+            const string subscriberFormDepdenency = "RichDependency";
+
+            var formItem = _orchardServices.ContentManager.New("CustomForm");
+
+            Create(formItem, VersionOptions.Draft);
+
+            Publish(formItem);
+
+            var form = _orchardServices.ContentManager.Get(formItem.Id);
+
+            var customForm = form.As<CustomFormPart>();
+
+            customForm.ContentType = subscriberFormDepdenency;
+            var contentItem = _orchardServices.ContentManager.New(customForm.ContentType);
+
+            
+            var titlePart = form.As<TitlePart>();
+            titlePart.Title = title;
+
+            Create(contentItem, VersionOptions.Draft);
+
+            //new from here!
+            contentItem.As<ICommonPart>().Container = customForm.ContentItem;
+
+            customForm.CustomMessage = true;
+            customForm.Message = string.Format("Thanks '{{Content.Fields.{0}.Name}}' - your message has been sent!", subscriberFormDepdenency);
+
+        }
+        private void Create(ContentItem contentItem, VersionOptions options)
+        {
+            if (contentItem.VersionRecord == null)
+            {
+                // produce root record to determine the model id
+                contentItem.VersionRecord = new ContentItemVersionRecord
+                {
+                    ContentItemRecord = new ContentItemRecord
+                    {
+                        ContentType = AcquireContentTypeRecord(contentItem.ContentType)
+                    },
+                    Number = 1,
+                    Latest = true,
+                    Published = true
+                };
+            }
+
+            // add to the collection manually for the created case
+            contentItem.VersionRecord.ContentItemRecord.Versions.Add(contentItem.VersionRecord);
+
+            // version may be specified
+            if (options.VersionNumber != 0)
+            {
+                contentItem.VersionRecord.Number = options.VersionNumber;
+            }
+
+            // draft flag on create is required for explicitly-published content items
+            if (options.IsDraft)
+            {
+                contentItem.VersionRecord.Published = false;
+            }
+
+            _contentItemRepository.Create(contentItem.Record);
+            _contentItemVersionRepository.Create(contentItem.VersionRecord);
+
+        }
+
+        private ContentTypeRecord AcquireContentTypeRecord(string contentType)
+        {
+            var contentTypeRecord = _contentTypeRepository.Get(x => x.Name == contentType);
+            if (contentTypeRecord == null)
+            {
+                //TEMP: this is not safe... ContentItem types could be created concurrently?
+                contentTypeRecord = new ContentTypeRecord { Name = contentType };
+                _contentTypeRepository.Create(contentTypeRecord);
+            }
+            return contentTypeRecord;
+        }
+
+        public void Publish(ContentItem contentItem)
+        {
+            if (contentItem.VersionRecord.Published)
+            {
+                return;
+            }
+            // create a context for the item and it's previous published record
+            var previous = contentItem.Record.Versions.SingleOrDefault(x => x.Published);
+          
+            if (previous != null)
+            {
+                previous.Published = false;
+            }
+            contentItem.VersionRecord.Published = true;
+
         }
 
     }
