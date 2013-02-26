@@ -8,4 +8,11 @@ namespace Nwazet.Commerce.Services {
 
         IEnumerable<IShippingMethod> GetShippingMethods();
     }
+
+    public interface IMyTest:IDependency {
+        
+    }
+    public class TestClass:IMyTest {
+        
+    }
 }

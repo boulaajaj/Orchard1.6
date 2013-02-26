@@ -30,7 +30,8 @@ namespace Nwazet.Commerce.Controllers {
             IWorkContextAccessor wca,
             IEnumerable<ICheckoutService> checkoutServices,
             IEnumerable<IShippingMethodProvider> shippingMethodProviders,
-            IEnumerable<IExtraCartInfoProvider> extraCartInfoProviders) {
+            IEnumerable<IExtraCartInfoProvider> extraCartInfoProviders,
+            IEnumerable<IMyTest> testClasses) {
 
             _shippingMethodProviders = shippingMethodProviders;
             _shoppingCart = shoppingCart;

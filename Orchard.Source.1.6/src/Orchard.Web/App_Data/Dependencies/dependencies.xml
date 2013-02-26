@@ -743,6 +743,12 @@
     <References />
   </Dependency>
   <Dependency>
+    <ModuleName>TheThemeMachineWithPaypalForMageliaWebStore</ModuleName>
+    <VirtualPath>~/Theme/TheThemeMachineWithPaypalForMageliaWebStore</VirtualPath>
+    <LoaderName>RawThemeExtensionLoader</LoaderName>
+    <References />
+  </Dependency>
+  <Dependency>
     <ModuleName>TinyMce</ModuleName>
     <VirtualPath>~/Modules/TinyMce/bin/TinyMce.dll</VirtualPath>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
