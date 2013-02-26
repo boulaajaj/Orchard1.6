@@ -1,0 +1,48 @@
+﻿@{ var checkoutUrl = String.Format(Model.UseSandbox ?"https://sandbox.google.com/checkout/api/checkout/v2/checkoutForm/Merchant/{0}" :
+        "https://checkout.google.com/api/checkout/v2/checkoutForm/Merchant/{0}";  }
+
+<form id="frm" method="POST" action="@checkoutUrl">
+    @Html.HiddenFor(model => model.cmd)
+    @Html.HiddenFor(model => model.business)
+    @Html.HiddenFor(model => model.notify_url)
+@* @Html.HiddenFor(model => model.no_shipping)*@ 
+    @Html.HiddenFor(model => model.@return)
+    @Html.HiddenFor(model => model.cancel_return)
+    @Html.HiddenFor(model => model.currency_code)
+    @Html.Hidden("upload", "1")
+@{
+    int i = 1;
+    foreach (var product in Model.CartItems)
+    {
+            @Html.Hidden(string.Format("item_name_{0}", i), string.Format("item{0}", @product.Title))
+            @Html.Hidden(string.Format("amount_{0}", i), @product.DiscountedPrice)
+            @Html.Hidden(string.Format("quantity_{0}", i), @product.Quantity)
+        i++;
+    }
+ @* @foreach (var product in Model.CartItems)
+          {
+              i++;
+        <input type="hidden" name="@("item_name_" + i)" value="@product.Title"/>
+        <input type="hidden" name="@("item_id_" + i)" value="@product.Sku"/>
+        <input type="hidden" name="@("item_weight_" + i)" value="@product.Weight"/> 
+        <input type="hidden" name="@("item_weight_unit_" + i)" value="@Model.WeightUnit"/> 
+        <input type="hidden" name="@("item_description_" + i)" value="@product.Title"/>
+        <input type="hidden" name="@("item_price_" + i)" value="@product.DiscountedPrice"/>
+        <input type="hidden" name="@("item_currency_" + i)" value="@Model.Currency"/>
+        <input type="hidden" name="@("item_quantity_" + i)" value="@product.Quantity"/>
+        <input type="hidden" name="@("item_merchant_id_" + i)" value="@Model.MerchantId"/>
+          }*@
+
+ }
+</form>
+<p style="text-align: center">
+    <h4>
+        Redirecting to Paypal...
+    </h4>
+</p>
+<script type="text/javascript">
+    $(this.document).ready(function () {
+        var frm = $("form");
+        frm.submit();
+    });
+</script>
