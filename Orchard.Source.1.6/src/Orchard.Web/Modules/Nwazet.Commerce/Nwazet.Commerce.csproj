@@ -115,6 +115,7 @@
     <Compile Include="Controllers\ShippingAdminController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Drivers\BundlePartDriver.cs" />
+    <Compile Include="Drivers\PaypalCheckoutSettingsPartDriver.cs" />
     <Compile Include="Drivers\DiscountPartDriver.cs" />
     <Compile Include="Drivers\SizeBasedShippingMethodPartDriver.cs" />
     <Compile Include="Drivers\GoogleCheckoutSettingsPartDriver.cs" />
@@ -200,7 +201,7 @@
     <Content Include="placement.info">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\EditorTemplates\Parts\GoogleCheckoutSettings.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\PaypalCheckoutSettings.cshtml" />
     <Content Include="Views\EditorTemplates\Parts\Product.cshtml" />
     <Content Include="Views\GoogleCheckout.cshtml" />
     <Content Include="Views\Parts\Product.cshtml" />
@@ -227,10 +228,8 @@
     <Content Include="Views\TitleWithLink.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\PaypalCheckout.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Views\Paypal.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\GoogleCheckoutSettings.cshtml" />
+    <None Include="Views\PaypalCheckout.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -13,6 +13,9 @@ namespace Nwazet.Commerce.Migrations {
                 .Column<string>("Currency", column => column.WithDefault("AUD"))
                 .Column<string>("WeightUnit", column => column.WithDefault("LB"))
                 .Column<bool>("UseSandbox", column => column.WithDefault(true))
+                .Column<string>("ReturnUrl")
+                .Column<string>("CancelUrl")
+                .Column<string>("NotifyUrl")
             );
 
             return 1;

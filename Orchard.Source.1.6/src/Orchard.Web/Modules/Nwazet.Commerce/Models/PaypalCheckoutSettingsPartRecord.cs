@@ -9,5 +9,8 @@ namespace Nwazet.Commerce.Models {
         public virtual string Currency { get; set; }
         public virtual string WeightUnit { get; set; }
         public virtual string AnalyticsId { get; set; }
+        public virtual string ReturnUrl { get; set; }
+        public virtual string CancelUrl { get; set; }
+        public virtual string NotifyUrl { get; set; }
     }
 }

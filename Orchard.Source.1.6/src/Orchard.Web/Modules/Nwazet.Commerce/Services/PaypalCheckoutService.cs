@@ -58,7 +58,8 @@ namespace Nwazet.Commerce.Services {
                 WeightUnit: checkoutSettings.WeightUnit,
                 MerchantId: checkoutSettings.MerchantId,
                 AnalyticsId: checkoutSettings.AnalyticsId,
-                UseSandbox: checkoutSettings.UseSandbox);
+                UseSandbox: checkoutSettings.UseSandbox,
+                ReturnURL: checkoutSettings.ReturnUrl);
         }
     }
 }

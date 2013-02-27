@@ -14,5 +14,9 @@ namespace Nwazet.Commerce.Models {
         [DefaultValue("LB")]
         public string WeightUnit { get { return Record.WeightUnit; } set { Record.WeightUnit = value; } }
         public string AnalyticsId { get { return Record.AnalyticsId; } set { Record.AnalyticsId = value; } }
+        public string ReturnUrl { get { return Record.ReturnUrl; } set { Record.ReturnUrl = value; } }
+        public string CancelUrl { get { return Record.CancelUrl; } set { Record.CancelUrl = value; } }
+        public string NotifyUrl { get { return Record.NotifyUrl; } set { Record.NotifyUrl = value; } }
+
     }
 }
