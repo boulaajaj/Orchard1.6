@@ -60,6 +60,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\loading.gif" />
     <Content Include="Content\menu.nwazet-commerce.png" />
     <Content Include="LICENSE.txt" />
     <Content Include="Scripts\inventory.js" />

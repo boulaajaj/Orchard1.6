@@ -40,7 +40,7 @@
     <ExtensionId>Nwazet.Commerce</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/Nwazet.Commerce/bin/Nwazet.Commerce.dll</VirtualPath>
-    <Hash>db9ea792570ba967</Hash>
+    <Hash>db9ea7b932bc35a0</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>Orchard.Alias</ExtensionId>

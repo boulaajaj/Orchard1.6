@@ -59,7 +59,8 @@ namespace Nwazet.Commerce.Services {
                 MerchantId: checkoutSettings.MerchantId,
                 AnalyticsId: checkoutSettings.AnalyticsId,
                 UseSandbox: checkoutSettings.UseSandbox,
-                ReturnURL: checkoutSettings.ReturnUrl);
+                ReturnURL: checkoutSettings.ReturnUrl,
+                Business: checkoutSettings.MerchantId);
         }
     }
 }

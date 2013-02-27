@@ -20,7 +20,7 @@
     <input type="hidden" name="@("cmd")" value="_cart"/>
 
     @* @Html.HiddenFor(model => model.business)*@
-    <input type="hidden" name="@("business")" value="richse_1361416757_biz@gmail.com"/>
+    <input type="hidden" name="@("business")" value="@Model.Business"/>
 
     @*@Html.HiddenFor(model => model.notify_url)*@
     <input type="hidden" name="@("notify_url")" value="http://localhost/Orchard/"/>
@@ -68,8 +68,9 @@
 </form>
 <p style="text-align: center">
     <h4 style="display: none" id="hidden">
-        Redirecting to Paypal...
+        Redirecting to Paypal...<img  src="@Href("~/Modules/Nwazet.Commerce/Content/loading.gif") " alt="@T("Loading") " title="@T("loading") " />
     </h4>
+    
 </p>
 <script type="text/javascript">
     $(this.document).ready(function () {

@@ -1,8 +1,8 @@
 ﻿@model Nwazet.Commerce.Models.PaypalCheckoutSettingsPartRecord
 <fieldset>
-    <label class="sub" for="MerchantId">@T("Google Checkout Merchant Id")</label><br />
+    <label class="sub" for="MerchantId">@T("Paypal business email")</label><br />
     @Html.TextBoxFor(m => m.MerchantId, new { @class = "text" })<br />
-    <label class="sub" for="AnalyticsId">@T("Google Analytics Id")</label><br />
+    <label class="sub" for="AnalyticsId">@T("Paypal Analytics Id")</label><br />
     @Html.TextBoxFor(m => m.AnalyticsId, new { @class = "text" })<br />
     <label class="sub" for="Currency">@T("Currency")</label><br />
     @Html.TextBoxFor(m => m.Currency, new { @class = "text" })<br />
