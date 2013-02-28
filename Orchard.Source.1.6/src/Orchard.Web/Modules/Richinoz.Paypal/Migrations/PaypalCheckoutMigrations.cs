@@ -2,7 +2,7 @@
 using Orchard.Environment.Extensions;
 
 namespace Richinoz.Paypal.Migrations {
-    //[OrchardFeature("Paypal.Checkout")]
+    [OrchardFeature("Paypal.Checkout")]
     public class PaypalCheckoutMigrations : DataMigrationImpl {
 
         public int Create() {

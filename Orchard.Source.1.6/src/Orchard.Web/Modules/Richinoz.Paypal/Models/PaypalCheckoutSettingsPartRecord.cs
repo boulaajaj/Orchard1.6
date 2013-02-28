@@ -2,7 +2,7 @@
 using Orchard.Environment.Extensions;
 
 namespace Richinoz.Paypal.Models {
-    //[OrchardFeature("Paypal.Checkout")]
+    [OrchardFeature("Paypal.Checkout")]
     public class PaypalCheckoutSettingsPartRecord : ContentPartRecord {
         public virtual string MerchantId { get; set; }
         public virtual bool UseSandbox { get; set; }

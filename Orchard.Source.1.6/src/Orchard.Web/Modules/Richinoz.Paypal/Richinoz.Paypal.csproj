@@ -76,6 +76,10 @@
       <Project>{9916839C-39FC-4CEB-A5AF-89CA7E87119F}</Project>
       <Name>Orchard.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Nwazet.Commerce\Nwazet.Commerce.csproj">
+      <Project>{909ACC2C-D672-4752-B75B-6822E05FE0E3}</Project>
+      <Name>Nwazet.Commerce</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />

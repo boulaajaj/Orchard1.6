@@ -8,6 +8,7 @@ Description: Description for the module
 Features:
     Richinoz.Paypal:
         Description: Description for feature Richinoz.Paypal.
+		Dependencies: Nwazet.Commerce
 	Paypal.Checkout:
         Name: Paypal Checkout
         Description: Paypal Checkout part that can be added to any content type

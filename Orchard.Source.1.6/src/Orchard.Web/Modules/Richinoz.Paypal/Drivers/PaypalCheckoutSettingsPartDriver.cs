@@ -7,7 +7,7 @@ using Orchard.Environment.Extensions;
 using Richinoz.Paypal.Models;
 
 namespace Richinoz.Paypal.Drivers {
-    //[OrchardFeature("Paypal.Checkout")]
+    [OrchardFeature("Paypal.Checkout")]
     public class PaypalCheckoutSettingsPartDriver : ContentPartDriver<PaypalCheckoutSettingsPart> {
         private readonly ISignals _signals;
 

@@ -27,7 +27,7 @@ Features:
         Category: Commerce
         Dependencies: Nwazet.Shipping
 	Nwazet.Paypal.Checkout:
-        Name: Paypal Checkout
+        Name: Nwazet Paypal Checkout
         Description: Paypal Checkout part that can be added to any content type
         Category: Commerce
         Dependencies: Nwazet.Shipping
