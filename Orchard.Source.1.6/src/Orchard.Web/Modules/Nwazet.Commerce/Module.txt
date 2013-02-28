@@ -26,7 +26,7 @@ Features:
         Description: Google Checkout part that can be added to any content type
         Category: Commerce
         Dependencies: Nwazet.Shipping
-	Paypal.Checkout:
+	Nwazet.Paypal.Checkout:
         Name: Paypal Checkout
         Description: Paypal Checkout part that can be added to any content type
         Category: Commerce

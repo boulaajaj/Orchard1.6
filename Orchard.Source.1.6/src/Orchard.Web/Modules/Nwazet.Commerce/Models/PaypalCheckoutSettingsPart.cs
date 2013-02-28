@@ -4,7 +4,7 @@ using Orchard.ContentManagement;
 using Orchard.Environment.Extensions;
 
 namespace Nwazet.Commerce.Models {
-    [OrchardFeature("Paypal.Checkout")]
+    [OrchardFeature("Nwazet.Paypal.Checkout")]
     public class PaypalCheckoutSettingsPart : ContentPart<PaypalCheckoutSettingsPartRecord> {
         [Required]
         public string MerchantId { get { return Record.MerchantId; } set { Record.MerchantId = value; } }

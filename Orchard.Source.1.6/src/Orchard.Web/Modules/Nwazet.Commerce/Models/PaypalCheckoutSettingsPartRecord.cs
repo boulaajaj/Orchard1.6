@@ -2,7 +2,7 @@
 using Orchard.Environment.Extensions;
 
 namespace Nwazet.Commerce.Models {
-    [OrchardFeature("Paypal.Checkout")]
+    [OrchardFeature("Nwazet.Paypal.Checkout")]
     public class PaypalCheckoutSettingsPartRecord : ContentPartRecord {
         public virtual string MerchantId { get; set; }
         public virtual bool UseSandbox { get; set; }

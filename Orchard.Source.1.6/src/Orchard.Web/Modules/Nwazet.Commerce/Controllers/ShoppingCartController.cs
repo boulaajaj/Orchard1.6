@@ -30,8 +30,7 @@ namespace Nwazet.Commerce.Controllers {
             IWorkContextAccessor wca,
             IEnumerable<ICheckoutService> checkoutServices,
             IEnumerable<IShippingMethodProvider> shippingMethodProviders,
-            IEnumerable<IExtraCartInfoProvider> extraCartInfoProviders,
-            IEnumerable<IMyTest> testClasses) {
+            IEnumerable<IExtraCartInfoProvider> extraCartInfoProviders) {
 
             _shippingMethodProviders = shippingMethodProviders;
             _shoppingCart = shoppingCart;
@@ -100,7 +99,7 @@ namespace Nwazet.Commerce.Controllers {
 
             var checkoutShapes = _checkoutServices.Select(
                 service => service.BuildCheckoutButtonShape(
-                    productShapes, productQuantities, validShippingMethods, custom)
+                    productShapes, validShippingMethods, custom)
                 );
             shape.CheckoutButtons = checkoutShapes;
 

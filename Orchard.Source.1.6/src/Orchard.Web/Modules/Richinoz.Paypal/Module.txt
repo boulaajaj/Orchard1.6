@@ -1,0 +1,15 @@
+﻿Name: Richinoz.Paypal
+AntiForgery: enabled
+Author: The Orchard Team
+Website: http://orchardproject.net
+Version: 1.6
+OrchardVersion: 1.6
+Description: Description for the module
+Features:
+    Richinoz.Paypal:
+        Description: Description for feature Richinoz.Paypal.
+	Paypal.Checkout:
+        Name: Paypal Checkout
+        Description: Paypal Checkout part that can be added to any content type
+        Category: Commerce
+        Dependencies: Nwazet.Shipping

@@ -7,7 +7,7 @@ using Orchard.ContentManagement.Handlers;
 using Orchard.Environment.Extensions;
 
 namespace Nwazet.Commerce.Drivers {
-    [OrchardFeature("Paypal.Checkout")]
+    [OrchardFeature("Nwazet.Paypal.Checkout")]
     public class PaypalCheckoutSettingsPartDriver : ContentPartDriver<PaypalCheckoutSettingsPart> {
         private readonly ISignals _signals;
 

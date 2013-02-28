@@ -7,7 +7,7 @@ using Orchard;
 
 namespace Nwazet.Commerce.Services {
  
-    [OrchardFeature("Paypal.Checkout")]
+    [OrchardFeature("Nwazet.Paypal.Checkout")]
     public class PaypalCheckoutService : IPaypalCheckoutService
     {
         private readonly IWorkContextAccessor _wca;
@@ -44,7 +44,6 @@ namespace Nwazet.Commerce.Services {
 
         public dynamic BuildCheckoutButtonShape(
             IEnumerable<dynamic> productShapes,
-            IEnumerable<ShoppingCartQuantityProduct> productQuantities,
             IEnumerable<dynamic> shippingMethodShapes,
             IEnumerable<string> custom) {
 

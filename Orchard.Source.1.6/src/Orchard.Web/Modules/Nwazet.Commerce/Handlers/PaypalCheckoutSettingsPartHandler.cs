@@ -6,7 +6,7 @@ using Orchard.Environment.Extensions;
 using Orchard.Localization;
 
 namespace Nwazet.Commerce.Handlers {
-    [OrchardFeature("Paypal.Checkout")]
+    [OrchardFeature("Nwazet.Paypal.Checkout")]
     public class PaypalCheckoutSettingsPartHandler : ContentHandler {
         public PaypalCheckoutSettingsPartHandler(IRepository<PaypalCheckoutSettingsPartRecord> repository)
         {
