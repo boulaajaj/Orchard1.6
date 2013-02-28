@@ -7,7 +7,7 @@ using Richinoz.Paypal.Models;
 
 namespace Richinoz.Paypal.Services {
  
-    [OrchardFeature("Paypal.Checkout")]
+    //[OrchardFeature("Paypal.Checkout")]
     public class PaypalCheckoutService : IPaypalCheckoutService
     {
         private readonly IWorkContextAccessor _wca;

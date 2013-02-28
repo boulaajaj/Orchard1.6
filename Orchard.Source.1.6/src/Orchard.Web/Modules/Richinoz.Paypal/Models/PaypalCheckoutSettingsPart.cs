@@ -4,7 +4,7 @@ using Orchard.ContentManagement;
 using Orchard.Environment.Extensions;
 
 namespace Richinoz.Paypal.Models {
-    [OrchardFeature("Paypal.Checkout")]
+    //[OrchardFeature("Paypal.Checkout")]
     public class PaypalCheckoutSettingsPart : ContentPart<PaypalCheckoutSettingsPartRecord> {
         [Required]
         public string MerchantId { get { return Record.MerchantId; } set { Record.MerchantId = value; } }

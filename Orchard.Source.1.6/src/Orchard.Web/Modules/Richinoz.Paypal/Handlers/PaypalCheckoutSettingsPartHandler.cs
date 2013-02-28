@@ -6,7 +6,7 @@ using Orchard.Localization;
 using Richinoz.Paypal.Models;
 
 namespace Richinoz.Paypal.Handlers {
-    [OrchardFeature("Paypal.Checkout")]
+    //[OrchardFeature("Paypal.Checkout")]
     public class PaypalCheckoutSettingsPartHandler : ContentHandler {
         public PaypalCheckoutSettingsPartHandler(IRepository<PaypalCheckoutSettingsPartRecord> repository)
         {

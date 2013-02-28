@@ -1,8 +1,11 @@
-﻿@{ var checkoutUrl = String.Format(Model.UseSandbox ? "https://www.sandbox.paypal.com/cgi-bin/webscr" : "https://www.paypal.com/cgi-bin/webscr");
-   var isMini = Model.IsMiniCart != null && (bool)Model.IsMiniCart;
-   var width = isMini ? 160 : 150;
-   var height = isMini ? 43 : 40;
-   var includedAreaToGoogleFormatString = new Dictionary<string, KeyValuePair<string, string>> {
+﻿@{
+    Script.Include("Paypal.js");
+    
+    var checkoutUrl = String.Format(Model.UseSandbox ? "https://www.sandbox.paypal.com/cgi-bin/webscr" : "https://www.paypal.com/cgi-bin/webscr");
+    var isMini = Model.IsMiniCart != null && (bool)Model.IsMiniCart;
+    var width = isMini ? 160 : 150;
+    var height = isMini ? 43 : 40;
+    var includedAreaToGoogleFormatString = new Dictionary<string, KeyValuePair<string, string>> {
         {"world", new KeyValuePair<string, string>("checkout-flow-support.merchant-checkout-flow-support.shipping-methods.flat-rate-shipping-{0}.shipping-restrictions.allowed-areas.world-area-{1}", "true")},
         {"us", new KeyValuePair<string, string>("checkout-flow-support.merchant-checkout-flow-support.shipping-methods.flat-rate-shipping-{0}.shipping-restrictions.allowed-areas.us-country-area-{1}.country-area", "ALL")},
         {"us-continental", new KeyValuePair<string, string>("ship_method_us_area_{0}", "CONTINENTAL_48")}
@@ -100,14 +103,7 @@
 </form>
 <p style="text-align: center">
     <h4 style="display: none" id="hidden">
-        Redirecting to Paypal...<img  src="@Href("~/Modules/Nwazet.Commerce/Content/loading.gif") " alt="@T("Loading") " title="@T("loading") " />
+        Redirecting to Paypal...<img  src="~/Modules/Richinoz.Paypal/Content/loading.gif") " alt="@T("Loading") " title="@T("loading") " />
     </h4>
     
 </p>
-<script type="text/javascript">
-    $(this.document).ready(function () {
-        $("#paypalimg").click(function () {
-            $("#hidden").show();
-        });
-    });
-</script>
