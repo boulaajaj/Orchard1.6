@@ -34,13 +34,13 @@
     <ExtensionId>Mello.ImageGallery</ExtensionId>
     <LoaderName>DynamicExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/Mello.ImageGallery/Mello.ImageGallery.csproj</VirtualPath>
-    <Hash>5d1a0cb7b70574fb</Hash>
+    <Hash>5d1a0f2c5cb9579f</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>Nwazet.Commerce</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/Nwazet.Commerce/bin/Nwazet.Commerce.dll</VirtualPath>
-    <Hash>db9ea93a33ee8b57</Hash>
+    <Hash>db9ea9491803f390</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>Orchard.Alias</ExtensionId>
@@ -148,7 +148,7 @@
     <ExtensionId>Orchard.jPlayer</ExtensionId>
     <LoaderName>DynamicExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/Orchard.jPlayer/Orchard.jPlayer.csproj</VirtualPath>
-    <Hash>7d6685229adc27bb</Hash>
+    <Hash>7d66879740900a5f</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>Orchard.jQuery</ExtensionId>
@@ -316,7 +316,7 @@
     <ExtensionId>Pluralsight.Movies</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/Pluralsight.Movies/bin/Pluralsight.Movies.dll</VirtualPath>
-    <Hash>b7aa0ece0d23f217</Hash>
+    <Hash>b7aa1141c2a25dc0</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>PrettyGallery</ExtensionId>
@@ -328,7 +328,7 @@
     <ExtensionId>Richinoz.Paypal</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/Richinoz.Paypal/bin/Richinoz.Paypal.dll</VirtualPath>
-    <Hash>24f3a5eb647da121</Hash>
+    <Hash>24f3a6247e1a1168</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>RichSite</ExtensionId>

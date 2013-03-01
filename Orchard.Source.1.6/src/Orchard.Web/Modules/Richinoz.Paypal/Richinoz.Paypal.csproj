@@ -87,6 +87,7 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminMenu.cs" />
     <Compile Include="Drivers\PaypalCheckoutSettingsPartDriver.cs" />
     <Compile Include="Handlers\PaypalCheckoutSettingsPartHandler.cs" />
     <Compile Include="Migrations\PaypalCheckoutMigrations.cs" />
