@@ -3,7 +3,7 @@
         public ShoppingCartQuantityProduct(int quantity, ProductPart product) {
             Quantity = quantity;
             Product = product;
-            Price = product.Price;
+            Price = product.Price.Value;
         }
 
         public int Quantity { get; private set; }

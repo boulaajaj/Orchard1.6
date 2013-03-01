@@ -1,6 +1,6 @@
 ﻿@{
     Script.Include("Paypal.js");
-    
+
     var checkoutUrl = String.Format(Model.UseSandbox ? "https://www.sandbox.paypal.com/cgi-bin/webscr" : "https://www.paypal.com/cgi-bin/webscr");
     var isMini = Model.IsMiniCart != null && (bool)Model.IsMiniCart;
     var width = isMini ? 160 : 150;
@@ -103,7 +103,7 @@
 </form>
 <p style="text-align: center">
     <h4 style="display: none" id="hidden">
-        Redirecting to Paypal...<img  src="~/Modules/Richinoz.Paypal/Content/loading.gif") " alt="@T("Loading") " title="@T("loading") " />
+        Redirecting to Paypal...<img  src="@Href("~/Modules/Richinoz.Paypal/Content/loading.gif") " alt="@T("Loading") " title="@T("loading") " />
     </h4>
     
 </p>

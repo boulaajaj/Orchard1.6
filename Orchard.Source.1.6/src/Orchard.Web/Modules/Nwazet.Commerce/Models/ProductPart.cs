@@ -11,8 +11,10 @@ namespace Nwazet.Commerce.Models {
             set { Record.Sku = value; }
         }
 
+        [RegularExpression(@"[-+]?[0-9]*\.?[0-9]?[0-9]", ErrorMessage = "Number required.")]
+        [Range(0, 9999.99, ErrorMessage = "Value must be between 0 - 9,999.99")]
         [Required]
-        public double Price {
+        public double? Price {
             get { return Record.Price; }
             set { Record.Price = value; }
         }

@@ -8,7 +8,7 @@ namespace Nwazet.Commerce.Models {
             ShippingCost = null;
         }
         public virtual string Sku { get; set; }
-        public virtual double Price { get; set; }
+        public virtual double? Price { get; set; }
         public virtual bool IsDigital { get; set; }
         public virtual double? ShippingCost { get; set; }
         public virtual double Weight { get; set; }

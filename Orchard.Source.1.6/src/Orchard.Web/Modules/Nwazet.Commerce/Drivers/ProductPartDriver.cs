@@ -131,7 +131,7 @@ namespace Nwazet.Commerce.Drivers {
 
         protected override void Exporting(ProductPart part, ExportContentContext context) {
             context.Element(part.PartDefinition.Name).SetAttributeValue("Sku", part.Sku);
-            context.Element(part.PartDefinition.Name).SetAttributeValue("Price", part.Price.ToString("C", CultureInfo.InvariantCulture));
+            context.Element(part.PartDefinition.Name).SetAttributeValue("Price", part.Price.Value.ToString("C", CultureInfo.InvariantCulture));
             context.Element(part.PartDefinition.Name).SetAttributeValue("Inventory", part.Inventory.ToString(CultureInfo.InvariantCulture));
             context.Element(part.PartDefinition.Name).SetAttributeValue("OutOfStockMessage", part.OutOfStockMessage);
             context.Element(part.PartDefinition.Name).SetAttributeValue("AllowBackOrder", part.AllowBackOrder.ToString(CultureInfo.InvariantCulture).ToLower());
