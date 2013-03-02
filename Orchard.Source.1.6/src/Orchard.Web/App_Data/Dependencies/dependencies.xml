@@ -130,6 +130,12 @@
     </References>
   </Dependency>
   <Dependency>
+    <ModuleName>Navigation</ModuleName>
+    <VirtualPath>~/Core/Navigation</VirtualPath>
+    <LoaderName>CoreExtensionLoader</LoaderName>
+    <References />
+  </Dependency>
+  <Dependency>
     <ModuleName>Orchard.Media</ModuleName>
     <VirtualPath>~/Modules/Orchard.Media/bin/Orchard.Media.dll</VirtualPath>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
@@ -140,29 +146,6 @@
         <VirtualPath>~/Modules/Orchard.Fields/bin/Ionic.Zip.dll</VirtualPath>
       </Reference>
     </References>
-  </Dependency>
-  <Dependency>
-    <ModuleName>Mello.ImageGallery</ModuleName>
-    <VirtualPath>~/Modules/Mello.ImageGallery/Mello.ImageGallery.csproj</VirtualPath>
-    <LoaderName>DynamicExtensionLoader</LoaderName>
-    <References>
-      <Reference>
-        <Name>ICSharpCode.SharpZipLib</Name>
-        <LoaderName>DynamicExtensionLoader</LoaderName>
-        <VirtualPath>~/Modules/Mello.ImageGallery/lib/ICSharpCode.SharpZipLib.dll</VirtualPath>
-      </Reference>
-      <Reference>
-        <Name>Orchard.Media</Name>
-        <LoaderName>PrecompiledExtensionLoader</LoaderName>
-        <VirtualPath>~/Modules/Orchard.Media/bin/Orchard.Media.dll</VirtualPath>
-      </Reference>
-    </References>
-  </Dependency>
-  <Dependency>
-    <ModuleName>Navigation</ModuleName>
-    <VirtualPath>~/Core/Navigation</VirtualPath>
-    <LoaderName>CoreExtensionLoader</LoaderName>
-    <References />
   </Dependency>
   <Dependency>
     <ModuleName>Orchard.Fields</ModuleName>
