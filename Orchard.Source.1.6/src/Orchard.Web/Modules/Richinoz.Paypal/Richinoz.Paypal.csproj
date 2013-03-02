@@ -83,14 +83,14 @@
       <Name>Nwazet.Commerce</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="AdminMenu.cs" />
+    <Compile Include="Controllers\PaypalContoller.cs" />
     <Compile Include="Drivers\PaypalCheckoutSettingsPartDriver.cs" />
     <Compile Include="Handlers\PaypalCheckoutSettingsPartHandler.cs" />
     <Compile Include="Migrations\PaypalCheckoutMigrations.cs" />
+    <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\PaypalCheckoutSettingsPart.cs" />
     <Compile Include="Models\PaypalCheckoutSettingsPartRecord.cs" />
     <Compile Include="Services\IPaypalCheckoutService.cs" />

@@ -1,7 +1,7 @@
 ﻿using Orchard.Localization;
 using Orchard.UI.Navigation;
 
-namespace Richinoz.Paypal
+namespace RichSite
 {
     public class AdminMenu : INavigationProvider
     {
@@ -14,7 +14,7 @@ namespace Richinoz.Paypal
 
         public void GetNavigation(NavigationBuilder builder)
         {
-            builder.Add(T("Paypal"), "5", BuildMenu);
+            builder.Add(T("Commerce"), "5", BuildMenu);
         }
 
         private void BuildMenu(NavigationItemBuilder menu)

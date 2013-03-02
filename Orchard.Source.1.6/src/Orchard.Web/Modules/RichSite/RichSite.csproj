@@ -86,6 +86,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminMenu.cs" />
     <Compile Include="Handlers\RichDependencyHandler.cs" />
     <Compile Include="Migrations.cs" />
     <Compile Include="Models\RichDependencyPart.cs" />
