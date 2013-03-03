@@ -106,6 +106,12 @@
     <References />
   </Dependency>
   <Dependency>
+    <ModuleName>Laughlin.ErrorLog</ModuleName>
+    <VirtualPath>~/Modules/Laughlin.ErrorLog/Laughlin.ErrorLog.csproj</VirtualPath>
+    <LoaderName>DynamicExtensionLoader</LoaderName>
+    <References />
+  </Dependency>
+  <Dependency>
     <ModuleName>Lucene</ModuleName>
     <VirtualPath>~/Modules/Lucene/bin/Lucene.dll</VirtualPath>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>

@@ -46,7 +46,7 @@ namespace Richinoz.Paypal.Controllers
 
                 //Order order = _orderService.GetOrder(new Guid(orderID));                
                 //check the Amount paid
-
+                var order = new Order(){Id=orderID};
                 if (AmountPaidIsValid(order, amountPaid))
                 {
 

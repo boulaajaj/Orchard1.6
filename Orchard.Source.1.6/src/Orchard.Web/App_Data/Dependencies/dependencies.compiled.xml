@@ -19,6 +19,12 @@
     <Hash>25054c0b56d3ba6e</Hash>
   </Dependency>
   <Dependency>
+    <ExtensionId>Laughlin.ErrorLog</ExtensionId>
+    <LoaderName>DynamicExtensionLoader</LoaderName>
+    <VirtualPath>~/Modules/Laughlin.ErrorLog/Laughlin.ErrorLog.csproj</VirtualPath>
+    <Hash>b516d4b3aa8be898</Hash>
+  </Dependency>
+  <Dependency>
     <ExtensionId>Lucene</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/Lucene/bin/Lucene.dll</VirtualPath>
@@ -322,7 +328,7 @@
     <ExtensionId>Richinoz.Paypal</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/Richinoz.Paypal/bin/Richinoz.Paypal.dll</VirtualPath>
-    <Hash>24f3ac90d7f2fd4b</Hash>
+    <Hash>24f3ad7c6be51b43</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>RichSite</ExtensionId>
