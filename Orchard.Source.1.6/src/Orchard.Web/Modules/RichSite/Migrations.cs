@@ -17,6 +17,8 @@ using Orchard.Email.Models;
 using Orchard.Indexing;
 using Orchard.Rules.Models;
 using Orchard.Rules.Services;
+using Orchard.Security;
+using Orchard.Users.Models;
 
 namespace RichSite
 {
@@ -27,21 +29,24 @@ namespace RichSite
         private readonly IRepository<ContentTypeRecord> _contentTypeRepository;
         private readonly IRepository<ContentItemRecord> _contentItemRepository;
         private readonly IRepository<ContentItemVersionRecord> _contentItemVersionRepository;
+        private readonly IMembershipService _membershipService;
 
         public Migrations(IRulesServices rulesServices,
             IOrchardServices orchardServices,
             IRepository<ContentTypeRecord> contentTypeRepository,
             IRepository<ContentItemRecord> contentItemRepository,
-            IRepository<ContentItemVersionRecord> contentItemVersionRepository)
+            IRepository<ContentItemVersionRecord> contentItemVersionRepository,
+            IMembershipService membershipService)
         {
             _rulesServices = rulesServices;
             _orchardServices = orchardServices;
             _contentTypeRepository = contentTypeRepository;
             _contentItemRepository = contentItemRepository;
             _contentItemVersionRepository = contentItemVersionRepository;
+            _membershipService = membershipService;
         }
 
-        public const string EMailRegexPattern = @"^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})";
+        public const string EMailRegexPattern = UserPart.EmailPattern;// @"^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})";
 
         /// <summary>
         /// default method - only runs once on the first time
@@ -77,7 +82,7 @@ namespace RichSite
                     .WithSetting("InputFieldSettings.Type", "Text")
                     .WithSetting("InputFieldSettings.Required", "True")
                     .WithSetting("InputFieldSettings.AutoComplete", "True")
-                    .WithSetting("InputFieldSettings.Pattern", EMailRegexPattern)
+                    .WithSetting("InputFieldSettings.Pattern", UserPart.EmailPattern)
                 ));
 
             ContentDefinitionManager.AlterPartDefinition("RichDependencyPart", builder =>
@@ -164,6 +169,18 @@ namespace RichSite
             return 6;
         }
 
+        public int UpdateFrom6() {
+
+            var user = _orchardServices.ContentManager.New<IUser>("User");
+            user = _membershipService.CreateUser(new CreateUserParams(
+                                                 "Test",
+                                                 "tester1",
+                                                 "test@richinoz.com",
+                                                 null, null, true));
+
+            user.
+            return 7;
+        }
 
         private void CreateCustomForm(string title) {
             const string subscriberFormDependency = "RichDependency";

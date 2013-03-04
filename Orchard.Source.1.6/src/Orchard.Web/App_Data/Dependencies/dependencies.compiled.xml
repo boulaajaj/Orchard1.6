@@ -334,7 +334,7 @@
     <ExtensionId>RichSite</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/RichSite/bin/RichSite.dll</VirtualPath>
-    <Hash>b8ddff4a60e1d8d4</Hash>
+    <Hash>22c39aab15c9389</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>SysCache</ExtensionId>
