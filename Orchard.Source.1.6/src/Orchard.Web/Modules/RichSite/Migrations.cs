@@ -13,6 +13,7 @@ using Orchard.Core.Title.Models;
 using Orchard.CustomForms.Models;
 using Orchard.Data;
 using Orchard.Data.Migration;
+using Orchard.Email.Models;
 using Orchard.Indexing;
 using Orchard.Rules.Models;
 using Orchard.Rules.Services;
@@ -173,6 +174,20 @@ namespace RichSite
                 .WithSetting("TaxonomyFieldSettings.Hint", "Select as many categories as required")
                 ));
             return 5;
+        }
+
+        public int UpdateFrom5()
+        {
+            var smtpSettingsPart = _orchardServices.WorkContext.CurrentSite.As<SmtpSettingsPart>();
+
+            smtpSettingsPart.Address = "info@richinoz.com";
+            smtpSettingsPart.Host = "mail.richinoz.com";
+            smtpSettingsPart.Port = 26;
+            smtpSettingsPart.RequireCredentials = true;
+            smtpSettingsPart.UserName = "Art1stLeeds@richinoz.com";
+            smtpSettingsPart.Password = "B0llocks";
+
+            return 6;
         }
 
 

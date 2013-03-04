@@ -118,7 +118,7 @@
     <ExtensionId>Orchard.Email</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/Orchard.Email/bin/Orchard.Email.dll</VirtualPath>
-    <Hash>48f8aa0ae7669eef</Hash>
+    <Hash>48f8aec37640de5d</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>Orchard.Fields</ExtensionId>
@@ -334,7 +334,7 @@
     <ExtensionId>RichSite</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/RichSite/bin/RichSite.dll</VirtualPath>
-    <Hash>6f91101aa35979f8</Hash>
+    <Hash>b8ddff4a60e1d8d4</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>SysCache</ExtensionId>

@@ -1,11 +1,11 @@
 ﻿Name: RichSite
 AntiForgery: enabled
-Author: The Orchard Team
+Author: Rcihinoz
 Website: http://orchardproject.net
 Version: 1.0
-OrchardVersion: 1.0
-Description: Description for the module
+OrchardVersion: 1.6
+Description: Configuration defaults for a Richinoz website
 Features:
     RichSite:
         Description: Description for feature RichSite.
-		Dependencies: Orchard.Rules, Orchard.EMail, Orchard.CustomForms, Contrib.Taxonomies, Nwazet.Commerce
+		Dependencies: Orchard.Rules, Orchard.EMail, Orchard.CustomForms, Contrib.Taxonomies, Nwazet.Commerce, Laughlin.ErrorLog
