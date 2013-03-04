@@ -47,30 +47,6 @@ namespace RichSite
         /// default method - only runs once on the first time
         /// </summary>
         /// <returns></returns>
-
-
-        //public int Create()
-        //{
-
-        //    ContentDefinitionManager.AlterTypeDefinition("RichDependency", builder => builder.WithPart("CommonPart")
-        //           .WithPart("TitlePart")
-        //           .WithPart("AutoroutePart")
-        //           );
-
-        //    return 1;
-        //}
-
-        //public int UpdateFrom1()
-        //{
-
-        //    ContentDefinitionManager.AlterTypeDefinition("RichDependency", builder =>
-        //        builder.WithPart("BodyPart")
-        //        .Creatable()
-        //        .Draftable()
-        //        );
-        //    return 2;
-        //}
-
         public int Create()
         {
             ContentDefinitionManager.AlterPartDefinition("RichDependencyPart", builder =>
@@ -86,9 +62,7 @@ namespace RichSite
 
             //bolt onto content type!
             ContentDefinitionManager.AlterTypeDefinition("RichDependency", builder =>
-                builder.Creatable()
-                .Draftable()
-                .WithPart("CommonPart")
+                builder.WithPart("CommonPart")
                 .WithPart("RichDependencyPart")                
                 );
             return 1;
