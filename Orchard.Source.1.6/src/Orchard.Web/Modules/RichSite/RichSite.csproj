@@ -76,6 +76,14 @@
       <Project>{9916839C-39FC-4CEB-A5AF-89CA7E87119F}</Project>
       <Name>Orchard.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Contrib.Taxonomies\Contrib.Taxonomies.csproj">
+      <Project>{E649EA64-D213-461B-87F7-D67035801443}</Project>
+      <Name>Contrib.Taxonomies</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nwazet.Commerce\Nwazet.Commerce.csproj">
+      <Project>{909ACC2C-D672-4752-B75B-6822E05FE0E3}</Project>
+      <Name>Nwazet.Commerce</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Orchard.CustomForms\Orchard.CustomForms.csproj">
       <Project>{2CF067CA-064B-43C6-8B88-5E3B99A65F1D}</Project>
       <Name>Orchard.CustomForms</Name>
@@ -87,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminMenu.cs" />
+    <Compile Include="Handlers\RichDependencyFeatureEventHandler.cs" />
     <Compile Include="Handlers\RichDependencyHandler.cs" />
     <Compile Include="Migrations.cs" />
     <Compile Include="Models\RichDependencyPart.cs" />

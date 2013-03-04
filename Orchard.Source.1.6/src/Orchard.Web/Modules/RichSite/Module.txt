@@ -8,4 +8,4 @@ Description: Description for the module
 Features:
     RichSite:
         Description: Description for feature RichSite.
-		Dependencies: Orchard.Rules, Orchard.EMail, Orchard.CustomForms
+		Dependencies: Orchard.Rules, Orchard.EMail, Orchard.CustomForms, Contrib.Taxonomies, Nwazet.Commerce

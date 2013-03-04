@@ -19,22 +19,10 @@ namespace RichSite
 
         private void BuildMenu(NavigationItemBuilder menu)
         {
-           // Admin/Contents/List/Movie
+           // Admin/Contents/List/Product
             menu.Add(T("List"), "1.0", item =>
                 item.Action("List", "Admin", new { area = "Contents", id = "Product" }));
 
-            //menu.Add(T("New Movie"), "1.1", item =>
-            //    item.Action("Create", "Admin", new { area = "Contents", id = "Movie" }));
-
-            //menu.Add(T("Movie Lookup"), "1.2", item =>
-            //    item.Action("Index", "MovieLookup", new { area = "Pluralsight.Movies" }).Permission(Permissions.LookupMovie));
-
-            //menu.Add(T("Actors"), "2.0", item =>
-            //    item.Action("Index", "ActorsAdmin", new { area = "Pluralsight.Movies" }));
-
-            ////Admin/Contents/List/PrettyGallery
-            // menu.Add(T("Image Gallery"), "3.0", item =>
-            //    item.Action("List", "Admin", new { area = "Contents", id = "PrettyGallery" }));
         }
     }
 }

@@ -163,34 +163,16 @@ namespace RichSite
 
         public int UpdateFrom4()
         {
-
-            //var smtpSettings = _orchardServices.WorkContext.CurrentSite.As<SmtpSettingsPart>();
-            CreateCustomForm("Subscriber form");
+            ContentDefinitionManager.AlterPartDefinition("ProductPart", builder =>
+                builder.WithField("Category", fld =>
+                fld.OfType("TaxonomyField")
+                .WithSetting("DisplayName", "Category")
+                .WithSetting("TaxonomyFieldSettings.Taxonomy", "Category")
+                .WithSetting("TaxonomyFieldSettings.LeavesOnly", "False")
+                .WithSetting("TaxonomyFieldSettings.SingleChoice", "False")
+                .WithSetting("TaxonomyFieldSettings.Hint", "Select as many categories as required")
+                ));
             return 5;
-        }
-
-        public int UpdateFrom5()
-        {
-
-            //var smtpSettings = _orchardServices.WorkContext.CurrentSite.As<SmtpSettingsPart>();
-            CreateCustomForm("Subscriber form2");
-            return 6;
-        }
-
-        public int UpdateFrom6()
-        {
-
-            //var smtpSettings = _orchardServices.WorkContext.CurrentSite.As<SmtpSettingsPart>();
-            CreateCustomForm("Subscriberform3");
-            return 7;
-        }
-
-        public int UpdateFrom7()
-        {
-
-            //var smtpSettings = _orchardServices.WorkContext.CurrentSite.As<SmtpSettingsPart>();
-            CreateCustomForm("Subscriber form4");
-            return 8;
         }
 
 

@@ -107,8 +107,8 @@
   </Dependency>
   <Dependency>
     <ModuleName>Laughlin.ErrorLog</ModuleName>
-    <VirtualPath>~/Modules/Laughlin.ErrorLog/Laughlin.ErrorLog.csproj</VirtualPath>
-    <LoaderName>DynamicExtensionLoader</LoaderName>
+    <VirtualPath>~/Modules/Laughlin.ErrorLog/bin/Laughlin.ErrorLog.dll</VirtualPath>
+    <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <References />
   </Dependency>
   <Dependency>
@@ -674,14 +674,44 @@
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <References>
       <Reference>
+        <Name>Contrib.Taxonomies</Name>
+        <LoaderName>PrecompiledExtensionLoader</LoaderName>
+        <VirtualPath>~/Modules/Contrib.Taxonomies/bin/Contrib.Taxonomies.dll</VirtualPath>
+      </Reference>
+      <Reference>
+        <Name>Nwazet.Commerce</Name>
+        <LoaderName>PrecompiledExtensionLoader</LoaderName>
+        <VirtualPath>~/Modules/Nwazet.Commerce/bin/Nwazet.Commerce.dll</VirtualPath>
+      </Reference>
+      <Reference>
+        <Name>Orchard.Alias</Name>
+        <LoaderName>PrecompiledExtensionLoader</LoaderName>
+        <VirtualPath>~/Modules/Orchard.Alias/bin/Orchard.Alias.dll</VirtualPath>
+      </Reference>
+      <Reference>
+        <Name>Orchard.Autoroute</Name>
+        <LoaderName>PrecompiledExtensionLoader</LoaderName>
+        <VirtualPath>~/Modules/Orchard.Autoroute/bin/Orchard.Autoroute.dll</VirtualPath>
+      </Reference>
+      <Reference>
         <Name>Orchard.CustomForms</Name>
         <LoaderName>PrecompiledExtensionLoader</LoaderName>
         <VirtualPath>~/Modules/Orchard.CustomForms/bin/Orchard.CustomForms.dll</VirtualPath>
       </Reference>
       <Reference>
+        <Name>Orchard.Fields</Name>
+        <LoaderName>PrecompiledExtensionLoader</LoaderName>
+        <VirtualPath>~/Modules/Orchard.Fields/bin/Orchard.Fields.dll</VirtualPath>
+      </Reference>
+      <Reference>
         <Name>Orchard.Forms</Name>
         <LoaderName>PrecompiledExtensionLoader</LoaderName>
         <VirtualPath>~/Modules/Orchard.Forms/bin/Orchard.Forms.dll</VirtualPath>
+      </Reference>
+      <Reference>
+        <Name>Orchard.Roles</Name>
+        <LoaderName>PrecompiledExtensionLoader</LoaderName>
+        <VirtualPath>~/Modules/Orchard.Roles/bin/Orchard.Roles.dll</VirtualPath>
       </Reference>
       <Reference>
         <Name>Orchard.Rules</Name>
