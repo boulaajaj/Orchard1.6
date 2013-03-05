@@ -40,7 +40,7 @@
     <ExtensionId>Nwazet.Commerce</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/Nwazet.Commerce/bin/Nwazet.Commerce.dll</VirtualPath>
-    <Hash>db9eb196e5fb3c80</Hash>
+    <Hash>db9eb1b97e20b2c0</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>Orchard.Alias</ExtensionId>
@@ -148,7 +148,7 @@
     <ExtensionId>Orchard.jPlayer</ExtensionId>
     <LoaderName>DynamicExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/Orchard.jPlayer/Orchard.jPlayer.csproj</VirtualPath>
-    <Hash>7d66879740900a5f</Hash>
+    <Hash>7d66903424829ea8</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>Orchard.jQuery</ExtensionId>
@@ -316,7 +316,7 @@
     <ExtensionId>Pluralsight.Movies</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/Pluralsight.Movies/bin/Pluralsight.Movies.dll</VirtualPath>
-    <Hash>b7aa18bfb58ccebd</Hash>
+    <Hash>b7aa18f7a94e5b4e</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>PrettyGallery</ExtensionId>
@@ -328,13 +328,13 @@
     <ExtensionId>Richinoz.Paypal</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/Richinoz.Paypal/bin/Richinoz.Paypal.dll</VirtualPath>
-    <Hash>24f3b163ab73f27f</Hash>
+    <Hash>24f3b1bd8b41cc80</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>RichSite</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/RichSite/bin/RichSite.dll</VirtualPath>
-    <Hash>4b8147d3a2d2ae0d</Hash>
+    <Hash>4b8148599e531c3f</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>SysCache</ExtensionId>

@@ -83,17 +83,27 @@
       <Name>Nwazet.Commerce</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <Content Include="Views\Paypal\PostToPaypal.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdminMenu.cs" />
     <Compile Include="Controllers\PaypalContoller.cs" />
+    <Compile Include="Drivers\OrderPartDriver.cs" />
     <Compile Include="Drivers\PaypalCheckoutSettingsPartDriver.cs" />
     <Compile Include="Handlers\PaypalCheckoutSettingsPartHandler.cs" />
+    <Compile Include="Handlers\OrderHandler.cs" />
+    <Compile Include="Migrations\OrderMigrations.cs" />
     <Compile Include="Migrations\PaypalCheckoutMigrations.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\PaypalCheckoutSettingsPart.cs" />
     <Compile Include="Models\PaypalCheckoutSettingsPartRecord.cs" />
+    <Compile Include="Models\OrderPart.cs" />
+    <Compile Include="Models\OrderPartRecord.cs" />
+    <Compile Include="Services\IOrderService.cs" />
     <Compile Include="Services\IPaypalCheckoutService.cs" />
+    <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\PaypalCheckoutService.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -38,6 +38,8 @@
 
     @*@Html.Hidden("upload", "1")*@
     <input type="hidden" name="@("upload")" value="1"/>
+    
+    <input type="hidden" name="@("custom")" value="RichTest"/>
 
     @{
         int i = 1;
@@ -49,21 +51,6 @@
         
             i++;
         }
-
-        i = 0;
- @* @foreach (var product in Model.CartItems)
-          {
-              i++;
-        <input type="hidden" name="@("item_name_" + i)" value="@product.Title"/>
-        <input type="hidden" name="@("item_id_" + i)" value="@product.Sku"/>
-        <input type="hidden" name="@("item_weight_" + i)" value="@product.Weight"/> 
-        <input type="hidden" name="@("item_weight_unit_" + i)" value="@Model.WeightUnit"/> 
-        <input type="hidden" name="@("item_description_" + i)" value="@product.Title"/>
-        <input type="hidden" name="@("item_price_" + i)" value="@product.DiscountedPrice"/>
-        <input type="hidden" name="@("item_currency_" + i)" value="@Model.Currency"/>
-        <input type="hidden" name="@("item_quantity_" + i)" value="@product.Quantity"/>
-        <input type="hidden" name="@("item_merchant_id_" + i)" value="@Model.MerchantId"/>
-          }*@
 
            i = 0;
     }

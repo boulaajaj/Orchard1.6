@@ -5,16 +5,21 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Web.Mvc;
+using Orchard.UI.Admin;
 using Richinoz.Paypal.Models;
+using Richinoz.Paypal.Services;
 
 namespace Richinoz.Paypal.Controllers
 {
+    [Admin]
     public class PaypalController : Controller
     {
-        public PaypalController()
-        {
+        private readonly IOrderService _orderService;
 
+        public PaypalController(IOrderService orderService) {
+            _orderService = orderService;
         }
+
         //
         // GET: /Paypal/
       
@@ -22,8 +27,15 @@ namespace Richinoz.Paypal.Controllers
         public ActionResult Success(Order order)
         {
             return View(order);
-        }       
+        }
 
+        [System.Web.Mvc.HttpGet]
+        public ActionResult PostToPaypal() {
+
+            var orderPart = _orderService.Create();
+
+            return View();
+        }
         public ActionResult IPN()
         {
 

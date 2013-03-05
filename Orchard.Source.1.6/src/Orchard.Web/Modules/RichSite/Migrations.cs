@@ -208,7 +208,7 @@ namespace RichSite
             paypalCheckoutSettingsPart.MerchantId = Configs.AppSetting("PaypalMerchantId", "richse_1361416757_biz@gmail.com");
             paypalCheckoutSettingsPart.Currency = Configs.AppSetting("PaypalCurrency", "AUD");            
             paypalCheckoutSettingsPart.ReturnUrl = Configs.AppSetting("PaypalReturnUrl", "http://localhost/orchard/cart");
-
+            
             paypalCheckoutSettingsPart.UseSandbox = Configs.AppSettingBool("PaypalUseSandbox", true);
 
             return 8;

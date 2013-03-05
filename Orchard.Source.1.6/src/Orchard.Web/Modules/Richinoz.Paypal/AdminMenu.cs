@@ -1,5 +1,4 @@
-﻿using Orchard.Core.Contents;
-using Orchard.Localization;
+﻿using Orchard.Localization;
 using Orchard.UI.Navigation;
 
 namespace Richinoz.Paypal
@@ -15,27 +14,16 @@ namespace Richinoz.Paypal
 
         public void GetNavigation(NavigationBuilder builder)
         {
-            builder.Add(T("Paypal"), "5", BuildMenu);
+            builder.Add(T("PaypalAdmin"), "5", BuildMenu);
         }
 
         private void BuildMenu(NavigationItemBuilder menu)
         {
            // Admin/Contents/List/Movie
-            menu.Add(T("List"), "1.0", item =>
-                item.Action("List", "Admin", new { area = "Contents", id = "Product" }));
+          
+            menu.Add(T("Paypal Lookup"), "1.2", item =>
+                item.Action("PostToPaypal", "Paypal", new { area = "Richinoz.Paypal" }));
 
-            //menu.Add(T("New Movie"), "1.1", item =>
-            //    item.Action("Create", "Admin", new { area = "Contents", id = "Movie" }));
-
-            //menu.Add(T("Movie Lookup"), "1.2", item =>
-            //    item.Action("Index", "MovieLookup", new { area = "Pluralsight.Movies" }).Permission(Permissions.LookupMovie));
-
-            //menu.Add(T("Actors"), "2.0", item =>
-            //    item.Action("Index", "ActorsAdmin", new { area = "Pluralsight.Movies" }));
-
-            ////Admin/Contents/List/PrettyGallery
-            // menu.Add(T("Image Gallery"), "3.0", item =>
-            //    item.Action("List", "Admin", new { area = "Contents", id = "PrettyGallery" }));
         }
     }
 }
