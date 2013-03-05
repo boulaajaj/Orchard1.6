@@ -1,5 +1,8 @@
+using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
+using Nwazet.Commerce.Models;
 using Orchard;
 using Orchard.ContentManagement;
 using Orchard.ContentManagement.Aspects;
@@ -15,13 +18,26 @@ using Orchard.Data;
 using Orchard.Data.Migration;
 using Orchard.Email.Models;
 using Orchard.Indexing;
+using Orchard.Roles.Models;
+using Orchard.Roles.Services;
 using Orchard.Rules.Models;
 using Orchard.Rules.Services;
 using Orchard.Security;
 using Orchard.Users.Models;
+using Richinoz.Paypal.Models;
 
 namespace RichSite
 {
+    public  static class Configs {
+        public static string AppSetting(string key, string defaultValue) {
+            return ConfigurationManager.AppSettings[key] ?? defaultValue;
+        }
+
+        public static bool AppSettingBool(string key, bool defaultValue) {
+            bool val;
+            return bool.TryParse(ConfigurationManager.AppSettings[key], out val) ? val : defaultValue;
+        }
+    }
     public class Migrations : DataMigrationImpl
     {
         private readonly IRulesServices _rulesServices;
@@ -29,21 +45,30 @@ namespace RichSite
         private readonly IRepository<ContentTypeRecord> _contentTypeRepository;
         private readonly IRepository<ContentItemRecord> _contentItemRepository;
         private readonly IRepository<ContentItemVersionRecord> _contentItemVersionRepository;
+        private readonly IRepository<UserRolesPartRecord> _userRolesRepository;
         private readonly IMembershipService _membershipService;
+        private readonly IRoleService _roleService;
+        private readonly IContentManager _contentManager;
 
         public Migrations(IRulesServices rulesServices,
             IOrchardServices orchardServices,
             IRepository<ContentTypeRecord> contentTypeRepository,
             IRepository<ContentItemRecord> contentItemRepository,
             IRepository<ContentItemVersionRecord> contentItemVersionRepository,
-            IMembershipService membershipService)
+            IRepository<UserRolesPartRecord> userRolesRepository,
+            IMembershipService membershipService,
+            IRoleService roleService,
+            IContentManager contentManager)
         {
             _rulesServices = rulesServices;
             _orchardServices = orchardServices;
             _contentTypeRepository = contentTypeRepository;
             _contentItemRepository = contentItemRepository;
             _contentItemVersionRepository = contentItemVersionRepository;
+            _userRolesRepository = userRolesRepository;
             _membershipService = membershipService;
+            _roleService = roleService;
+            _contentManager = contentManager;
         }
 
         public const string EMailRegexPattern = UserPart.EmailPattern;// @"^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})";
@@ -130,12 +155,6 @@ namespace RichSite
         public int UpdateFrom3()
         {
 
-            //var contentItem = _orchardServices.ContentManager.New("CustomForm");
-
-            //Create(contentItem, VersionOptions.Draft);
-
-            //Publish(contentItem);
-
             CreateCustomForm("RichTitle");
 
             return 4;
@@ -171,15 +190,45 @@ namespace RichSite
 
         public int UpdateFrom6() {
 
-            var user = _orchardServices.ContentManager.New<IUser>("User");
-            user = _membershipService.CreateUser(new CreateUserParams(
-                                                 "Test",
-                                                 "tester1",
-                                                 "test@richinoz.com",
-                                                 null, null, true));
+            var user = _membershipService.CreateUser(new CreateUserParams(
+                                                "TesterMan",
+                                                "tester1",
+                                                "test@richinoz.com",
+                                                null, null, true));
 
-            user.
+            UpdateUserRoles(user, new[] { "Author", "Moderator" });
+
             return 7;
+        }
+
+        public int UpdateFrom7() {
+
+            var paypalCheckoutSettingsPart = _orchardServices.WorkContext.CurrentSite.As<PaypalCheckoutSettingsPart>();
+
+            paypalCheckoutSettingsPart.MerchantId = Configs.AppSetting("PaypalMerchantId", "richse_1361416757_biz@gmail.com");
+            paypalCheckoutSettingsPart.Currency = Configs.AppSetting("PaypalCurrency", "AUD");            
+            paypalCheckoutSettingsPart.ReturnUrl = Configs.AppSetting("PaypalReturnUrl", "http://localhost/orchard/cart");
+
+            paypalCheckoutSettingsPart.UseSandbox = Configs.AppSettingBool("PaypalUseSandbox", true);
+
+            return 8;
+        }
+
+        private void UpdateUserRoles(IUser user, IEnumerable<string> roles)
+        {
+            var currentUserRoleRecords = _userRolesRepository.Fetch(x => x.UserId == user.Id);
+            var currentRoleRecords = currentUserRoleRecords.Select(x => x.Role);
+            var targetRoleRecords = _roleService.GetRoles().Where(x => roles.Contains(x.Name));
+
+            foreach (var addingRole in targetRoleRecords.Where(x => !currentRoleRecords.Contains(x)))
+            {
+                _userRolesRepository.Create(new UserRolesPartRecord { UserId = user.Id, Role = addingRole });
+            }
+
+            foreach (var removingRole in currentUserRoleRecords.Where(x => !targetRoleRecords.Contains(x.Role)))
+            {
+                _userRolesRepository.Delete(removingRole);
+            }
         }
 
         private void CreateCustomForm(string title) {

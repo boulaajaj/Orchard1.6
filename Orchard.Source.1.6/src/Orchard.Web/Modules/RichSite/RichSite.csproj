@@ -92,6 +92,10 @@
       <Project>{05660F47-D649-48BD-9DED-DF4E01E7CFF9}</Project>
       <Name>Orchard.Email</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Orchard.Roles\Orchard.Roles.csproj">
+      <Project>{D10AD48F-407D-4DB5-A328-173EC7CB010F}</Project>
+      <Name>Orchard.Roles</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Orchard.Rules\Orchard.Rules.csproj">
       <Project>{966EC390-3C7F-4D98-92A6-F0F30D02E9B1}</Project>
       <Name>Orchard.Rules</Name>
@@ -99,6 +103,10 @@
     <ProjectReference Include="..\Orchard.Users\Orchard.Users.csproj">
       <Project>{79AED36E-ABD0-4747-93D3-8722B042454B}</Project>
       <Name>Orchard.Users</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Richinoz.Paypal\Richinoz.Paypal.csproj">
+      <Project>{86DED6FD-58D6-41AE-83EA-01D9E962B783}</Project>
+      <Name>Richinoz.Paypal</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

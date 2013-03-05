@@ -9,3 +9,4 @@ Features:
     Richinoz.Paypal:
         Description: Description for feature Richinoz.Paypal.
 		Dependencies: Nwazet.Commerce
+		Category: Commerce

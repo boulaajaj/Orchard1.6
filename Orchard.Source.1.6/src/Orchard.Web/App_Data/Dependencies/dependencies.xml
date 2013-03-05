@@ -738,6 +738,11 @@
         <LoaderName>PrecompiledExtensionLoader</LoaderName>
         <VirtualPath>~/Modules/Orchard.Users/bin/Orchard.Users.dll</VirtualPath>
       </Reference>
+      <Reference>
+        <Name>Richinoz.Paypal</Name>
+        <LoaderName>PrecompiledExtensionLoader</LoaderName>
+        <VirtualPath>~/Modules/Richinoz.Paypal/bin/Richinoz.Paypal.dll</VirtualPath>
+      </Reference>
     </References>
   </Dependency>
   <Dependency>

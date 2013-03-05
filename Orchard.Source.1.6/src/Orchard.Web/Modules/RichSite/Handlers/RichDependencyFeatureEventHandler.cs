@@ -35,6 +35,10 @@ namespace RichSite.Handlers
 
         public void Enabled(Feature feature)
         {
+           CreateTaxonomies();
+        }
+
+        private void CreateTaxonomies() {
             //if genre taxonomy not defined - the ncreate
             if (_taxonomyService.GetTaxonomyByName("Category") == null)
             {

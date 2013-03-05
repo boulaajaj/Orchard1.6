@@ -8,4 +8,4 @@ Description: Configuration defaults for a Richinoz website
 Features:
     RichSite:
         Description: Description for feature RichSite.
-		Dependencies: Orchard.Rules, Orchard.EMail, Orchard.CustomForms, Contrib.Taxonomies, Nwazet.Commerce, Laughlin.ErrorLog
+		Dependencies: Orchard.Rules, Orchard.EMail, Orchard.CustomForms, Contrib.Taxonomies, Nwazet.Commerce, Laughlin.ErrorLog, Richinoz.Paypal

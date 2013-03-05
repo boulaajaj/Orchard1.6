@@ -139,8 +139,6 @@
     <Compile Include="Models\BundlePart.cs" />
     <Compile Include="Models\BundlePartRecord.cs" />
     <Compile Include="Models\BundleProductsRecord.cs" />
-    <Compile Include="Models\PaypalCheckoutSettingsPartRecord.cs" />
-    <Compile Include="Models\PaypalCheckoutSettingsPart.cs" />
     <Compile Include="Models\DiscountPart.cs" />
     <Compile Include="Models\DiscountPartRecord.cs" />
     <Compile Include="Models\SizeBasedShippingMethodPart.cs" />
