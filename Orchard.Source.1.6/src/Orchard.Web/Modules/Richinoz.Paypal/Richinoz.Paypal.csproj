@@ -62,6 +62,7 @@
   <ItemGroup>
     <Content Include="Content\loading.gif" />
     <Content Include="Scripts\Paypal.js" />
+    <Content Include="Scripts\PaypalSubmit.js" />
     <Content Include="Web.config" />
     <Content Include="Views\Web.config" />
     <Content Include="Scripts\Web.config" />

@@ -2,8 +2,9 @@
     Script.Include("Paypal.js");
 
     var checkoutUrl = String.Format(Model.UseSandbox ? "https://www.sandbox.paypal.com/cgi-bin/webscr" : "https://www.paypal.com/cgi-bin/webscr");
-    checkoutUrl = "http://localhost/paypal/posttopaypal";
+    //checkoutUrl = "http://localhost/paypal/posttopaypal";
     var isMini = Model.IsMiniCart != null && (bool)Model.IsMiniCart;
+    var postUrl = Request.RawUrl.Substring(0, Request.RawUrl.Length - 4) + "paypal/posttopaypal";
     var width = isMini ? 160 : 150;
     var height = isMini ? 43 : 40;
     var includedAreaToGoogleFormatString = new Dictionary<string, KeyValuePair<string, string>> {
@@ -16,9 +17,9 @@
     };
     }
   
-<form id="frm" action="@checkoutUrl">
+<form id="frm" action="@postUrl">
     
-
+    <input type="hidden" name="@("checkout_Url")" value="@checkoutUrl"/>
     @*@Html.HiddenFor(model => model.cmd)*@
     <input type="hidden" name="@("cmd")" value="_cart"/>
 

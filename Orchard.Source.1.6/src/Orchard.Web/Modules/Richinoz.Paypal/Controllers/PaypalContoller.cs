@@ -4,6 +4,7 @@ using System.Configuration;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Web;
 using System.Web.Mvc;
 using Orchard.UI.Admin;
 using Richinoz.Paypal.Models;
@@ -30,12 +31,19 @@ namespace Richinoz.Paypal.Controllers
         }
 
         [System.Web.Mvc.HttpGet]
-        public ActionResult PostToPaypal(string business)
+        public ActionResult PostToPaypal(string checkout_Url)
         {
 
             var orderPart = _orderService.Create();
 
-            return View();
+            var url = Request.RawUrl;
+            var query =  HttpUtility.ParseQueryString(url);
+
+            var paypalUrl = string.Format("{0}?{1}", checkout_Url, query);
+            
+            return Redirect(paypalUrl);
+
+            //return View();
         }
         public ActionResult IPN()
         {
