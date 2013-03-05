@@ -2,6 +2,7 @@
     Script.Include("Paypal.js");
 
     var checkoutUrl = String.Format(Model.UseSandbox ? "https://www.sandbox.paypal.com/cgi-bin/webscr" : "https://www.paypal.com/cgi-bin/webscr");
+    checkoutUrl = "http://localhost/paypal/posttopaypal";
     var isMini = Model.IsMiniCart != null && (bool)Model.IsMiniCart;
     var width = isMini ? 160 : 150;
     var height = isMini ? 43 : 40;

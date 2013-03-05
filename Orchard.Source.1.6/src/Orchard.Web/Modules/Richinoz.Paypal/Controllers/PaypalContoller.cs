@@ -30,7 +30,8 @@ namespace Richinoz.Paypal.Controllers
         }
 
         [System.Web.Mvc.HttpGet]
-        public ActionResult PostToPaypal() {
+        public ActionResult PostToPaypal(string business)
+        {
 
             var orderPart = _orderService.Create();
 

@@ -101,6 +101,7 @@
     <Compile Include="Models\PaypalCheckoutSettingsPartRecord.cs" />
     <Compile Include="Models\OrderPart.cs" />
     <Compile Include="Models\OrderPartRecord.cs" />
+    <Compile Include="Routes.cs" />
     <Compile Include="Services\IOrderService.cs" />
     <Compile Include="Services\IPaypalCheckoutService.cs" />
     <Compile Include="Services\OrderService.cs" />
