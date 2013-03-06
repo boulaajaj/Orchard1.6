@@ -124,41 +124,37 @@ namespace Richinoz.Paypal.Controllers
 
                 if (AmountPaidIsValid(orderPart, amountPaid))
                 {
-                    var address = new Address
-                    {
-                        FirstName = Request["first_name"],
-                        LastName = Request["last_name"],
-                        Email = Request["payer_email"],
-                        Street1 = Request["address_street"],
-                        City = Request["address_city"],
-                        StateOrProvince = Request["address_state"],
-                        Country = Request["address_country"],
-                        Zip = Request["address_zip"],
-                        //UserName = order.UserName
-                    };
-                    var order = new Order()
-                    {
-                        Address = address,
-                        Id = orderId,
-
-                    };
-
-
-
                     //process itPAY
                     try
                     {
 
-                        //serialise the results
+                        var address = new Address
+                        {
+                            FirstName = Request["first_name"],
+                            LastName = Request["last_name"],
+                            Email = Request["payer_email"],
+                            Street1 = Request["address_street"],
+                            City = Request["address_city"],
+                            StateOrProvince = Request["address_state"],
+                            Country = Request["address_country"],
+                            Zip = Request["address_zip"],
+                            //UserName = order.UserName
+                        };
+
+                        //re-hydrate
+                        var order = SerialisationUtils.DeserializeFromXml<Order>(orderPart.Details);
+                        order.Address = address;
+
+                        orderPart.Details = SerialisationUtils.SerializeToXml(orderId);
 
                         _logger.Log(LogLevel.Information, null, "{0}{1}", "IPN Order successfully transacted:", orderId);
                         //return RedirectToAction("Success", "Paypal", new { order = order});
-                        return View("Return");
+                        return null;
                     }
                     catch
                     {
                         //HandleProcessingError(order, x);
-                        return View("Return");
+                        return null;
                     }
                 }
                 else
@@ -169,7 +165,7 @@ namespace Richinoz.Paypal.Controllers
 
 
 
-            return View("Return");
+            return null;
         }
 
         /// <summary>
