@@ -30,20 +30,19 @@ namespace Richinoz.Paypal.Controllers
             return View(order);
         }
 
-        [System.Web.Mvc.HttpGet]
+        [System.Web.Mvc.HttpPost]
         public ActionResult PostToPaypal(string checkout_Url)
         {
 
             var orderPart = _orderService.Create();
+            var orderId = orderPart.Id;
 
-            var url = Request.RawUrl;
-            var query =  HttpUtility.ParseQueryString(url);
+            var query = Request.Form.ToString();// HttpUtility.ParseQueryString(Request.RawUrl);
 
-            var paypalUrl = string.Format("{0}?{1}", checkout_Url, query);
+            var paypalUrl = string.Format("{0}?{1}&customId={2}", checkout_Url, query, orderId);
             
             return Redirect(paypalUrl);
 
-            //return View();
         }
         public ActionResult IPN()
         {

@@ -85,9 +85,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Paypal\PostToPaypal.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="AdminMenu.cs" />
     <Compile Include="Controllers\PaypalContoller.cs" />
     <Compile Include="Drivers\OrderPartDriver.cs" />

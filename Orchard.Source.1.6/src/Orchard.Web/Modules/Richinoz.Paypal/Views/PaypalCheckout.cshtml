@@ -1,8 +1,7 @@
 ﻿@{
     Script.Include("Paypal.js");
 
-    var checkoutUrl = String.Format(Model.UseSandbox ? "https://www.sandbox.paypal.com/cgi-bin/webscr" : "https://www.paypal.com/cgi-bin/webscr");
-    //checkoutUrl = "http://localhost/paypal/posttopaypal";
+    var checkoutUrl = String.Format(Model.UseSandbox ? "https://www.sandbox.paypal.com/cgi-bin/webscr" : "https://www.paypal.com/cgi-bin/webscr");    
     var isMini = Model.IsMiniCart != null && (bool)Model.IsMiniCart;
     var postUrl = Request.RawUrl.Substring(0, Request.RawUrl.Length - 4) + "paypal/posttopaypal";
     var width = isMini ? 160 : 150;
@@ -17,9 +16,11 @@
     };
     }
   
-<form id="frm" action="@postUrl">
+<form id="frm" action="@postUrl" method="POST">
     
-    <input type="hidden" name="@("checkout_Url")" value="@checkoutUrl"/>
+    
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="@("checkout_Url")" value="@checkoutUrl" />
     @*@Html.HiddenFor(model => model.cmd)*@
     <input type="hidden" name="@("cmd")" value="_cart"/>
 
@@ -41,7 +42,6 @@
     @*@Html.Hidden("upload", "1")*@
     <input type="hidden" name="@("upload")" value="1"/>
     
-    <input type="hidden" name="@("custom")" value="RichTest"/>
 
     @{
         int i = 1;
