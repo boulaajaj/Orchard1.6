@@ -91,6 +91,7 @@
     <Compile Include="Drivers\PaypalCheckoutSettingsPartDriver.cs" />
     <Compile Include="Handlers\PaypalCheckoutSettingsPartHandler.cs" />
     <Compile Include="Handlers\OrderHandler.cs" />
+    <Compile Include="Helpers\SerialisationUtils.cs" />
     <Compile Include="Migrations\OrderMigrations.cs" />
     <Compile Include="Migrations\PaypalCheckoutMigrations.cs" />
     <Compile Include="Models\Address.cs" />

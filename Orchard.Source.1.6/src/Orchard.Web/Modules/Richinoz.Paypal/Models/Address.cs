@@ -1,6 +1,6 @@
 ﻿namespace Richinoz.Paypal.Models
 {
-    class Address
+    public class Address
     {
         public string FirstName { get; set; }
 

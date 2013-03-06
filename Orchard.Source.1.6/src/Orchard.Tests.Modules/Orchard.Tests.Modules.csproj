@@ -156,6 +156,7 @@
     <Compile Include="Recipes\RecipeHandlers\ModuleRecipeHandlerTest.cs" />
     <Compile Include="Recipes\RecipeHandlers\ThemeRecipeHandlerTest.cs" />
     <Compile Include="Recipes\Services\RecipeManagerTests.cs" />
+    <Compile Include="Richinoz.Paypal\PaypalTests.cs" />
     <Compile Include="Scripting.Dlr\EvaluatorTests.cs" />
     <Compile Include="Scripting\EvaluatorTestsBase.cs" />
     <Compile Include="Scripting\EvaluatorTests.cs" />
@@ -276,6 +277,10 @@
     <ProjectReference Include="..\Orchard.Web\Modules\Pluralsight.Movies\Pluralsight.Movies.csproj">
       <Project>{01A688CE-1A09-4087-9916-63C51C0377ED}</Project>
       <Name>Pluralsight.Movies</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Web\Modules\Richinoz.Paypal\Richinoz.Paypal.csproj">
+      <Project>{86DED6FD-58D6-41AE-83EA-01D9E962B783}</Project>
+      <Name>Richinoz.Paypal</Name>
     </ProjectReference>
     <ProjectReference Include="..\Orchard\Orchard.Framework.csproj">
       <Project>{2D1D92BB-4555-4CBE-8D0E-63563D6CE4C6}</Project>

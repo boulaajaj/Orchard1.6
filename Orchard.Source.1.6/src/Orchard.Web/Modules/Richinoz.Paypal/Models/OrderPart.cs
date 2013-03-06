@@ -9,6 +9,12 @@ namespace Richinoz.Paypal.Models {
             set { Record.Details = value; }
         }
 
+        public decimal Amount
+        {
+            get { return Record.Amount; }
+            set { Record.Amount = value; }
+        }
+
     }
 }
 

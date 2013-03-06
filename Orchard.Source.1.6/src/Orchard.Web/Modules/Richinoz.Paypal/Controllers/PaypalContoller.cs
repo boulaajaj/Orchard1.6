@@ -6,24 +6,30 @@ using System.Net;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using Orchard;
+using Orchard.Logging;
 using Orchard.UI.Admin;
+using Richinoz.Paypal.Helpers;
 using Richinoz.Paypal.Models;
 using Richinoz.Paypal.Services;
 
 namespace Richinoz.Paypal.Controllers
 {
-    [Admin]
     public class PaypalController : Controller
     {
         private readonly IOrderService _orderService;
+        private readonly ILogger _logger;
+        private const string CustomId = "customId";
 
-        public PaypalController(IOrderService orderService) {
+        public PaypalController(IOrderService orderService)
+        {
             _orderService = orderService;
+            //_logger = logger;
         }
 
         //
         // GET: /Paypal/
-      
+
 
         public ActionResult Success(Order order)
         {
@@ -39,11 +45,56 @@ namespace Richinoz.Paypal.Controllers
 
             var query = Request.Form.ToString();// HttpUtility.ParseQueryString(Request.RawUrl);
 
-            var paypalUrl = string.Format("{0}?{1}&customId={2}", checkout_Url, query, orderId);
-            
+            var paypalUrl = string.Format("{0}?{1}&{2}={3}", checkout_Url, query, CustomId, orderId);
+
+            //get all items from query string
+            var serialised = SerialiseOrder(orderId);
+
+            orderPart.Details = serialised;
+
             return Redirect(paypalUrl);
 
         }
+
+        public string SerialiseOrder(int orderId)
+        {
+
+            var orderDetails = new Order() { Id = orderId };
+
+            try
+            {
+                int i = 0;
+
+                while (true)
+                {
+                    i++;
+                    var name = Request.Form[string.Format("item_name_{0}", i)];
+
+                    if (name == null)
+                        break;
+                    decimal amount = 0;
+                    decimal.TryParse(Request.Form[string.Format("amount_{0}", i)], out amount);
+
+                    int qty = 0;
+                    int.TryParse(Request.Form[string.Format("quantity_{0}", i)], out qty);
+
+                    orderDetails.OrderItems.Add(new OrderItem()
+                    {
+                        Amount = amount,
+                        Quantity = qty,
+                        Name = name
+                    });
+                }
+
+            }
+            catch (Exception ex) {
+                return "SerialiseOrder Error-" + ex.Message;                
+            }
+            return SerialisationUtils.SerializeToXml(orderDetails);
+
+
+        }
+
         public ActionResult IPN()
         {
 
@@ -58,19 +109,22 @@ namespace Richinoz.Paypal.Controllers
 
                 string transactionID = Request["txn_id"];
                 string sAmountPaid = Request["mc_gross"];
-                string orderID = Request["custom"];
+                int orderId;
+                if (!int.TryParse(Request[CustomId], out orderId))
+                {
+                    _logger.Error("No order Id found in Request variable");
+                }
+
+                var orderPart = _orderService.Get(orderId);
 
                 //validate the order
                 Decimal amountPaid = 0;
                 Decimal.TryParse(sAmountPaid, out amountPaid);
 
-                //Order order = _orderService.GetOrder(new Guid(orderID));                
-                //check the Amount paid
-                var order = new Order(){Id=orderID};
-                if (AmountPaidIsValid(order, amountPaid))
-                {
 
-                    var add = new Address
+                if (AmountPaidIsValid(orderPart, amountPaid))
+                {
+                    var address = new Address
                     {
                         FirstName = Request["first_name"],
                         LastName = Request["last_name"],
@@ -82,13 +136,22 @@ namespace Richinoz.Paypal.Controllers
                         Zip = Request["address_zip"],
                         //UserName = order.UserName
                     };
+                    var order = new Order()
+                    {
+                        Address = address,
+                        Id = orderId,
+
+                    };
+
 
 
                     //process itPAY
                     try
                     {
-                        //_pipeline.AcceptPalPayment(order, transactionID, amountPaid);
-                        //_logger.Info("IPN Order successfully transacted: " + orderID);
+
+                        //serialise the results
+
+                        _logger.Log(LogLevel.Information, null, "{0}{1}", "IPN Order successfully transacted:", orderId);
                         //return RedirectToAction("Success", "Paypal", new { order = order});
                         return View("Return");
                     }
@@ -231,7 +294,7 @@ namespace Richinoz.Paypal.Controllers
 
             return response;
         }
-        bool AmountPaidIsValid(Order order, decimal amountPaid)
+        bool AmountPaidIsValid(OrderPart order, decimal amountPaid)
         {
 
             //pull the order
@@ -239,7 +302,7 @@ namespace Richinoz.Paypal.Controllers
 
             if (order != null)
             {
-                if (order.Total > amountPaid)
+                if (order.Amount > amountPaid)
                 {
                     //_logger.Warn("Invalid order Amount to PDT/IPN: " + order.ID + "; Actual: " + amountPaid.ToString("C") + "; Should be: " + order.Total.ToString("C") + "user IP is " + Request.UserHostAddress);
                     result = false;
