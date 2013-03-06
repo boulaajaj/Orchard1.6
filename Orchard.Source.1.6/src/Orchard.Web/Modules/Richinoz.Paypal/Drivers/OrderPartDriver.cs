@@ -11,6 +11,11 @@ namespace Richinoz.Paypal.Drivers {
             get { return "Order"; }
         }
 
+        protected override DriverResult Display(OrderPart part, string displayType, dynamic shapeHelper)
+        {
+            return Combined(
+                ContentShape("Parts_Order", () => shapeHelper.Parts_Order(OrderPart: part)));
+        }
     
     }
 }
