@@ -7,6 +7,8 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using Orchard;
+using Orchard.ContentManagement;
+using Orchard.Core.Title.Models;
 using Orchard.Logging;
 using Orchard.UI.Admin;
 using Richinoz.Paypal.Helpers;
@@ -37,21 +39,18 @@ namespace Richinoz.Paypal.Controllers
         }
 
         [System.Web.Mvc.HttpPost]
-        public ActionResult PostToPaypal(string checkout_Url)
-        {
+        public ActionResult PostToPaypal(string checkout_Url) {
 
-            var orderPart = _orderService.Create();
+            var orderPart = _orderService.CreateOrder();
             var orderId = orderPart.Id;
 
             var query = Request.Form.ToString();// HttpUtility.ParseQueryString(Request.RawUrl);
 
             var paypalUrl = string.Format("{0}?{1}&{2}={3}", checkout_Url, query, CustomId, orderId);
 
-            //get all items from query string
-            var serialised = SerialiseOrder(orderId);
-
-            orderPart.Details = serialised;
-
+            orderPart.As<OrderPart>().Details= SerialiseOrder(orderId);
+            orderPart.As<TitlePart>().Title = "UnVerified Order";
+            
             return Redirect(paypalUrl);
 
         }
@@ -115,7 +114,8 @@ namespace Richinoz.Paypal.Controllers
                     _logger.Error("No order Id found in Request variable");
                 }
 
-                var orderPart = _orderService.Get(orderId);
+                var contentItem = _orderService.Get(orderId);
+                var orderPart = contentItem.As<OrderPart>();
 
                 //validate the order
                 Decimal amountPaid = 0;
@@ -146,9 +146,11 @@ namespace Richinoz.Paypal.Controllers
                         order.Address = address;
 
                         orderPart.Details = SerialisationUtils.SerializeToXml(orderId);
+                        orderPart.TransactionId = transactionID;
+                        contentItem.As<TitlePart>().Title = string.Format("{0}_{1}", address.FirstName, address.LastName);
 
                         _logger.Log(LogLevel.Information, null, "{0}{1}", "IPN Order successfully transacted:", orderId);
-                        //return RedirectToAction("Success", "Paypal", new { order = order});
+                        
                         return null;
                     }
                     catch

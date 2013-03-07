@@ -16,17 +16,14 @@ namespace Richinoz.Paypal.Services
             _orchardServices = orchardServices;
         }
 
-        public OrderPart Create()
-        {
-
+        public ContentItem CreateOrder() {
             try
             {
                 var order = _orchardServices.ContentManager.New("Order");
-                order.As<OrderPart>().Details = "test";
-               
-                _orchardServices.ContentManager.Create(order, VersionOptions.Published);
 
-                return order.As<OrderPart>();
+                _orchardServices.ContentManager.Create(order, VersionOptions.Draft);
+
+                return order;
             }
             catch (Exception)
             {
@@ -35,8 +32,26 @@ namespace Richinoz.Paypal.Services
             }
         }
 
-        public OrderPart Get(int id) {
-            return _orchardServices.ContentManager.Get<OrderPart>(id);
+        //public OrderPart Create()
+        //{
+
+        //    try
+        //    {
+        //        var order = _orchardServices.ContentManager.New("Order");
+                
+        //        _orchardServices.ContentManager.Create(order, VersionOptions.Draft);
+
+        //        return order.As<OrderPart>();
+        //    }
+        //    catch (Exception)
+        //    {
+        //        _orchardServices.TransactionManager.Cancel();
+        //        throw;
+        //    }
+        //}
+
+        public ContentItem Get(int id) {
+            return _orchardServices.ContentManager.Get(id);
         }
     }
 }

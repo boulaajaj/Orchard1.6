@@ -1,10 +1,10 @@
 using Orchard;
+using Orchard.ContentManagement;
 using Richinoz.Paypal.Models;
 
 namespace Richinoz.Paypal.Services {
-    public interface IOrderService:IDependency
-    {
-        OrderPart Create();
-        OrderPart Get(int id);
+    public interface IOrderService:IDependency {
+        ContentItem CreateOrder();       
+        ContentItem Get(int id);
     }
 }
