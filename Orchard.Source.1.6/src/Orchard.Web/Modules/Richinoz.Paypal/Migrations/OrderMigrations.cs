@@ -16,7 +16,6 @@ namespace Richinoz.Paypal.Migrations
 
             ContentDefinitionManager.AlterTypeDefinition("Order", builder => builder.WithPart("CommonPart")
                    .WithPart("TitlePart")
-                   .WithPart("AutoroutePart")
                    );
 
             return 1;
@@ -39,12 +38,12 @@ namespace Richinoz.Paypal.Migrations
             ContentDefinitionManager.AlterTypeDefinition("Order", builder =>
                 builder.WithPart("BodyPart", partBuilder =>
                     partBuilder.WithSetting("BodyTypePartSettings.Flavor", "text"))
-                  .WithPart("AutoroutePart", routePart =>
-                    routePart.WithSetting("AutorouteSettings.PerItemConfiguration", "false")
-                    .WithSetting("AutorouteSettings.AllowCustomPattern", "true")
-                    .WithSetting("AutorouteSettings.AutomaticAdjustmentOnEdit", "false")
-                    .WithSetting("AutorouteSettings.PatternDefinitions", patternDefinitions)
-                    .WithSetting("AutorouteSettings.DefaultPatternIndex", "0"))
+                  //.WithPart("AutoroutePart", routePart =>
+                  //  routePart.WithSetting("AutorouteSettings.PerItemConfiguration", "false")
+                  //  .WithSetting("AutorouteSettings.AllowCustomPattern", "true")
+                  //  .WithSetting("AutorouteSettings.AutomaticAdjustmentOnEdit", "false")
+                  //  .WithSetting("AutorouteSettings.PatternDefinitions", patternDefinitions)
+                  //  .WithSetting("AutorouteSettings.DefaultPatternIndex", "0"))
                 );
             return 3;
         }
@@ -54,7 +53,7 @@ namespace Richinoz.Paypal.Migrations
 
             SchemaBuilder.CreateTable("OrderPartRecord", builder =>
                                                          builder.ContentPartRecord()
-                                                             .Column<string>("Details")
+                                                             .Column<string>("Details",col=>col.Unlimited())
                 );
 
             ContentDefinitionManager.AlterTypeDefinition("Order", builder =>
@@ -75,6 +74,21 @@ namespace Richinoz.Paypal.Migrations
                 ));
             return 5;
         }
+
+        public int UpdateFrom5() {
+
+            SchemaBuilder.AlterTable("OrderPartRecord", table =>
+                table.AddColumn<decimal>("Amount"));
+
+
+            SchemaBuilder.AlterTable("OrderPartRecord", table =>
+                table.AddColumn<string>("TransactionId"));
+
+
+            return 6;
+        }
+
+     
 
     }
 }

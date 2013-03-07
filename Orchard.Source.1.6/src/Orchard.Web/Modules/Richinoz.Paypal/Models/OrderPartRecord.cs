@@ -5,5 +5,6 @@ namespace Richinoz.Paypal.Models {
         
         public virtual string Details { get; set; }
         public virtual decimal Amount { get; set; }
+        public virtual string TransactionId{ get; set; }
     }
 }

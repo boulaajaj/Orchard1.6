@@ -15,6 +15,12 @@ namespace Richinoz.Paypal.Models {
             set { Record.Amount = value; }
         }
 
+        public string TransactionId
+        {
+            get { return Record.TransactionId; }
+            set { Record.TransactionId = value; }
+        }
+
     }
 }
 

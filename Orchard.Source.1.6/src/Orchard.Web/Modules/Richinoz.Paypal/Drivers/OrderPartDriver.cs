@@ -6,6 +6,7 @@ using Richinoz.Paypal.Models;
 namespace Richinoz.Paypal.Drivers {
     public class OrderPartDriver:ContentPartDriver<OrderPart> {
 
+      
         protected override string Prefix
         {
             get { return "Order"; }
@@ -16,6 +17,21 @@ namespace Richinoz.Paypal.Drivers {
             return Combined(
                 ContentShape("Parts_Order", () => shapeHelper.Parts_Order(OrderPart: part)));
         }
-    
+
+        //get
+        protected override DriverResult Editor(OrderPart part, dynamic shapeHelper)
+        {
+            return ContentShape("Parts_Order_Edit", () =>
+                                                    shapeHelper.EditorTemplate(TemplateName: "Parts/Order", Model: part, Prefix: Prefix));
+        }
+
+        //post
+        protected override DriverResult Editor(OrderPart part, IUpdateModel updater, dynamic shapeHelper)
+        {
+            updater.TryUpdateModel(part, Prefix, null, new string[] { "TransactionId" });
+          
+            return Editor(part, shapeHelper);
+        }
+
     }
 }
