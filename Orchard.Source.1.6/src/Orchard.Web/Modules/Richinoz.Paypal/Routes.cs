@@ -23,6 +23,20 @@ namespace Richinoz.Paypal
 				            {"area", "Richinoz.Paypal"}
 			            },
 			            new MvcRouteHandler())
+	            },
+                 new RouteDescriptor {
+		            Route = new Route(
+			            "Paypal/IPN",
+			            new RouteValueDictionary {
+				            {"area", "Richinoz.Paypal"},
+				            {"controller", "Paypal"},
+				            {"action", "IPN"}
+			            },
+			            new RouteValueDictionary(),
+			            new RouteValueDictionary {
+				            {"area", "Richinoz.Paypal"}
+			            },
+			            new MvcRouteHandler())
 	            }
             };
         }

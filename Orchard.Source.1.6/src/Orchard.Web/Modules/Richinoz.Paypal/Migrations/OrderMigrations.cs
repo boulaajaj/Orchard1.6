@@ -49,9 +49,16 @@ namespace Richinoz.Paypal.Migrations
         }
 
         public int UpdateFrom3() {
-            ContentDefinitionManager.AlterTypeDefinition("Order", builder =>
-               builder.Creatable());
+           
             return 4;
+        }
+
+        public int UpdateFrom4()
+        {
+            ContentDefinitionManager.AlterTypeDefinition("Order", builder =>
+                 builder.
+                 WithPart("TitlePart"));
+            return 5;
         }
 
 
