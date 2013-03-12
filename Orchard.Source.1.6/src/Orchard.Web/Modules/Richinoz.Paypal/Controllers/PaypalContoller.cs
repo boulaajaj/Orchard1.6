@@ -21,7 +21,7 @@ namespace Richinoz.Paypal.Controllers
     {
         private readonly IOrderService _orderService;
         private readonly ILogger _logger;
-        private const string CustomId = "customId";
+        private const string CustomId = "custom";
 
         public PaypalController(IOrderService orderService)
         {
@@ -111,7 +111,7 @@ namespace Richinoz.Paypal.Controllers
                 int orderId;
                 if (!int.TryParse(Request[CustomId], out orderId))
                 {
-                    _logger.Error("No order Id found in Request variable");
+                    //_logger.Error("No order Id found in Request variable");
                 }
 
                 var contentItem = _orderService.Get(orderId);
@@ -120,7 +120,6 @@ namespace Richinoz.Paypal.Controllers
                 //validate the order
                 Decimal amountPaid = 0;
                 Decimal.TryParse(sAmountPaid, out amountPaid);
-
 
                 if (AmountPaidIsValid(orderPart, amountPaid))
                 {

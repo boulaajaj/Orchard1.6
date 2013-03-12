@@ -72,5 +72,38 @@ namespace Richinoz.Paypal.Controllers {
             return View((object)viewModel);
         }
 
+        public ActionResult ListOrder(ListContentsViewModel model, PagerParameters pagerParameters)
+        {
+            var pager = new Pager(_siteService.GetSiteSettings(), pagerParameters);
+            var query = _contentManager.Query<OrderPart, OrderPartRecord>(VersionOptions.Latest);
+
+            switch (model.Options.OrderBy)
+            {
+                case ContentsOrder.Modified:
+                    query.OrderByDescending<CommonPartRecord>(cr => cr.ModifiedUtc);
+                    break;
+                case ContentsOrder.Published:
+                    query.OrderByDescending<CommonPartRecord>(cr => cr.PublishedUtc);
+                    break;
+                case ContentsOrder.Created:
+                    query.OrderByDescending<CommonPartRecord>(cr => cr.CreatedUtc);
+                    break;
+            }
+
+            var pagerShape = Shape.Pager(pager).TotalItemCount(query.Count());
+            var pageOfContentItems = query.Slice(pager.GetStartIndex(), pager.PageSize).ToList();
+
+            var list = Shape.List();
+            list.AddRange(pageOfContentItems.Select(ci => _contentManager.BuildDisplay(ci, "SummaryAdmin")));
+
+            dynamic viewModel = Shape.ViewModel()
+                .ContentItems(list)
+                .Pager(pagerShape)
+                .Options(model.Options);
+
+            // Casting to avoid invalid (under medium trust) reflection over the protected View method and force a static invocation.
+            return View((object)viewModel);
+        }
+
     }
 }

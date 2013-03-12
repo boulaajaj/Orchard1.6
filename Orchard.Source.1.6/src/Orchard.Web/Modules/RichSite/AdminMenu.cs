@@ -23,10 +23,6 @@ namespace RichSite
             menu.Add(T("Product List"), "1.0", item =>
                 item.Action("List", "Admin", new { area = "Contents", id = "Product" }));
 
-            // Admin/Contents/List/Order
-            menu.Add(T("Order List"), "1.1", item =>
-                item.Action("List", "Admin", new { area = "Contents", id = "Order" }));
-
         }
     }
 }
