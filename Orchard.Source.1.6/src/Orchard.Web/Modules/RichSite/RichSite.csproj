@@ -113,6 +113,7 @@
     <Compile Include="AdminMenu.cs" />
     <Compile Include="Handlers\RichDependencyFeatureEventHandler.cs" />
     <Compile Include="Handlers\RichDependencyHandler.cs" />
+    <Compile Include="Helpers\StringExtensions.cs" />
     <Compile Include="Migrations.cs" />
     <Compile Include="Models\RichDependencyPart.cs" />
     <Compile Include="Models\RichDependencyPartRecord.cs" />

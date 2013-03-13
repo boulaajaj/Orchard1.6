@@ -17,16 +17,32 @@ using Richinoz.Paypal.Services;
 
 namespace Richinoz.Paypal.Controllers
 {
+    public interface IWebRequestFactory : IDependency
+    {
+        WebRequest Create(string uri);
+    }
+
+    public class WebRequestFactory : IWebRequestFactory
+    {
+        public WebRequest Create(string uri)
+        {
+            return (HttpWebRequest)WebRequest.Create(uri);
+        }
+    }
+
     public class PaypalController : Controller
     {
         private readonly IOrderService _orderService;
-        private readonly ILogger _logger;
-        private const string CustomId = "custom";
+        private readonly IWebRequestFactory _webRequestFactory;
+        public ILogger Logger { get; set; }
+        private const string OrderId = "custom";
 
-        public PaypalController(IOrderService orderService)
+        public PaypalController(IOrderService orderService,
+            IWebRequestFactory webRequestFactory)
         {
             _orderService = orderService;
-            //_logger = logger;
+            _webRequestFactory = webRequestFactory;
+            Logger = NullLogger.Instance;
         }
 
         //
@@ -39,79 +55,45 @@ namespace Richinoz.Paypal.Controllers
         }
 
         [System.Web.Mvc.HttpPost]
-        public ActionResult PostToPaypal(string checkout_Url) {
+        public ActionResult PostToPaypal(string checkout_Url)
+        {
 
             var orderPart = _orderService.CreateOrder();
             var orderId = orderPart.Id;
 
             var query = Request.Form.ToString();// HttpUtility.ParseQueryString(Request.RawUrl);
 
-            var paypalUrl = string.Format("{0}?{1}&{2}={3}", checkout_Url, query, CustomId, orderId);
+            var paypalUrl = string.Format("{0}?{1}&{2}={3}", checkout_Url, query, OrderId, orderId);
 
-            orderPart.As<OrderPart>().Details= SerialiseOrder(orderId);
+            orderPart.As<OrderPart>().Details = SerialiseOrder(orderId);
             orderPart.As<TitlePart>().Title = "UnVerified Order";
-            
+
             return Redirect(paypalUrl);
 
         }
 
-        public string SerialiseOrder(int orderId)
-        {
-
-            var orderDetails = new Order() { Id = orderId };
-
-            try
-            {
-                int i = 0;
-
-                while (true)
-                {
-                    i++;
-                    var name = Request.Form[string.Format("item_name_{0}", i)];
-
-                    if (name == null)
-                        break;
-                    decimal amount = 0;
-                    decimal.TryParse(Request.Form[string.Format("amount_{0}", i)], out amount);
-
-                    int qty = 0;
-                    int.TryParse(Request.Form[string.Format("quantity_{0}", i)], out qty);
-
-                    orderDetails.OrderItems.Add(new OrderItem()
-                    {
-                        Amount = amount,
-                        Quantity = qty,
-                        Name = name
-                    });
-                }
-
-            }
-            catch (Exception ex) {
-                return "SerialiseOrder Error-" + ex.Message;                
-            }
-            return SerialisationUtils.SerializeToXml(orderDetails);
-
-
-        }
 
         public ActionResult IPN()
         {
-
+            Logger.Information("In IPN");
             var formVals = new Dictionary<string, string> {
                 {"cmd", "_notify-validate"}
             };
 
             var response = GetPayPalResponse(formVals, true);
 
+            string logNote = string.Format("{0}, {1}", response, Request["txn_id"]);
+            Logger.Error("IPN response: " + logNote);
             if (response == "VERIFIED")
             {
 
                 string transactionID = Request["txn_id"];
                 string sAmountPaid = Request["mc_gross"];
                 int orderId;
-                if (!int.TryParse(Request[CustomId], out orderId))
+                if (!int.TryParse(Request[OrderId], out orderId))
                 {
-                    //_logger.Error("No order Id found in Request variable");
+                    Logger.Error("No order Id found in Request variable");
+                    return null;
                 }
 
                 var contentItem = _orderService.Get(orderId);
@@ -148,27 +130,60 @@ namespace Richinoz.Paypal.Controllers
                         orderPart.TransactionId = transactionID;
                         contentItem.As<TitlePart>().Title = string.Format("{0}_{1}", address.FirstName, address.LastName);
 
-                        _logger.Log(LogLevel.Information, null, "{0}{1}", "IPN Order successfully transacted:", orderId);
-                        
-                        return null;
+                        Logger.Information("{0}{1}", "IPN Order successfully transacted:", orderId);
+
+                        return View("Success");
                     }
-                    catch
+                    catch(Exception ex)
                     {
-                        //HandleProcessingError(order, x);
-                        return null;
+                        Logger.Error(ex, "Error in Paypal IPN");                                               
                     }
                 }
-                else
-                {
-                    //let fail - this is the IPN so there is no viewer
-                }
+             
             }
-
-
 
             return null;
         }
 
+        public string SerialiseOrder(int orderId)
+        {
+
+            var orderDetails = new Order() { Id = orderId };
+
+            try
+            {
+                int i = 0;
+
+                while (true)
+                {
+                    i++;
+                    var name = Request.Form[string.Format("item_name_{0}", i)];
+
+                    if (name == null)
+                        break;
+                    decimal amount = 0;
+                    decimal.TryParse(Request.Form[string.Format("amount_{0}", i)], out amount);
+
+                    int qty = 0;
+                    int.TryParse(Request.Form[string.Format("quantity_{0}", i)], out qty);
+
+                    orderDetails.OrderItems.Add(new OrderItem()
+                    {
+                        Amount = amount,
+                        Quantity = qty,
+                        Name = name
+                    });
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return "SerialiseOrder Error-" + ex.Message;
+            }
+            return SerialisationUtils.SerializeToXml(orderDetails);
+
+
+        }
         /// <summary>
         /// Handles the PDT Response from PayPal
         /// </summary>
@@ -254,7 +269,7 @@ namespace Richinoz.Paypal.Controllers
                 : "https://www.paypal.com/cgi-bin/webscr";
 
 
-            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(paypalUrl);
+            var req = _webRequestFactory.Create(paypalUrl);// (HttpWebRequest)WebRequest.Create(paypalUrl);
 
             // Set values for the request back
             req.Method = "POST";
