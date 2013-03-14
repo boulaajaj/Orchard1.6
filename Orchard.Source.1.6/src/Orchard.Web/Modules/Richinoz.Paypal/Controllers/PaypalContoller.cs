@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Orchard;
 using Orchard.ContentManagement;
+using Orchard.Core.Common.Models;
 using Orchard.Core.Title.Models;
 using Orchard.Logging;
 using Orchard.UI.Admin;
@@ -82,12 +83,12 @@ namespace Richinoz.Paypal.Controllers
             var response = GetPayPalResponse(formVals, true);
 
             string logNote = string.Format("{0}, {1}", response, Request["txn_id"]);
-            Logger.Error("IPN response: " + logNote);
+            //Logger.Error("IPN response: " + logNote);
             if (response == "VERIFIED")
             {
 
                 string transactionID = Request["txn_id"];
-                string sAmountPaid = Request["mc_gross"];
+                string sAmountPaid = Request["mc_gross1"];
                 int orderId;
                 if (!int.TryParse(Request[OrderId], out orderId))
                 {
@@ -100,8 +101,6 @@ namespace Richinoz.Paypal.Controllers
                     Logger.Error(string.Format("No order found for orderId [{0}]", orderId));
                     return null;
                 }
-
-                Logger.Error("Found order for orderId " + orderId);
 
                 var orderPart = contentItem.As<OrderPart>();
 
@@ -127,15 +126,16 @@ namespace Richinoz.Paypal.Controllers
                             //UserName = order.UserName
                         };
 
-                        Logger.Error("try de-serialise");
+                       
                         //re-hydrate
                         var order = SerialisationUtils.DeserializeFromXml<Order>(orderPart.Details);
                         order.Address = address;
-                        Logger.Error("try serialise");
+                        
                         orderPart.Details = SerialisationUtils.SerializeToXml(order);
                         orderPart.TransactionId = transactionID;
-                        Logger.Error("set title");
+                       
                         contentItem.As<TitlePart>().Title = string.Format("{0}_{1}", address.FirstName, address.LastName);
+                        contentItem.As<CommonPart>().ModifiedUtc = DateTime.Now;
 
                         Logger.Information("{0}{1}", "IPN Order successfully transacted:", orderId);
 
