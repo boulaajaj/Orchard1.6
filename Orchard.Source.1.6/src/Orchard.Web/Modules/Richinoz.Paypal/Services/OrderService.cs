@@ -51,7 +51,7 @@ namespace Richinoz.Paypal.Services
         //}
 
         public ContentItem Get(int id) {
-            return _orchardServices.ContentManager.Get(id);
+            return _orchardServices.ContentManager.Get(id, VersionOptions.AllVersions);
         }
     }
 }
