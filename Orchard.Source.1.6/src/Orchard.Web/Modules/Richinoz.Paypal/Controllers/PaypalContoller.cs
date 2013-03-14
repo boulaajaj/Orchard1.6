@@ -75,7 +75,6 @@ namespace Richinoz.Paypal.Controllers
 
         public ActionResult IPN()
         {
-            Logger.Information("In IPN");
             var formVals = new Dictionary<string, string> {
                 {"cmd", "_notify-validate"}
             };
@@ -97,6 +96,13 @@ namespace Richinoz.Paypal.Controllers
                 }
 
                 var contentItem = _orderService.Get(orderId);
+                if (contentItem == null) {
+                    Logger.Error(string.Format("No order found for orderId [{0}]", orderId));
+                    return null;
+                }
+
+                Logger.Error("Found order for orderId " + orderId);
+
                 var orderPart = contentItem.As<OrderPart>();
 
                 //validate the order
@@ -108,7 +114,6 @@ namespace Richinoz.Paypal.Controllers
                     //process itPAY
                     try
                     {
-
                         var address = new Address
                         {
                             FirstName = Request["first_name"],
@@ -122,24 +127,26 @@ namespace Richinoz.Paypal.Controllers
                             //UserName = order.UserName
                         };
 
+                        Logger.Error("try de-serialise");
                         //re-hydrate
                         var order = SerialisationUtils.DeserializeFromXml<Order>(orderPart.Details);
                         order.Address = address;
-
-                        orderPart.Details = SerialisationUtils.SerializeToXml(orderId);
+                        Logger.Error("try serialise");
+                        orderPart.Details = SerialisationUtils.SerializeToXml(order);
                         orderPart.TransactionId = transactionID;
+                        Logger.Error("set title");
                         contentItem.As<TitlePart>().Title = string.Format("{0}_{1}", address.FirstName, address.LastName);
 
                         Logger.Information("{0}{1}", "IPN Order successfully transacted:", orderId);
 
                         return View("Success");
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
-                        Logger.Error(ex, "Error in Paypal IPN");                                               
+                        Logger.Error(ex, "Error in Paypal IPN");
                     }
                 }
-             
+
             }
 
             return null;
@@ -262,7 +269,7 @@ namespace Richinoz.Paypal.Controllers
         /// <summary>
         /// Utility method for handling PayPal Responses
         /// </summary>
-        string GetPayPalResponse(Dictionary<string, string> formVals, bool useSandbox)
+        public string GetPayPalResponse(Dictionary<string, string> formVals, bool useSandbox)
         {
 
             string paypalUrl = useSandbox ? "https://www.sandbox.paypal.com/cgi-bin/webscr"

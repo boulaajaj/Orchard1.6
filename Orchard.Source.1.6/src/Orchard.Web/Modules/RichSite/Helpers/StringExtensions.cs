@@ -1,4 +1,4 @@
-namespace Orchard.Tests.Modules.Richinoz.Paypal {
+namespace RichSite.Helpers {
     public static class StringExtensions {
         public static byte[] ToByteArray(this string str) {
             var bytes = new byte[str.Length * sizeof(char)];

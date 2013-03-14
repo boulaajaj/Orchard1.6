@@ -282,6 +282,10 @@
       <Project>{86DED6FD-58D6-41AE-83EA-01D9E962B783}</Project>
       <Name>Richinoz.Paypal</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Orchard.Web\Modules\RichSite\RichSite.csproj">
+      <Project>{9D4253B3-1160-4AFF-9BEE-45E3B22A4792}</Project>
+      <Name>RichSite</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Orchard\Orchard.Framework.csproj">
       <Project>{2D1D92BB-4555-4CBE-8D0E-63563D6CE4C6}</Project>
       <Name>Orchard.Framework</Name>
