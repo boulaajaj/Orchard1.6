@@ -20,13 +20,33 @@
         @Html.Label(orderItem.Name)
         }
     }
-    <div class="related">
-        @Html.LabelFor(m => m.Order.Address, T("Address"))
-        @Html.LabelFor(m => m.Order.Address, T("Street"))
-        @Html.TextBoxFor(m => m.Order.Address.Street1)
-        @Html.LabelFor(m => m.Order.Address, T("City"))
-        @Html.TextBoxFor(m => m.Order.Address.City)
-        @Html.LabelFor(m => m.Order.Address, T("Postcode"))
-        @Html.TextBoxFor(m => m.Order.Address.Zip)
-    </div>
+    <fieldset class="contentItems bulk-items">
+        <ul>
+            <li>
+                <div class="summary">
+                    <div class="properties">
+                        Address
+                        <div class="metadata">
+                            @Html.LabelFor(m => m.Order.Address, T("Street"))
+                            @Html.TextBoxFor(m => m.Order.Address.Street1)
+                            City
+                              @*@Html.LabelFor(m => m.Order.Address, T("City"))*@
+                @Html.TextBoxFor(m => m.Order.Address.City)
+                @Html.LabelFor(m => m.Order.Address, T("Postcode"))
+                @Html.TextBoxFor(m => m.Order.Address.Zip)
+                        </div>
+                    </div>
+                </div>
+                test </li>
+        </ul>
+        <div class="summary">
+            <div class="properties">
+                
+                @Html.LabelFor(m => m.Order.Address, T("City"))
+                @Html.TextBoxFor(m => m.Order.Address.City)
+                @Html.LabelFor(m => m.Order.Address, T("Postcode"))
+                @Html.TextBoxFor(m => m.Order.Address.Zip)
+            </div>
+        </div>
+    </fieldset>
 </fieldset>
