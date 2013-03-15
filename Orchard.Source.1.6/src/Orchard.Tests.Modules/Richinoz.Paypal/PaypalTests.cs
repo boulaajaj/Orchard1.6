@@ -11,6 +11,8 @@ using Moq;
 using NUnit.Framework;
 using Orchard.Comments.Handlers;
 using Orchard.ContentManagement;
+using Orchard.Services;
+using Orchard.Tests.Stubs;
 using RichSite.Helpers;
 using Richinoz.Paypal.Controllers;
 using Richinoz.Paypal.Models;
@@ -25,9 +27,9 @@ namespace Orchard.Tests.Modules.Richinoz.Paypal
 
         public PaypalTests()
         {
-            //var builder = new ContainerBuilder();
-
-
+            var builder = new ContainerBuilder();
+            builder.RegisterType<StubClock>().As<IClock>();
+            
             //var assembly = Assembly.GetAssembly(typeof(OrchardServices));
 
             //builder.RegisterAssemblyTypes(assembly);
@@ -59,7 +61,7 @@ namespace Orchard.Tests.Modules.Richinoz.Paypal
             //builder.RegisterType<StubExtensionManager>().As<IExtensionManager>();
             //builder.RegisterType<DefaultContentDisplay>().As<IContentDisplay>();
             //builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>));
-            //_container = builder.Build();
+            _container = builder.Build();
         }
         [SetUp]
         public void Init()
@@ -75,7 +77,7 @@ namespace Orchard.Tests.Modules.Richinoz.Paypal
             var orderService = new Mock<IOrderService>();
             var webRequest = new Mock<IWebRequestFactory>();
 
-            var paypalController = new PaypalController(orderService.Object, webRequest.Object);
+            var paypalController = new PaypalController(orderService.Object, webRequest.Object, _container.Resolve<IClock>());
 
 
             var ret = paypalController.SerialiseOrder(1);
@@ -94,16 +96,7 @@ namespace Orchard.Tests.Modules.Richinoz.Paypal
             request.Setup(x => x.ApplicationPath).Returns("/");
             request.Setup(x => x.Url).Returns(new Uri("http://localhost"));
             request.Setup(x => x.BinaryRead(It.IsAny<int>())).Returns(new byte[] { });
-            //request.Setup(x => x.ServerVariables).Returns(new System.Collections.Specialized.NameValueCollection{
-            //        { "SERVER_NAME", "localhost" },
-            //        { "SCRIPT_NAME", "localhost" },
-            //        { "SERVER_PORT", "80" },
-            //        { "HTTPS", "www.melaos.com" },
-            //        { "REMOTE_ADDR", "127.0.0.1" },
-            //        { "REMOTE_HOST", "127.0.0.1" }
-            //   });
-
-
+        
             request.SetupGet(r => r["txn_id"]).Returns("Tx101");
             request.SetupGet(r => r.ContentLength).Returns(1);
 
@@ -137,7 +130,7 @@ namespace Orchard.Tests.Modules.Richinoz.Paypal
             contentItem.Weld(orderPart);
 
             orderService.Setup(x => x.Get(It.IsAny<int>())).Returns(contentItem);
-            var controller = new PaypalController(orderService.Object, factory.Object);
+            var controller = new PaypalController(orderService.Object, factory.Object, _container.Resolve<IClock>());
             //MvcMockHelpers.SetFakeControllerContext(controller);
             controller.ControllerContext = new ControllerContext(context.Object, new RouteData(), controller);
 

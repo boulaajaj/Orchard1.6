@@ -11,6 +11,7 @@ using Orchard.ContentManagement;
 using Orchard.Core.Common.Models;
 using Orchard.Core.Title.Models;
 using Orchard.Logging;
+using Orchard.Services;
 using Orchard.UI.Admin;
 using Richinoz.Paypal.Helpers;
 using Richinoz.Paypal.Models;
@@ -35,14 +36,17 @@ namespace Richinoz.Paypal.Controllers
     {
         private readonly IOrderService _orderService;
         private readonly IWebRequestFactory _webRequestFactory;
+        private readonly IClock _clock;
         public ILogger Logger { get; set; }
         private const string OrderId = "custom";
 
         public PaypalController(IOrderService orderService,
-            IWebRequestFactory webRequestFactory)
+            IWebRequestFactory webRequestFactory,
+            IClock clock)
         {
             _orderService = orderService;
             _webRequestFactory = webRequestFactory;
+            _clock = clock;
             Logger = NullLogger.Instance;
         }
 
@@ -133,9 +137,13 @@ namespace Richinoz.Paypal.Controllers
                         
                         orderPart.Details = SerialisationUtils.SerializeToXml(order);
                         orderPart.TransactionId = transactionID;
+                        orderPart.Amount = amountPaid;
                        
                         contentItem.As<TitlePart>().Title = string.Format("{0}_{1}", address.FirstName, address.LastName);
-                        contentItem.As<CommonPart>().ModifiedUtc = DateTime.Now;
+
+                        var utcNow = _clock.UtcNow;
+                        contentItem.As<CommonPart>().ModifiedUtc = utcNow;
+                        contentItem.As<CommonPart>().VersionModifiedUtc = utcNow;
 
                         Logger.Information("{0}{1}", "IPN Order successfully transacted:", orderId);
 
@@ -191,6 +199,77 @@ namespace Richinoz.Paypal.Controllers
 
 
         }
+
+
+        /// <summary>
+        /// Utility method for handling PayPal Responses
+        /// </summary>
+        public string GetPayPalResponse(Dictionary<string, string> formVals, bool useSandbox)
+        {
+
+            string paypalUrl = useSandbox ? "https://www.sandbox.paypal.com/cgi-bin/webscr"
+                : "https://www.paypal.com/cgi-bin/webscr";
+
+
+            var req = _webRequestFactory.Create(paypalUrl);// (HttpWebRequest)WebRequest.Create(paypalUrl);
+
+            // Set values for the request back
+            req.Method = "POST";
+            req.ContentType = "application/x-www-form-urlencoded";
+
+            byte[] param = Request.BinaryRead(Request.ContentLength);
+            string strRequest = Encoding.ASCII.GetString(param);
+
+            var sb = new StringBuilder();
+            sb.Append(strRequest);
+
+            foreach (string key in formVals.Keys)
+            {
+                sb.AppendFormat("&{0}={1}", key, formVals[key]);
+            }
+            strRequest += sb.ToString();
+            req.ContentLength = strRequest.Length;
+
+            //for proxy
+            //WebProxy proxy = new WebProxy(new Uri("http://urlort#");
+            //req.Proxy = proxy;
+            //Send the request to PayPal and get the response
+            string response = "";
+            using (StreamWriter streamOut = new StreamWriter(req.GetRequestStream(), System.Text.Encoding.ASCII))
+            {
+
+                streamOut.Write(strRequest);
+                streamOut.Close();
+                using (StreamReader streamIn = new StreamReader(req.GetResponse().GetResponseStream()))
+                {
+                    response = streamIn.ReadToEnd();
+                }
+            }
+
+            return response;
+        }
+        bool AmountPaidIsValid(OrderPart order, decimal amountPaid)
+        {
+
+            //pull the order
+            bool result = true;
+
+            if (order != null)
+            {
+                if (order.Amount > amountPaid)
+                {
+                    //_logger.Warn("Invalid order Amount to PDT/IPN: " + order.ID + "; Actual: " + amountPaid.ToString("C") + "; Should be: " + order.Total.ToString("C") + "user IP is " + Request.UserHostAddress);
+                    result = false;
+                }
+            }
+            else
+            {
+                //_logger.Warn("Invalid order ID passed to PDT/IPN; user IP is " + Request.UserHostAddress);
+            }
+            return result;
+
+        }
+
         /// <summary>
         /// Handles the PDT Response from PayPal
         /// </summary>
@@ -266,95 +345,28 @@ namespace Richinoz.Paypal.Controllers
         //        return View();
         //    }
         //}
-        /// <summary>
-        /// Utility method for handling PayPal Responses
-        /// </summary>
-        public string GetPayPalResponse(Dictionary<string, string> formVals, bool useSandbox)
-        {
 
-            string paypalUrl = useSandbox ? "https://www.sandbox.paypal.com/cgi-bin/webscr"
-                : "https://www.paypal.com/cgi-bin/webscr";
+        //string GetPDTValue(string pdt, string key)
+        //{
 
-
-            var req = _webRequestFactory.Create(paypalUrl);// (HttpWebRequest)WebRequest.Create(paypalUrl);
-
-            // Set values for the request back
-            req.Method = "POST";
-            req.ContentType = "application/x-www-form-urlencoded";
-
-            byte[] param = Request.BinaryRead(Request.ContentLength);
-            string strRequest = Encoding.ASCII.GetString(param);
-
-            var sb = new StringBuilder();
-            sb.Append(strRequest);
-
-            foreach (string key in formVals.Keys)
-            {
-                sb.AppendFormat("&{0}={1}", key, formVals[key]);
-            }
-            strRequest += sb.ToString();
-            req.ContentLength = strRequest.Length;
-
-            //for proxy
-            //WebProxy proxy = new WebProxy(new Uri("http://urlort#");
-            //req.Proxy = proxy;
-            //Send the request to PayPal and get the response
-            string response = "";
-            using (StreamWriter streamOut = new StreamWriter(req.GetRequestStream(), System.Text.Encoding.ASCII))
-            {
-
-                streamOut.Write(strRequest);
-                streamOut.Close();
-                using (StreamReader streamIn = new StreamReader(req.GetResponse().GetResponseStream()))
-                {
-                    response = streamIn.ReadToEnd();
-                }
-            }
-
-            return response;
-        }
-        bool AmountPaidIsValid(OrderPart order, decimal amountPaid)
-        {
-
-            //pull the order
-            bool result = true;
-
-            if (order != null)
-            {
-                if (order.Amount > amountPaid)
-                {
-                    //_logger.Warn("Invalid order Amount to PDT/IPN: " + order.ID + "; Actual: " + amountPaid.ToString("C") + "; Should be: " + order.Total.ToString("C") + "user IP is " + Request.UserHostAddress);
-                    result = false;
-                }
-            }
-            else
-            {
-                //_logger.Warn("Invalid order ID passed to PDT/IPN; user IP is " + Request.UserHostAddress);
-            }
-            return result;
-
-        }
-        string GetPDTValue(string pdt, string key)
-        {
-
-            string[] keys = pdt.Split('\n');
-            string thisVal = "";
-            string thisKey = "";
-            foreach (string s in keys)
-            {
-                string[] bits = s.Split('=');
-                if (bits.Length > 1)
-                {
-                    thisVal = bits[1];
-                    thisKey = bits[0];
-                    if (thisKey.Equals(key, StringComparison.InvariantCultureIgnoreCase))
-                        break;
-                }
-            }
-            return thisVal;
+        //    string[] keys = pdt.Split('\n');
+        //    string thisVal = "";
+        //    string thisKey = "";
+        //    foreach (string s in keys)
+        //    {
+        //        string[] bits = s.Split('=');
+        //        if (bits.Length > 1)
+        //        {
+        //            thisVal = bits[1];
+        //            thisKey = bits[0];
+        //            if (thisKey.Equals(key, StringComparison.InvariantCultureIgnoreCase))
+        //                break;
+        //        }
+        //    }
+        //    return thisVal;
 
 
-        }
+        //}
 
     }
 }

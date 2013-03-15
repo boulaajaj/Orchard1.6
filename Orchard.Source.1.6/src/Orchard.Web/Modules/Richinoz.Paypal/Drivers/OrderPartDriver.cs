@@ -1,6 +1,7 @@
 ﻿using Orchard.ContentManagement;
 using Orchard.ContentManagement.Drivers;
 using Orchard.Data;
+using Richinoz.Paypal.Helpers;
 using Richinoz.Paypal.Models;
 
 namespace Richinoz.Paypal.Drivers {
@@ -21,17 +22,24 @@ namespace Richinoz.Paypal.Drivers {
         //get
         protected override DriverResult Editor(OrderPart part, dynamic shapeHelper)
         {
+            var order = SerialisationUtils.DeserializeFromXml<Order>(part.Details);
+            part.Order = order;
+
             return ContentShape("Parts_Order_Edit", () =>
                                                     shapeHelper.EditorTemplate(TemplateName: "Parts/Order", Model: part, Prefix: Prefix));
         }
 
         //post
         protected override DriverResult Editor(OrderPart part, IUpdateModel updater, dynamic shapeHelper)
-        {
-            updater.TryUpdateModel(part, Prefix, null, new string[] { "TransactionId" });
-          
+        {                      
+            if(updater.TryUpdateModel(part, Prefix, null, new string[] { "TransactionId" }))
+                part.Details = SerialisationUtils.SerializeToXml(part.Order);
+
             return Editor(part, shapeHelper);
         }
 
     }
+
+    
+   
 }

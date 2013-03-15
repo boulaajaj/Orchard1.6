@@ -21,6 +21,8 @@ namespace Richinoz.Paypal.Models {
             set { Record.TransactionId = value; }
         }
 
+        public Order Order { get; set; }
+
     }
 }
 

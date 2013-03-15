@@ -328,13 +328,13 @@
     <ExtensionId>Richinoz.Paypal</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/Richinoz.Paypal/bin/Richinoz.Paypal.dll</VirtualPath>
-    <Hash>24f3bff38a59c5b3</Hash>
+    <Hash>24f3c0a2e2071ea3</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>RichSite</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/RichSite/bin/RichSite.dll</VirtualPath>
-    <Hash>4b815da7bddced6e</Hash>
+    <Hash>4b815f04af9b6d4f</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>SysCache</ExtensionId>

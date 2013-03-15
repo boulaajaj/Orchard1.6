@@ -1,26 +1,32 @@
-﻿
-@model Richinoz.Paypal.Models.OrderPart
-
+﻿@model Richinoz.Paypal.Models.OrderPart
 @{
     Script.Require("jQuery");
     
 }
-
 <fieldset>
     <legend>@T("Details")</legend>
-    
     @Html.LabelFor(m => m.Id, T("Id"))
     @Html.TextBoxFor(m => m.Id)
-    
     @Html.LabelFor(m => m.TransactionId, T("TransactionId"))
     @Html.TextBoxFor(m => m.TransactionId)
-
+    @Html.LabelFor(m => m.Amount, T("Amount"))
+    @Html.TextBoxFor(m => m.Amount)
     @Html.LabelFor(m => m.Details, T("Details"))
     @Html.TextBoxFor(m => m.Details)
- 
-    <span class="hint">Enter multiple keywords separated by commas. This is used to generate the Similar Movies list.</span>
+    @{
+        @Html.Label("Name", T("Name"))
+        foreach (var orderItem in Model.Order.OrderItems)
+        {
+        @Html.Label(orderItem.Name)
+        }
+    }
+    <div class="related">
+        @Html.LabelFor(m => m.Order.Address, T("Address"))
+        @Html.LabelFor(m => m.Order.Address, T("Street"))
+        @Html.TextBoxFor(m => m.Order.Address.Street1)
+        @Html.LabelFor(m => m.Order.Address, T("City"))
+        @Html.TextBoxFor(m => m.Order.Address.City)
+        @Html.LabelFor(m => m.Order.Address, T("Postcode"))
+        @Html.TextBoxFor(m => m.Order.Address.Zip)
+    </div>
 </fieldset>
-<fieldset>
-
-</fieldset>
-
