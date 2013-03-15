@@ -14,39 +14,31 @@
     @Html.LabelFor(m => m.Details, T("Details"))
     @Html.TextBoxFor(m => m.Details)
     @{
-        @Html.Label("Name", T("Name"))
+        
+        @Html.Label("Items", T("Items"))
         foreach (var orderItem in Model.Order.OrderItems)
         {
-        @Html.Label(orderItem.Name)
+            <h4>@Html.Label(orderItem.Name)</h4>
         }
     }
     <fieldset class="contentItems bulk-items">
         <ul>
             <li>
                 <div class="summary">
-                    <div class="properties">
+                    <div class="properties bulk-actions">
                         Address
                         <div class="metadata">
                             @Html.LabelFor(m => m.Order.Address, T("Street"))
                             @Html.TextBoxFor(m => m.Order.Address.Street1)
-                            City
-                              @*@Html.LabelFor(m => m.Order.Address, T("City"))*@
-                @Html.TextBoxFor(m => m.Order.Address.City)
-                @Html.LabelFor(m => m.Order.Address, T("Postcode"))
-                @Html.TextBoxFor(m => m.Order.Address.Zip)
+                            @Html.LabelFor(m => m.Order.Address, T("City"))
+                            @Html.TextBoxFor(m => m.Order.Address.City)
+                            @Html.LabelFor(m => m.Order.Address, T("Postcode"))
+                            @Html.TextBoxFor(m => m.Order.Address.Zip)
                         </div>
                     </div>
                 </div>
-                test </li>
+            </li>
         </ul>
-        <div class="summary">
-            <div class="properties">
-                
-                @Html.LabelFor(m => m.Order.Address, T("City"))
-                @Html.TextBoxFor(m => m.Order.Address.City)
-                @Html.LabelFor(m => m.Order.Address, T("Postcode"))
-                @Html.TextBoxFor(m => m.Order.Address.Zip)
-            </div>
-        </div>
+       
     </fieldset>
 </fieldset>
