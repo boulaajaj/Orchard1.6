@@ -38,7 +38,7 @@ namespace Richinoz.Paypal.Controllers
         private readonly IWebRequestFactory _webRequestFactory;
         private readonly IClock _clock;
         public ILogger Logger { get; set; }
-        private const string OrderId = "custom";
+        private const string _custom = "custom";
 
         public PaypalController(IOrderService orderService,
             IWebRequestFactory webRequestFactory,
@@ -60,21 +60,26 @@ namespace Richinoz.Paypal.Controllers
         }
 
         [System.Web.Mvc.HttpPost]
-        public ActionResult PostToPaypal(string checkout_Url)
-        {
+        public ActionResult PostToPaypal(string checkout_Url) {
 
-            var orderPart = _orderService.CreateOrder();
-            var orderId = orderPart.Id;
+            var orderId = CreateOrder();
 
             var query = Request.Form.ToString();// HttpUtility.ParseQueryString(Request.RawUrl);
 
-            var paypalUrl = string.Format("{0}?{1}&{2}={3}", checkout_Url, query, OrderId, orderId);
+            var paypalUrl = string.Format("{0}?{1}&{2}={3}", checkout_Url, query, _custom, orderId);
+
+            return Redirect(paypalUrl);
+
+        }
+
+        private int CreateOrder() {
+            var orderPart = _orderService.CreateOrder();
+            var orderId = orderPart.Id;
 
             orderPart.As<OrderPart>().Details = SerialiseOrder(orderId);
             orderPart.As<TitlePart>().Title = "UnVerified Order";
 
-            return Redirect(paypalUrl);
-
+            return orderId;
         }
 
 
@@ -94,7 +99,7 @@ namespace Richinoz.Paypal.Controllers
                 string transactionID = Request["txn_id"];
                 string sAmountPaid = Request["mc_gross1"];
                 int orderId;
-                if (!int.TryParse(Request[OrderId], out orderId))
+                if (!int.TryParse(Request[_custom], out orderId))
                 {
                     Logger.Error("No order Id found in Request variable");
                     return null;
