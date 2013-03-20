@@ -14,4 +14,7 @@
     
     <label class="sub" for="ReturnUrl">@T("return URL")</label><br />
     @Html.TextBoxFor(m => m.ReturnUrl, new { @class = "text" })<br />
+    
+    <label class="sub" for="NotifyUrl">@T("notify (IPN) URL")</label><br />
+    @Html.TextBoxFor(m => m.NotifyUrl, new { @class = "text" })<br />
 </fieldset>

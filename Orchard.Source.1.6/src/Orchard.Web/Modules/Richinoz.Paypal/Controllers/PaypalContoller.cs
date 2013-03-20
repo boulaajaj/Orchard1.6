@@ -142,13 +142,13 @@ namespace Richinoz.Paypal.Controllers
                         
                         orderPart.Details = SerialisationUtils.SerializeToXml(order);
                         orderPart.TransactionId = transactionID;
-                        orderPart.Amount = amountPaid;
-                       
-                        contentItem.As<TitlePart>().Title = string.Format("{0}_{1}", address.FirstName, address.LastName);
+                        orderPart.Amount = amountPaid;                                               
 
                         var utcNow = _clock.UtcNow;
                         contentItem.As<CommonPart>().ModifiedUtc = utcNow;
                         contentItem.As<CommonPart>().VersionModifiedUtc = utcNow;
+
+                        contentItem.As<TitlePart>().Title = string.Format("{0}_{1}_{2}", address.FirstName, address.LastName, utcNow.ToShortDateString());
 
                         Logger.Information("{0}{1}", "IPN Order successfully transacted:", orderId);
 
@@ -160,7 +160,8 @@ namespace Richinoz.Paypal.Controllers
                     }
                 }
 
-            }
+            }else
+                Logger.Error("Order not verified:" + logNote);
 
             return null;
         }
