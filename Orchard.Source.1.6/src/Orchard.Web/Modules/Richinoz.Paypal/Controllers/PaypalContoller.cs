@@ -135,7 +135,7 @@ namespace Richinoz.Paypal.Controllers
                         orderPart.TransactionId = transactionID;
                        
                         contentItem.As<TitlePart>().Title = string.Format("{0}_{1}", address.FirstName, address.LastName);
-                        contentItem.As<CommonPart>().ModifiedUtc = DateTime.Now;
+                        contentItem.As<CommonPart>().VersionModifiedUtc = DateTime.Now;
 
                         Logger.Information("{0}{1}", "IPN Order successfully transacted:", orderId);
 
