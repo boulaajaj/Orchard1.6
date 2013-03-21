@@ -27,43 +27,22 @@ namespace Orchard.Tests.Modules.Richinoz.Paypal
     public class PaypalTests
     {
         private IContainer _container;
+        private IOrderPartService _orderPartService;
+        private Mock<IOrderPartService> _orderPartServiceMock;
 
         public PaypalTests()
         {
             var builder = new ContainerBuilder();
             builder.RegisterType<StubClock>().As<IClock>();
-            
+            builder.RegisterType<OrderService>().As<IOrderService>();
+
+            _orderPartServiceMock = new Mock<IOrderPartService>();
+            _orderPartService = _orderPartServiceMock.Object;
+
+            builder.RegisterInstance(_orderPartService).As<IOrderPartService>();
+
             //var assembly = Assembly.GetAssembly(typeof(OrchardServices));
 
-            //builder.RegisterAssemblyTypes(assembly);
-
-
-            //builder.RegisterType<OrderPartService>().As<IOrderPartService>();
-            //builder.RegisterType<SessionLocator>().As<ISessionLocator>();
-            //builder.RegisterType<SessionFactoryHolder>().As<ISessionFactoryHolder>();
-            //builder.RegisterType<ShellSettings>().As<ShellSettings>();
-
-            //builder.RegisterType<CommentService>().As<ICommentService>();
-            //builder.RegisterType<StubCommentValidator>().As<ICommentValidator>();
-            //builder.RegisterType<DefaultContentManager>().As<IContentManager>();
-            //builder.RegisterType<DefaultContentManagerSession>().As<IContentManagerSession>();
-            //builder.RegisterInstance(new Mock<IContentDefinitionManager>().Object);
-            //builder.RegisterInstance(new Mock<ITransactionManager>().Object);
-            //builder.RegisterInstance(new Mock<IAuthorizer>().Object);
-            //builder.RegisterInstance(new Mock<INotifier>().Object);
-            //builder.RegisterInstance(new Mock<IContentDisplay>().Object);
-            //builder.RegisterInstance(new Mock<IAuthenticationService>().Object);
-            //builder.RegisterType<OrchardServices>().As<IOrchardServices>();
-            //builder.RegisterType<DefaultShapeTableManager>().As<IShapeTableManager>();
-            //builder.RegisterType<DefaultShapeFactory>().As<IShapeFactory>();
-            //builder.RegisterType<StubWorkContextAccessor>().As<IWorkContextAccessor>();
-            //builder.RegisterType<CommentedItemHandler>().As<IContentHandler>();
-            //builder.RegisterType<DefaultContentQuery>().As<IContentQuery>();
-            //builder.RegisterType<CommentPartHandler>().As<IContentHandler>();
-            //builder.RegisterType<CommonPartHandler>().As<IContentHandler>();
-            //builder.RegisterType<StubExtensionManager>().As<IExtensionManager>();
-            //builder.RegisterType<DefaultContentDisplay>().As<IContentDisplay>();
-            //builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>));
             _container = builder.Build();
         }
         [SetUp]
@@ -130,8 +109,8 @@ namespace Orchard.Tests.Modules.Richinoz.Paypal
             var factory = new Mock<IWebRequestFactory>();
             factory.Setup(c => c.Create(It.IsAny<string>())).Returns(webRequest.Object);
 
-            var orderPartService = new Mock<IOrderPartService>();
-            var orderService = new Mock<IOrderService>();
+            
+            var orderService = _container.Resolve<IOrderService>();// new Mock<IOrderService>();
 
             var orderPart = new Mock<OrderPart>();
             orderPart.Setup(x => x.Amount).Returns(1);
@@ -141,8 +120,8 @@ namespace Orchard.Tests.Modules.Richinoz.Paypal
             var contentItem =new ContentItem();            
             contentItem.Weld(orderPart.Object);
 
-            orderPartService.Setup(x => x.Get(It.IsAny<int>())).Returns(contentItem);
-            var controller = new PaypalController(orderPartService.Object, orderService.Object, factory.Object, _container.Resolve<IClock>());
+            _orderPartServiceMock.Setup(x => x.Get(It.IsAny<int>())).Returns(contentItem);
+            var controller = new PaypalController(_orderPartServiceMock.Object, orderService, factory.Object, _container.Resolve<IClock>());
             
             controller.ControllerContext = new ControllerContext(context.Object, new RouteData(), controller);
             

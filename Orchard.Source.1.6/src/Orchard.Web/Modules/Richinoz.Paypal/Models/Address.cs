@@ -1,9 +1,11 @@
 ﻿using System;
+using Richinoz.Paypal.Controllers;
+using Richinoz.Paypal.Services;
 
 namespace Richinoz.Paypal.Models
 {
     [Serializable]
-    public class Address
+    public class Address:IAddress
     {
         public string FirstName { get; set; }
 

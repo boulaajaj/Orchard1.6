@@ -97,7 +97,7 @@ namespace Richinoz.Paypal.Controllers
             var response = GetPayPalResponse(formVals, true);
 
             string logNote = string.Format("{0}, {1}", response, Request["txn_id"]);
-            //Logger.Error("IPN response: " + logNote);
+            
             if (response == "VERIFIED")
             {
 
@@ -110,21 +110,19 @@ namespace Richinoz.Paypal.Controllers
                     return null;
                 }
 
-                var newOrder = _orderService.Create();
+                var order = _orderService.Get(orderId);
 
-                var contentItem = _orderPartService.Get(orderId);
-                if (contentItem == null) {
+                if (order == null)
+                {
                     Logger.Error(string.Format("No order found for orderId [{0}]", orderId));
                     return null;
                 }
-
-                var orderPart = contentItem.As<OrderPart>();
 
                 //validate the order
                 Decimal amountPaid = 0;
                 Decimal.TryParse(sAmountPaid, out amountPaid);
 
-                if (AmountPaidIsValid(orderPart, amountPaid))
+                if (AmountPaidIsValid(order, amountPaid))
                 {
                     //process itPAY
                     try
@@ -142,23 +140,11 @@ namespace Richinoz.Paypal.Controllers
                             //UserName = order.UserName
                         };
 
-                       
-                        //re-hydrate
-                        var order = SerialisationUtils.DeserializeFromXml<Order>(orderPart.Details);
                         order.Address = address;
-                        
-                        orderPart.Details = SerialisationUtils.SerializeToXml(order);
-                        orderPart.TransactionId = transactionID;
-                        orderPart.Amount = amountPaid;                                               
+                        order.TransactionId = transactionID;
+                        order.AmountPaid = amountPaid;
 
-                        var utcNow = _clock.UtcNow;
-
-                        if (contentItem.Has<CommonPart>()) {
-                            contentItem.As<CommonPart>().ModifiedUtc = utcNow;
-                            contentItem.As<CommonPart>().VersionModifiedUtc = utcNow;
-                        }
-                        if (contentItem.Has<TitlePart>()) 
-                            contentItem.As<TitlePart>().Title = string.Format("{0}_{1}_{2}", address.FirstName, address.LastName, utcNow.ToShortDateString());
+                        _orderService.Save(order);
 
                         Logger.Information("{0}{1}", "IPN Order successfully transacted:", orderId);
 
@@ -264,7 +250,7 @@ namespace Richinoz.Paypal.Controllers
 
             return response;
         }
-        bool AmountPaidIsValid(OrderPart order, decimal amountPaid)
+        bool AmountPaidIsValid(IOrder order, decimal amountPaid)
         {
 
             //pull the order
@@ -272,7 +258,7 @@ namespace Richinoz.Paypal.Controllers
 
             if (order != null)
             {
-                if (order.Amount > amountPaid)
+                if (order.OriginalAmount > amountPaid)
                 {
                     //_logger.Warn("Invalid order Amount to PDT/IPN: " + order.ID + "; Actual: " + amountPaid.ToString("C") + "; Should be: " + order.Total.ToString("C") + "user IP is " + Request.UserHostAddress);
                     result = false;
