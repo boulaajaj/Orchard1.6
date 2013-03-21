@@ -35,7 +35,6 @@ namespace Richinoz.Paypal.Models
         }
     }
 
-    //[Serializable]
     public class OrderItem:IOrderItem
     {
         public string Name { get; set; }

@@ -6,7 +6,7 @@ namespace Richinoz.Paypal.Services
 {
     public interface IOrderService : IDependency
     {
-        IOrder Create();
+        int Create(IOrder order);
         IOrder Get(int id);
         void Save(IOrder order);
     }

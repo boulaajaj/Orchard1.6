@@ -78,13 +78,7 @@ namespace Richinoz.Paypal.Controllers
         }
 
         private int CreateOrderPart() {
-            var orderPart = _orderPartService.CreateOrder();
-            var orderId = orderPart.Id;
-
-            orderPart.As<OrderPart>().Details = SerialiseOrder(orderId);
-            orderPart.As<TitlePart>().Title = "UnVerified Order";
-
-            return orderId;
+            return _orderService.Create(GetOrderFromRequest());         
         }
 
 
@@ -162,10 +156,11 @@ namespace Richinoz.Paypal.Controllers
             return null;
         }
 
-        public string SerialiseOrder(int orderId)
+
+        public Order GetOrderFromRequest()
         {
 
-            var orderDetails = new Order() { Id = orderId };
+            var orderDetails = new Order();
 
             try
             {
@@ -195,12 +190,52 @@ namespace Richinoz.Paypal.Controllers
             }
             catch (Exception ex)
             {
-                return "SerialiseOrder Error-" + ex.Message;
+                Logger.Error(ex.Message, "SerialiseOrder Error");                
             }
-            return SerialisationUtils.SerializeToXml(orderDetails);
 
+            return orderDetails;
 
         }
+
+        //public string SerialiseOrder(int orderId)
+        //{
+
+        //    var orderDetails = new Order() { Id = orderId };
+
+        //    try
+        //    {
+        //        int i = 0;
+
+        //        while (true)
+        //        {
+        //            i++;
+        //            var name = Request.Form[string.Format("item_name_{0}", i)];
+
+        //            if (name == null)
+        //                break;
+        //            decimal amount = 0;
+        //            decimal.TryParse(Request.Form[string.Format("amount_{0}", i)], out amount);
+
+        //            int qty = 0;
+        //            int.TryParse(Request.Form[string.Format("quantity_{0}", i)], out qty);
+
+        //            orderDetails.OrderItems.Add(new OrderItem()
+        //            {
+        //                Amount = amount,
+        //                Quantity = qty,
+        //                Name = name
+        //            });
+        //        }
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return "SerialiseOrder Error-" + ex.Message;
+        //    }
+        //    return SerialisationUtils.SerializeToXml(orderDetails);
+
+
+        //}
 
 
         /// <summary>

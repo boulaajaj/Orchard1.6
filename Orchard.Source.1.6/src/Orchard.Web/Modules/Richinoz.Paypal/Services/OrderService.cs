@@ -17,11 +17,16 @@ namespace Richinoz.Paypal.Services {
             _clock = clock;
         }
 
-        public IOrder Create() {
-            var contentItem = _orderPartService.CreateOrder();
-            var orderPart = contentItem.As<OrderPart>(); 
-            var order = SerialisationUtils.DeserializeFromXml<Order>(orderPart.Details);
-            return order;
+        public int Create(IOrder order) {
+
+            var orderPart = _orderPartService.CreateOrder();
+            var orderId = orderPart.Id;
+            order.Id = orderId;
+
+            orderPart.As<OrderPart>().Details = SerialisationUtils.SerializeToXml(order); 
+            orderPart.As<TitlePart>().Title = "UnVerified Order";
+
+            return order.Id;
         }
 
         public IOrder Get(int id) {
