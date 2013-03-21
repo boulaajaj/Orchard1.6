@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
 using Nwazet.Commerce.Models;
@@ -28,16 +27,6 @@ using Richinoz.Paypal.Models;
 
 namespace RichSite
 {
-    public  static class Configs {
-        public static string AppSetting(string key, string defaultValue) {
-            return ConfigurationManager.AppSettings[key] ?? defaultValue;
-        }
-
-        public static bool AppSettingBool(string key, bool defaultValue) {
-            bool val;
-            return bool.TryParse(ConfigurationManager.AppSettings[key], out val) ? val : defaultValue;
-        }
-    }
     public class Migrations : DataMigrationImpl
     {
         private readonly IRulesServices _rulesServices;
@@ -208,6 +197,7 @@ namespace RichSite
             paypalCheckoutSettingsPart.MerchantId = Configs.AppSetting("PaypalMerchantId", "richse_1361416757_biz@gmail.com");
             paypalCheckoutSettingsPart.Currency = Configs.AppSetting("PaypalCurrency", "AUD");            
             paypalCheckoutSettingsPart.ReturnUrl = Configs.AppSetting("PaypalReturnUrl", "http://localhost/orchard/cart");
+            paypalCheckoutSettingsPart.NotifyUrl = Configs.AppSetting("NotifyIPNUrl", "http://localhost/paypal/ipn");
             
             paypalCheckoutSettingsPart.UseSandbox = Configs.AppSettingBool("PaypalUseSandbox", true);
 

@@ -11,10 +11,13 @@ using Moq;
 using NUnit.Framework;
 using Orchard.Comments.Handlers;
 using Orchard.ContentManagement;
+using Orchard.Core.Common.Models;
+using Orchard.Core.Title.Models;
 using Orchard.Services;
 using Orchard.Tests.Stubs;
 using RichSite.Helpers;
 using Richinoz.Paypal.Controllers;
+using Richinoz.Paypal.Helpers;
 using Richinoz.Paypal.Models;
 using Richinoz.Paypal.Services;
 
@@ -35,7 +38,7 @@ namespace Orchard.Tests.Modules.Richinoz.Paypal
             //builder.RegisterAssemblyTypes(assembly);
 
 
-            //builder.RegisterType<OrderService>().As<IOrderService>();
+            //builder.RegisterType<OrderPartService>().As<IOrderPartService>();
             //builder.RegisterType<SessionLocator>().As<ISessionLocator>();
             //builder.RegisterType<SessionFactoryHolder>().As<ISessionFactoryHolder>();
             //builder.RegisterType<ShellSettings>().As<ShellSettings>();
@@ -73,11 +76,12 @@ namespace Orchard.Tests.Modules.Richinoz.Paypal
         public void can_add_to_orderPart()
         {
 
-            //var orderService = _container.Resolve<IOrderService>();
-            var orderService = new Mock<IOrderService>();
+            //var OrderPartService = _container.Resolve<IOrderPartService>();
+            var orderPartService = new Mock<IOrderPartService>();
             var webRequest = new Mock<IWebRequestFactory>();
+            var orderService = new Mock<IOrderService>();
 
-            var paypalController = new PaypalController(orderService.Object, webRequest.Object, _container.Resolve<IClock>());
+            var paypalController = new PaypalController(orderPartService.Object, orderService.Object, webRequest.Object, _container.Resolve<IClock>());
 
 
             var ret = paypalController.SerialiseOrder(1);
@@ -98,6 +102,8 @@ namespace Orchard.Tests.Modules.Richinoz.Paypal
             request.Setup(x => x.BinaryRead(It.IsAny<int>())).Returns(new byte[] { });
         
             request.SetupGet(r => r["txn_id"]).Returns("Tx101");
+            request.SetupGet(r => r["custom"]).Returns("1");
+            request.SetupGet(r => r["mc_gross"]).Returns("1");
             request.SetupGet(r => r.ContentLength).Returns(1);
 
             var context = new Mock<HttpContextBase>();
@@ -124,19 +130,30 @@ namespace Orchard.Tests.Modules.Richinoz.Paypal
             var factory = new Mock<IWebRequestFactory>();
             factory.Setup(c => c.Create(It.IsAny<string>())).Returns(webRequest.Object);
 
+            var orderPartService = new Mock<IOrderPartService>();
             var orderService = new Mock<IOrderService>();
-            var contentItem = new ContentItem();
-            var orderPart = new OrderPart();
-            contentItem.Weld(orderPart);
 
-            orderService.Setup(x => x.Get(It.IsAny<int>())).Returns(contentItem);
-            var controller = new PaypalController(orderService.Object, factory.Object, _container.Resolve<IClock>());
-            //MvcMockHelpers.SetFakeControllerContext(controller);
+            var orderPart = new Mock<OrderPart>();
+            orderPart.Setup(x => x.Amount).Returns(1);
+            orderPart.Setup(x => x.Details).Returns(SerialisationUtils.SerializeToXml(new Order()));
+            orderPart.Setup(x => x.TransactionId).Returns("testTXN");   
+
+            var contentItem =new ContentItem();            
+            contentItem.Weld(orderPart.Object);
+
+            orderPartService.Setup(x => x.Get(It.IsAny<int>())).Returns(contentItem);
+            var controller = new PaypalController(orderPartService.Object, orderService.Object, factory.Object, _container.Resolve<IClock>());
+            
             controller.ControllerContext = new ControllerContext(context.Object, new RouteData(), controller);
-
+            
+            //act
             var results = controller.IPN();
+
+            //assert
             Assert.IsNotNull(results);
             Assert.IsInstanceOf(typeof(ViewResult), results);
+
+            orderPart.VerifySet(x => x.TransactionId = "Tx101");
         }
 
     }

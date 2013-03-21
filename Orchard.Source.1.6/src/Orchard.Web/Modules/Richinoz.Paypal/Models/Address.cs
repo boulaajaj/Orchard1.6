@@ -1,5 +1,8 @@
-﻿namespace Richinoz.Paypal.Models
+﻿using System;
+
+namespace Richinoz.Paypal.Models
 {
+    [Serializable]
     public class Address
     {
         public string FirstName { get; set; }

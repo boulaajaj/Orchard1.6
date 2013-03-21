@@ -7,11 +7,11 @@ using Richinoz.Paypal.Models;
 
 namespace Richinoz.Paypal.Services
 {
-    public class OrderService : IOrderService
+    public class OrderPartService : IOrderPartService
     {
         private readonly IOrchardServices _orchardServices;
 
-        public OrderService(IOrchardServices orchardServices)
+        public OrderPartService(IOrchardServices orchardServices)
         {
             _orchardServices = orchardServices;
         }

@@ -34,16 +34,21 @@ namespace Richinoz.Paypal.Controllers
 
     public class PaypalController : Controller
     {
+        private readonly IOrderPartService _orderPartService;
         private readonly IOrderService _orderService;
         private readonly IWebRequestFactory _webRequestFactory;
         private readonly IClock _clock;
         public ILogger Logger { get; set; }
         private const string _custom = "custom";
+        private readonly string _transactionIdFieldName = ConfigurationManagerExtension.AppSetting("Paypal_TransactionId", "txn_id");
+        private readonly string _amountPaidIdFieldName = ConfigurationManagerExtension.AppSetting("Paypal_AmountPaid", "mc_gross");
 
-        public PaypalController(IOrderService orderService,
+        public PaypalController(IOrderPartService orderPartService,
+            IOrderService orderService,
             IWebRequestFactory webRequestFactory,
             IClock clock)
         {
+            _orderPartService = orderPartService;
             _orderService = orderService;
             _webRequestFactory = webRequestFactory;
             _clock = clock;
@@ -59,10 +64,10 @@ namespace Richinoz.Paypal.Controllers
             return View(order);
         }
 
-        [System.Web.Mvc.HttpPost]
+        [HttpPost]
         public ActionResult PostToPaypal(string checkout_Url) {
 
-            var orderId = CreateOrder();
+            var orderId = CreateOrderPart();
 
             var query = Request.Form.ToString();// HttpUtility.ParseQueryString(Request.RawUrl);
 
@@ -72,8 +77,8 @@ namespace Richinoz.Paypal.Controllers
 
         }
 
-        private int CreateOrder() {
-            var orderPart = _orderService.CreateOrder();
+        private int CreateOrderPart() {
+            var orderPart = _orderPartService.CreateOrder();
             var orderId = orderPart.Id;
 
             orderPart.As<OrderPart>().Details = SerialiseOrder(orderId);
@@ -96,8 +101,8 @@ namespace Richinoz.Paypal.Controllers
             if (response == "VERIFIED")
             {
 
-                string transactionID = Request["txn_id"];
-                string sAmountPaid = Request["mc_gross1"];
+                string transactionID = Request[_transactionIdFieldName];
+                string sAmountPaid = Request[_amountPaidIdFieldName];
                 int orderId;
                 if (!int.TryParse(Request[_custom], out orderId))
                 {
@@ -105,7 +110,9 @@ namespace Richinoz.Paypal.Controllers
                     return null;
                 }
 
-                var contentItem = _orderService.Get(orderId);
+                var newOrder = _orderService.Create();
+
+                var contentItem = _orderPartService.Get(orderId);
                 if (contentItem == null) {
                     Logger.Error(string.Format("No order found for orderId [{0}]", orderId));
                     return null;
@@ -145,10 +152,13 @@ namespace Richinoz.Paypal.Controllers
                         orderPart.Amount = amountPaid;                                               
 
                         var utcNow = _clock.UtcNow;
-                        contentItem.As<CommonPart>().ModifiedUtc = utcNow;
-                        contentItem.As<CommonPart>().VersionModifiedUtc = utcNow;
 
-                        contentItem.As<TitlePart>().Title = string.Format("{0}_{1}_{2}", address.FirstName, address.LastName, utcNow.ToShortDateString());
+                        if (contentItem.Has<CommonPart>()) {
+                            contentItem.As<CommonPart>().ModifiedUtc = utcNow;
+                            contentItem.As<CommonPart>().VersionModifiedUtc = utcNow;
+                        }
+                        if (contentItem.Has<TitlePart>()) 
+                            contentItem.As<TitlePart>().Title = string.Format("{0}_{1}_{2}", address.FirstName, address.LastName, utcNow.ToShortDateString());
 
                         Logger.Information("{0}{1}", "IPN Order successfully transacted:", orderId);
 

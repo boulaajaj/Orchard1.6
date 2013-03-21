@@ -3,7 +3,7 @@ using Orchard.ContentManagement;
 using Richinoz.Paypal.Models;
 
 namespace Richinoz.Paypal.Services {
-    public interface IOrderService:IDependency {
+    public interface IOrderPartService:IDependency {
         ContentItem CreateOrder();       
         ContentItem Get(int id);
     }
