@@ -35,7 +35,6 @@ namespace Orchard.Tests.Modules.Richinoz.Paypal
             var builder = new ContainerBuilder();
             builder.RegisterType<StubClock>().As<IClock>();
             builder.RegisterType<OrderService>().As<IOrderService>();
-            builder.RegisterType<Serialisation>().As<ISerialisation>();            
 
             _orderPartServiceMock = new Mock<IOrderPartService>();
             _orderPartService = _orderPartServiceMock.Object;
@@ -49,6 +48,24 @@ namespace Orchard.Tests.Modules.Richinoz.Paypal
         [SetUp]
         public void Init()
         {
+
+        }
+
+        [Test]
+        public void can_add_to_orderPart()
+        {
+
+            //var OrderPartService = _container.Resolve<IOrderPartService>();
+            var orderPartService = new Mock<IOrderPartService>();
+            var webRequest = new Mock<IWebRequestFactory>();
+            var orderService = new Mock<IOrderService>();
+
+            var paypalController = new PaypalController(orderPartService.Object, orderService.Object, webRequest.Object, _container.Resolve<IClock>());
+
+
+            var ret = paypalController.SerialiseOrder(1);
+
+            Assert.IsNotNullOrEmpty(ret);
 
         }
 
@@ -93,19 +110,18 @@ namespace Orchard.Tests.Modules.Richinoz.Paypal
             factory.Setup(c => c.Create(It.IsAny<string>())).Returns(webRequest.Object);
 
             
-            var orderService = _container.Resolve<IOrderService>();
-            var serialisationUtils = _container.Resolve<ISerialisation>();
-            
+            var orderService = _container.Resolve<IOrderService>();// new Mock<IOrderService>();
+
             var orderPart = new Mock<OrderPart>();
             orderPart.Setup(x => x.Amount).Returns(1);
-            orderPart.Setup(x => x.Details).Returns(serialisationUtils.SerializeToXml(new Order()));                             
+            orderPart.Setup(x => x.Details).Returns(SerialisationUtils.SerializeToXml(new Order()));
             orderPart.Setup(x => x.TransactionId).Returns("testTXN");   
 
             var contentItem =new ContentItem();            
             contentItem.Weld(orderPart.Object);
 
             _orderPartServiceMock.Setup(x => x.Get(It.IsAny<int>())).Returns(contentItem);
-            var controller = new PaypalController(orderService, factory.Object, _container.Resolve<IClock>());
+            var controller = new PaypalController(_orderPartServiceMock.Object, orderService, factory.Object, _container.Resolve<IClock>());
             
             controller.ControllerContext = new ControllerContext(context.Object, new RouteData(), controller);
             
