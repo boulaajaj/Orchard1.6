@@ -6,8 +6,12 @@ using Richinoz.Paypal.Models;
 
 namespace Richinoz.Paypal.Drivers {
     public class OrderPartDriver:ContentPartDriver<OrderPart> {
+        private readonly ISerialisation _serialisation;
 
-      
+        public OrderPartDriver(ISerialisation serialisation) {
+            _serialisation = serialisation;
+        }
+
         protected override string Prefix
         {
             get { return "Order"; }
@@ -22,7 +26,7 @@ namespace Richinoz.Paypal.Drivers {
         //get
         protected override DriverResult Editor(OrderPart part, dynamic shapeHelper)
         {
-            var order = SerialisationUtils.DeserializeFromXml<Order>(part.Details);
+            var order = _serialisation.DeserializeFromXml<Order>(part.Details);
             part.Order = order;
 
             return ContentShape("Parts_Order_Edit", () =>
@@ -33,7 +37,7 @@ namespace Richinoz.Paypal.Drivers {
         protected override DriverResult Editor(OrderPart part, IUpdateModel updater, dynamic shapeHelper)
         {                      
             if(updater.TryUpdateModel(part, Prefix, null, new string[] { "TransactionId" }))
-                part.Details = SerialisationUtils.SerializeToXml(part.Order);
+                part.Details = _serialisation.SerializeToXml(part.Order);
 
             return Editor(part, shapeHelper);
         }

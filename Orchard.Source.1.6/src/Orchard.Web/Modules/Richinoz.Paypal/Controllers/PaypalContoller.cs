@@ -34,7 +34,6 @@ namespace Richinoz.Paypal.Controllers
 
     public class PaypalController : Controller
     {
-        private readonly IOrderPartService _orderPartService;
         private readonly IOrderService _orderService;
         private readonly IWebRequestFactory _webRequestFactory;
         private readonly IClock _clock;
@@ -43,12 +42,10 @@ namespace Richinoz.Paypal.Controllers
         private readonly string _transactionIdFieldName = ConfigurationManagerExtension.AppSetting("Paypal_TransactionId", "txn_id");
         private readonly string _amountPaidIdFieldName = ConfigurationManagerExtension.AppSetting("Paypal_AmountPaid", "mc_gross");
 
-        public PaypalController(IOrderPartService orderPartService,
-            IOrderService orderService,
+        public PaypalController(IOrderService orderService,
             IWebRequestFactory webRequestFactory,
             IClock clock)
         {
-            _orderPartService = orderPartService;
             _orderService = orderService;
             _webRequestFactory = webRequestFactory;
             _clock = clock;

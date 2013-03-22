@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using Richinoz.Paypal.Controllers;
 using Richinoz.Paypal.Services;
 
@@ -12,12 +13,12 @@ namespace Richinoz.Paypal.Models
         private string _transactionId;
         public Order()
         {
-            OrderItems = new List<IOrderItem>();
+            OrderItems = new List<OrderItem>();
         }
         public int Id { get; set; }
 
-        public List<IOrderItem> OrderItems { get; set; }
-        public IAddress Address { get; set; }
+        public List<OrderItem> OrderItems { get; set; }
+        public Address Address { get; set; }
 
         public decimal OriginalAmount {
             get { return _amount; }

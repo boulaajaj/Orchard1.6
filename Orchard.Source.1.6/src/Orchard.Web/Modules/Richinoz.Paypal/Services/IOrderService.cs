@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using Orchard;
 using Richinoz.Paypal.Models;
 
@@ -14,8 +15,8 @@ namespace Richinoz.Paypal.Services
     public interface IOrder
     {        
         int Id { get; set; }
-        List<IOrderItem> OrderItems { get; set; }
-        IAddress Address { get; set; }
+        List<OrderItem> OrderItems { get; set; }
+        Address Address { get; set; }
         decimal OriginalAmount { get; set; }
         decimal AmountPaid { get; set; }
         string TransactionId { get; set; }
