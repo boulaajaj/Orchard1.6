@@ -85,6 +85,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\OrderItem.cs" />
     <Compile Include="Services\IOrderService.cs" />
     <Compile Include="Services\OrderService.cs" />
     <Compile Include="Controllers\PaypalContoller.cs" />

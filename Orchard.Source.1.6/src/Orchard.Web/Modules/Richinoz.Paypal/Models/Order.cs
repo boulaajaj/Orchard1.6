@@ -35,11 +35,4 @@ namespace Richinoz.Paypal.Models
             set { _transactionId = value; }
         }
     }
-
-    public class OrderItem:IOrderItem
-    {
-        public string Name { get; set; }
-        public decimal Amount { get; set; }
-        public int Quantity { get; set; }
-    }
 }
