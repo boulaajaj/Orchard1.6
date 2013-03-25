@@ -282,7 +282,7 @@ namespace Richinoz.Paypal.Controllers
 
             return response;
         }
-        bool AmountPaidIsValid(IOrder order, decimal amountPaid)
+        bool AmountPaidIsValid(Order order, decimal amountPaid)
         {
 
             //pull the order

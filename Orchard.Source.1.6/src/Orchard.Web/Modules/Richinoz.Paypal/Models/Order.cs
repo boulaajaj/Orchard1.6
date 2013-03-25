@@ -7,7 +7,7 @@ using Richinoz.Paypal.Services;
 namespace Richinoz.Paypal.Models
 {
     [Serializable]
-    public class Order : IOrder {
+    public class Order  {
         private decimal _amount;
         private decimal _amountPaid;
         private string _transactionId;
