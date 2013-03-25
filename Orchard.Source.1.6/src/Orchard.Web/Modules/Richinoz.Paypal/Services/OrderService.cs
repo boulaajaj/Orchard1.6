@@ -20,7 +20,7 @@ namespace Richinoz.Paypal.Services {
             _serialisation = serialisation;
         }
 
-        public int Create(IOrder order) {
+        public int Create(Order order) {
 
             var orderPart = _orderPartService.CreateOrder();
             var orderId = orderPart.Id;
@@ -32,7 +32,7 @@ namespace Richinoz.Paypal.Services {
             return order.Id;
         }
 
-        public IOrder Get(int id) {
+        public Order Get(int id) {
             var contentItem = _orderPartService.Get(id);
             Order order = null;
             if(contentItem!=null) {
@@ -42,7 +42,7 @@ namespace Richinoz.Paypal.Services {
             return order;
         }
 
-        public void Save(IOrder order) {
+        public void Save(Order order) {
             var contentItem = _orderPartService.Get(order.Id);
             var orderPart = contentItem.As<OrderPart>();
 
