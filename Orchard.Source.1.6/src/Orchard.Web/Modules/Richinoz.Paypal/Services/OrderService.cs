@@ -20,19 +20,19 @@ namespace Richinoz.Paypal.Services {
             _serialisation = serialisation;
         }
 
-        public int Create(Order order) {
+        public int Create(IOrder order) {
 
             var orderPart = _orderPartService.CreateOrder();
             var orderId = orderPart.Id;
-            order.Id = orderId;
+            order.UniqueId = orderId;
 
             orderPart.As<OrderPart>().Details = _serialisation.SerializeToXml(order); 
             orderPart.As<TitlePart>().Title = "UnVerified Order";
 
-            return order.Id;
+            return order.UniqueId;
         }
 
-        public Order Get(int id) {
+        public IOrder Get(int id) {
             var contentItem = _orderPartService.Get(id);
             Order order = null;
             if(contentItem!=null) {
@@ -42,8 +42,8 @@ namespace Richinoz.Paypal.Services {
             return order;
         }
 
-        public void Save(Order order) {
-            var contentItem = _orderPartService.Get(order.Id);
+        public void Save(IOrder order) {
+            var contentItem = _orderPartService.Get(order.UniqueId);
             var orderPart = contentItem.As<OrderPart>();
 
             orderPart.Details = _serialisation.SerializeToXml(order);

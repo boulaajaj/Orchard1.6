@@ -7,18 +7,19 @@ using Richinoz.Paypal.Services;
 namespace Richinoz.Paypal.Models
 {
     [Serializable]
-    public class Order  {
+    public class Order : IOrder
+    {
         private decimal _amount;
         private decimal _amountPaid;
         private string _transactionId;
         public Order()
         {
-            OrderItems = new List<OrderItem>();
+            OrderItems = new List<IOrderItem>();
         }
-        public int Id { get; set; }
+        public int UniqueId { get; set; }
 
-        public List<OrderItem> OrderItems { get; set; }
-        public Address Address { get; set; }
+        public List<IOrderItem> OrderItems { get; set; }
+        public IAddress Address { get; set; }
 
         public decimal OriginalAmount {
             get { return _amount; }

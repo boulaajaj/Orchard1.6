@@ -282,7 +282,7 @@ namespace Richinoz.Paypal.Controllers
 
             return response;
         }
-        bool AmountPaidIsValid(Order order, decimal amountPaid)
+        bool AmountPaidIsValid(IOrder order, decimal amountPaid)
         {
 
             //pull the order
@@ -298,7 +298,7 @@ namespace Richinoz.Paypal.Controllers
             }
             else
             {
-                //_logger.Warn("Invalid order ID passed to PDT/IPN; user IP is " + Request.UserHostAddress);
+                Logger.Warning("Invalid order ID passed to PDT/IPN; user IP is " + Request.UserHostAddress);
             }
             return result;
 

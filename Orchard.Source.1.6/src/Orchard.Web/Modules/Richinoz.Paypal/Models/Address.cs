@@ -7,7 +7,7 @@ namespace Richinoz.Paypal.Models
 {
 
     [Serializable]
-    public class Address
+    public class Address:IAddress
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
