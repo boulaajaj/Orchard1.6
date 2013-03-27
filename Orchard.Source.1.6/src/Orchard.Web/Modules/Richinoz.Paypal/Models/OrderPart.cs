@@ -3,23 +3,25 @@
 namespace Richinoz.Paypal.Models {
     public class OrderPart:ContentPart<OrderPartRecord> {
 
-        public string Details
+        public virtual string Details
         {
             get { return Record.Details; }
             set { Record.Details = value; }
         }
 
-        public decimal Amount
+        public virtual decimal Amount
         {
             get { return Record.Amount; }
             set { Record.Amount = value; }
         }
 
-        public string TransactionId
+        public virtual string TransactionId
         {
             get { return Record.TransactionId; }
             set { Record.TransactionId = value; }
         }
+
+        public Order Order { get; set; }
 
     }
 }

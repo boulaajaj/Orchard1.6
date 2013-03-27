@@ -1,23 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
+using Richinoz.Paypal.Controllers;
+using Richinoz.Paypal.Services;
 
-namespace Richinoz.Paypal.Models {
+namespace Richinoz.Paypal.Models
+{
     [Serializable]
-    public class Order {
-        public Order() {
-            OrderItems= new List<OrderItem>();
+    public class Order : IOrder
+    {
+        public Order()
+        {
+            OrderItems = new List<IOrderItem>();
         }
-        public int Id { get; set; }
+        public int UniqueId { get; set; }
 
-        public List<OrderItem> OrderItems { get; set; }
-        public Address Address { get; set; }
+        public List<IOrderItem> OrderItems { get; set; }
+        public IAddress Address { get; set; }
 
-    }
-
-    [Serializable]
-    public class OrderItem {
-        public string Name { get; set; }
-        public decimal Amount{ get; set; }
-        public int Quantity{ get; set; }
+        public decimal OriginalAmount { get; set; }
+        public decimal AmountPaid { get; set; }
+        public string TransactionId { get; set; }
     }
 }

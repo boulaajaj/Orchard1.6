@@ -28,7 +28,7 @@
     <input type="hidden" name="@("business")" value="@Model.Business"/>
 
     @*@Html.HiddenFor(model => model.notify_url)*@
-    <input type="hidden" name="@("notify_url")" value="http://localhost/Orchard/"/>
+    <input type="hidden" name="@("notify_url")" value="@Model.NotifyUrl"/>
 
     @*@Html.HiddenFor(model => model.@return)*@
     <input type="hidden" name="@("return")" value="@Model.ReturnURL"/>

@@ -11,6 +11,7 @@ using Orchard.ContentManagement;
 using Orchard.Core.Common.Models;
 using Orchard.Core.Title.Models;
 using Orchard.Logging;
+using Orchard.Services;
 using Orchard.UI.Admin;
 using Richinoz.Paypal.Helpers;
 using Richinoz.Paypal.Models;
@@ -35,14 +36,19 @@ namespace Richinoz.Paypal.Controllers
     {
         private readonly IOrderService _orderService;
         private readonly IWebRequestFactory _webRequestFactory;
+        private readonly IClock _clock;
         public ILogger Logger { get; set; }
-        private const string OrderId = "custom";
+        private const string _custom = "custom";
+        private readonly string _transactionIdFieldName = ConfigurationManagerExtension.AppSetting("Paypal_TransactionId", "txn_id");
+        private readonly string _amountPaidIdFieldName = ConfigurationManagerExtension.AppSetting("Paypal_AmountPaid", "mc_gross");
 
         public PaypalController(IOrderService orderService,
-            IWebRequestFactory webRequestFactory)
+            IWebRequestFactory webRequestFactory,
+            IClock clock)
         {
             _orderService = orderService;
             _webRequestFactory = webRequestFactory;
+            _clock = clock;
             Logger = NullLogger.Instance;
         }
 
@@ -55,22 +61,21 @@ namespace Richinoz.Paypal.Controllers
             return View(order);
         }
 
-        [System.Web.Mvc.HttpPost]
-        public ActionResult PostToPaypal(string checkout_Url)
-        {
+        [HttpPost]
+        public ActionResult PostToPaypal(string checkout_Url) {
 
-            var orderPart = _orderService.CreateOrder();
-            var orderId = orderPart.Id;
+            var orderId = CreateOrderPart();
 
             var query = Request.Form.ToString();// HttpUtility.ParseQueryString(Request.RawUrl);
 
-            var paypalUrl = string.Format("{0}?{1}&{2}={3}", checkout_Url, query, OrderId, orderId);
-
-            orderPart.As<OrderPart>().Details = SerialiseOrder(orderId);
-            orderPart.As<TitlePart>().Title = "UnVerified Order";
+            var paypalUrl = string.Format("{0}?{1}&{2}={3}", checkout_Url, query, _custom, orderId);
 
             return Redirect(paypalUrl);
 
+        }
+
+        private int CreateOrderPart() {
+            return _orderService.Create(GetOrderFromRequest());         
         }
 
 
@@ -83,32 +88,32 @@ namespace Richinoz.Paypal.Controllers
             var response = GetPayPalResponse(formVals, true);
 
             string logNote = string.Format("{0}, {1}", response, Request["txn_id"]);
-            //Logger.Error("IPN response: " + logNote);
+            
             if (response == "VERIFIED")
             {
 
-                string transactionID = Request["txn_id"];
-                string sAmountPaid = Request["mc_gross1"];
+                string transactionID = Request[_transactionIdFieldName];
+                string sAmountPaid = Request[_amountPaidIdFieldName];
                 int orderId;
-                if (!int.TryParse(Request[OrderId], out orderId))
+                if (!int.TryParse(Request[_custom], out orderId))
                 {
                     Logger.Error("No order Id found in Request variable");
                     return null;
                 }
 
-                var contentItem = _orderService.Get(orderId);
-                if (contentItem == null) {
+                var order = _orderService.Get(orderId);
+
+                if (order == null)
+                {
                     Logger.Error(string.Format("No order found for orderId [{0}]", orderId));
                     return null;
                 }
-
-                var orderPart = contentItem.As<OrderPart>();
 
                 //validate the order
                 Decimal amountPaid = 0;
                 Decimal.TryParse(sAmountPaid, out amountPaid);
 
-                if (AmountPaidIsValid(orderPart, amountPaid))
+                if (AmountPaidIsValid(order, amountPaid))
                 {
                     //process itPAY
                     try
@@ -126,16 +131,11 @@ namespace Richinoz.Paypal.Controllers
                             //UserName = order.UserName
                         };
 
-                       
-                        //re-hydrate
-                        var order = SerialisationUtils.DeserializeFromXml<Order>(orderPart.Details);
                         order.Address = address;
-                        
-                        orderPart.Details = SerialisationUtils.SerializeToXml(order);
-                        orderPart.TransactionId = transactionID;
-                       
-                        contentItem.As<TitlePart>().Title = string.Format("{0}_{1}", address.FirstName, address.LastName);
-                        contentItem.As<CommonPart>().VersionModifiedUtc = DateTime.Now;
+                        order.TransactionId = transactionID;
+                        order.AmountPaid = amountPaid;
+
+                        _orderService.Save(order);
 
                         Logger.Information("{0}{1}", "IPN Order successfully transacted:", orderId);
 
@@ -147,15 +147,17 @@ namespace Richinoz.Paypal.Controllers
                     }
                 }
 
-            }
+            }else
+                Logger.Error("Order not verified:" + logNote);
 
             return null;
         }
 
-        public string SerialiseOrder(int orderId)
+
+        public Order GetOrderFromRequest()
         {
 
-            var orderDetails = new Order() { Id = orderId };
+            var orderDetails = new Order();
 
             try
             {
@@ -185,12 +187,123 @@ namespace Richinoz.Paypal.Controllers
             }
             catch (Exception ex)
             {
-                return "SerialiseOrder Error-" + ex.Message;
+                Logger.Error(ex.Message, "SerialiseOrder Error");                
             }
-            return SerialisationUtils.SerializeToXml(orderDetails);
 
+            return orderDetails;
 
         }
+
+        //public string SerialiseOrder(int orderId)
+        //{
+
+        //    var orderDetails = new Order() { Id = orderId };
+
+        //    try
+        //    {
+        //        int i = 0;
+
+        //        while (true)
+        //        {
+        //            i++;
+        //            var name = Request.Form[string.Format("item_name_{0}", i)];
+
+        //            if (name == null)
+        //                break;
+        //            decimal amount = 0;
+        //            decimal.TryParse(Request.Form[string.Format("amount_{0}", i)], out amount);
+
+        //            int qty = 0;
+        //            int.TryParse(Request.Form[string.Format("quantity_{0}", i)], out qty);
+
+        //            orderDetails.OrderItems.Add(new OrderItem()
+        //            {
+        //                Amount = amount,
+        //                Quantity = qty,
+        //                Name = name
+        //            });
+        //        }
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return "SerialiseOrder Error-" + ex.Message;
+        //    }
+        //    return SerialisationUtils.SerializeToXml(orderDetails);
+
+
+        //}
+
+
+        /// <summary>
+        /// Utility method for handling PayPal Responses
+        /// </summary>
+        public string GetPayPalResponse(Dictionary<string, string> formVals, bool useSandbox)
+        {
+
+            string paypalUrl = useSandbox ? "https://www.sandbox.paypal.com/cgi-bin/webscr"
+                : "https://www.paypal.com/cgi-bin/webscr";
+
+
+            var req = _webRequestFactory.Create(paypalUrl);// (HttpWebRequest)WebRequest.Create(paypalUrl);
+
+            // Set values for the request back
+            req.Method = "POST";
+            req.ContentType = "application/x-www-form-urlencoded";
+
+            byte[] param = Request.BinaryRead(Request.ContentLength);
+            string strRequest = Encoding.ASCII.GetString(param);
+
+            var sb = new StringBuilder();
+            sb.Append(strRequest);
+
+            foreach (string key in formVals.Keys)
+            {
+                sb.AppendFormat("&{0}={1}", key, formVals[key]);
+            }
+            strRequest += sb.ToString();
+            req.ContentLength = strRequest.Length;
+
+            //for proxy
+            //WebProxy proxy = new WebProxy(new Uri("http://urlort#");
+            //req.Proxy = proxy;
+            //Send the request to PayPal and get the response
+            string response = "";
+            using (StreamWriter streamOut = new StreamWriter(req.GetRequestStream(), System.Text.Encoding.ASCII))
+            {
+
+                streamOut.Write(strRequest);
+                streamOut.Close();
+                using (StreamReader streamIn = new StreamReader(req.GetResponse().GetResponseStream()))
+                {
+                    response = streamIn.ReadToEnd();
+                }
+            }
+
+            return response;
+        }
+        bool AmountPaidIsValid(IOrder order, decimal amountPaid)
+        {
+
+            //pull the order
+            bool result = true;
+
+            if (order != null)
+            {
+                if (order.OriginalAmount > amountPaid)
+                {
+                    //_logger.Warn("Invalid order Amount to PDT/IPN: " + order.ID + "; Actual: " + amountPaid.ToString("C") + "; Should be: " + order.Total.ToString("C") + "user IP is " + Request.UserHostAddress);
+                    result = false;
+                }
+            }
+            else
+            {
+                Logger.Warning("Invalid order ID passed to PDT/IPN; user IP is " + Request.UserHostAddress);
+            }
+            return result;
+
+        }
+
         /// <summary>
         /// Handles the PDT Response from PayPal
         /// </summary>
@@ -266,95 +379,28 @@ namespace Richinoz.Paypal.Controllers
         //        return View();
         //    }
         //}
-        /// <summary>
-        /// Utility method for handling PayPal Responses
-        /// </summary>
-        public string GetPayPalResponse(Dictionary<string, string> formVals, bool useSandbox)
-        {
 
-            string paypalUrl = useSandbox ? "https://www.sandbox.paypal.com/cgi-bin/webscr"
-                : "https://www.paypal.com/cgi-bin/webscr";
+        //string GetPDTValue(string pdt, string key)
+        //{
 
-
-            var req = _webRequestFactory.Create(paypalUrl);// (HttpWebRequest)WebRequest.Create(paypalUrl);
-
-            // Set values for the request back
-            req.Method = "POST";
-            req.ContentType = "application/x-www-form-urlencoded";
-
-            byte[] param = Request.BinaryRead(Request.ContentLength);
-            string strRequest = Encoding.ASCII.GetString(param);
-
-            var sb = new StringBuilder();
-            sb.Append(strRequest);
-
-            foreach (string key in formVals.Keys)
-            {
-                sb.AppendFormat("&{0}={1}", key, formVals[key]);
-            }
-            strRequest += sb.ToString();
-            req.ContentLength = strRequest.Length;
-
-            //for proxy
-            //WebProxy proxy = new WebProxy(new Uri("http://urlort#");
-            //req.Proxy = proxy;
-            //Send the request to PayPal and get the response
-            string response = "";
-            using (StreamWriter streamOut = new StreamWriter(req.GetRequestStream(), System.Text.Encoding.ASCII))
-            {
-
-                streamOut.Write(strRequest);
-                streamOut.Close();
-                using (StreamReader streamIn = new StreamReader(req.GetResponse().GetResponseStream()))
-                {
-                    response = streamIn.ReadToEnd();
-                }
-            }
-
-            return response;
-        }
-        bool AmountPaidIsValid(OrderPart order, decimal amountPaid)
-        {
-
-            //pull the order
-            bool result = true;
-
-            if (order != null)
-            {
-                if (order.Amount > amountPaid)
-                {
-                    //_logger.Warn("Invalid order Amount to PDT/IPN: " + order.ID + "; Actual: " + amountPaid.ToString("C") + "; Should be: " + order.Total.ToString("C") + "user IP is " + Request.UserHostAddress);
-                    result = false;
-                }
-            }
-            else
-            {
-                //_logger.Warn("Invalid order ID passed to PDT/IPN; user IP is " + Request.UserHostAddress);
-            }
-            return result;
-
-        }
-        string GetPDTValue(string pdt, string key)
-        {
-
-            string[] keys = pdt.Split('\n');
-            string thisVal = "";
-            string thisKey = "";
-            foreach (string s in keys)
-            {
-                string[] bits = s.Split('=');
-                if (bits.Length > 1)
-                {
-                    thisVal = bits[1];
-                    thisKey = bits[0];
-                    if (thisKey.Equals(key, StringComparison.InvariantCultureIgnoreCase))
-                        break;
-                }
-            }
-            return thisVal;
+        //    string[] keys = pdt.Split('\n');
+        //    string thisVal = "";
+        //    string thisKey = "";
+        //    foreach (string s in keys)
+        //    {
+        //        string[] bits = s.Split('=');
+        //        if (bits.Length > 1)
+        //        {
+        //            thisVal = bits[1];
+        //            thisKey = bits[0];
+        //            if (thisKey.Equals(key, StringComparison.InvariantCultureIgnoreCase))
+        //                break;
+        //        }
+        //    }
+        //    return thisVal;
 
 
-        }
+        //}
 
     }
 }

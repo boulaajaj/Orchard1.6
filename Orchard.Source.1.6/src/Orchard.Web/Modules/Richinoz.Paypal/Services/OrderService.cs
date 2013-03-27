@@ -1,57 +1,64 @@
-﻿using System;
-using Orchard;
 using Orchard.ContentManagement;
+using Orchard.Core.Common.Models;
 using Orchard.Core.Title.Models;
-using Orchard.Data;
+using Orchard.Services;
+using Richinoz.Paypal.Controllers;
+using Richinoz.Paypal.Helpers;
 using Richinoz.Paypal.Models;
 
-namespace Richinoz.Paypal.Services
-{
-    public class OrderService : IOrderService
-    {
-        private readonly IOrchardServices _orchardServices;
+namespace Richinoz.Paypal.Services {
+    public class OrderService : IOrderService {
+        private readonly IOrderPartService _orderPartService;
+        private readonly IClock _clock;
+        private readonly ISerialisation _serialisation;
 
-        public OrderService(IOrchardServices orchardServices)
-        {
-            _orchardServices = orchardServices;
+        public OrderService(IOrderPartService orderPartService, 
+            IClock clock,
+            ISerialisation serialisation) {
+            _orderPartService = orderPartService;
+            _clock = clock;
+            _serialisation = serialisation;
         }
 
-        public ContentItem CreateOrder() {
-            try
-            {
-                var order = _orchardServices.ContentManager.New("Order");
+        public int Create(IOrder order) {
 
-                _orchardServices.ContentManager.Create(order, VersionOptions.Draft);
+            var orderPart = _orderPartService.CreateOrder();
+            var orderId = orderPart.Id;
+            order.UniqueId = orderId;
 
-                return order;
-            }
-            catch (Exception)
-            {
-                _orchardServices.TransactionManager.Cancel();
-                throw;
-            }
+            orderPart.As<OrderPart>().Details = _serialisation.SerializeToXml(order); 
+            orderPart.As<TitlePart>().Title = "UnVerified Order";
+
+            return order.UniqueId;
         }
 
-        //public OrderPart Create()
-        //{
+        public IOrder Get(int id) {
+            var contentItem = _orderPartService.Get(id);
+            Order order = null;
+            if(contentItem!=null) {
+                var orderPart = contentItem.As<OrderPart>();
+                order = _serialisation.DeserializeFromXml<Order>(orderPart.Details);                
+            }
+            return order;
+        }
 
-        //    try
-        //    {
-        //        var order = _orchardServices.ContentManager.New("Order");
-                
-        //        _orchardServices.ContentManager.Create(order, VersionOptions.Draft);
+        public void Save(IOrder order) {
+            var contentItem = _orderPartService.Get(order.UniqueId);
+            var orderPart = contentItem.As<OrderPart>();
 
-        //        return order.As<OrderPart>();
-        //    }
-        //    catch (Exception)
-        //    {
-        //        _orchardServices.TransactionManager.Cancel();
-        //        throw;
-        //    }
-        //}
+            orderPart.Details = _serialisation.SerializeToXml(order);
+            orderPart.TransactionId = order.TransactionId;
+            orderPart.Amount = order.AmountPaid;                                    
 
-        public ContentItem Get(int id) {
-            return _orchardServices.ContentManager.Get(id, VersionOptions.AllVersions);
+            var utcNow = _clock.UtcNow;
+
+            if (contentItem.Has<CommonPart>()) {
+                contentItem.As<CommonPart>().ModifiedUtc = utcNow;
+                contentItem.As<CommonPart>().VersionModifiedUtc = utcNow;
+            }
+            if (contentItem.Has<TitlePart>()) 
+                contentItem.As<TitlePart>().Title = string.Format("{0}_{1}_{2}", order.Address.FirstName, order.Address.LastName, utcNow.ToShortDateString());
+
         }
     }
 }

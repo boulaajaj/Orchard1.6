@@ -111,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminMenu.cs" />
+    <Compile Include="Configs.cs" />
     <Compile Include="Handlers\RichDependencyFeatureEventHandler.cs" />
     <Compile Include="Handlers\RichDependencyHandler.cs" />
     <Compile Include="Helpers\StringExtensions.cs" />
