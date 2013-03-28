@@ -13,6 +13,7 @@ using Orchard.Localization;
 using Orchard.UI.Admin;
 using Orchard.Settings;
 using Orchard.UI.Navigation;
+using Richinoz.Paypal.Enums;
 using Richinoz.Paypal.Models;
 
 namespace Richinoz.Paypal.Controllers {
@@ -90,6 +91,9 @@ namespace Richinoz.Paypal.Controllers {
                     break;
             }
 
+            //query.Where<OrderPartRecord>(cr => cr.Status == OrderStatus.Paid.ToString());
+            query.Where<OrderPartRecord>(cr => cr.TransactionId != null);
+
             var pagerShape = Shape.Pager(pager).TotalItemCount(query.Count());
             var pageOfContentItems = query.Slice(pager.GetStartIndex(), pager.PageSize).ToList();
 
@@ -102,7 +106,7 @@ namespace Richinoz.Paypal.Controllers {
                 .Options(model.Options);
 
             // Casting to avoid invalid (under medium trust) reflection over the protected View method and force a static invocation.
-            return View((object)viewModel);
+            return View("List",(object)viewModel);
         }
 
     }

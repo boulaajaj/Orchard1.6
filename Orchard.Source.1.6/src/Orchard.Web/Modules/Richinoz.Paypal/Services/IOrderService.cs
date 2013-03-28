@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using Orchard;
+using Richinoz.Paypal.Enums;
 using Richinoz.Paypal.Models;
 
 namespace Richinoz.Paypal.Services
@@ -9,7 +10,7 @@ namespace Richinoz.Paypal.Services
     {
         int Create(IOrder order);
         IOrder Get(int id);
-        void Save(IOrder order);
+        void Save(IOrder order, OrderStatus orderStatus);
     }
 
     public interface IOrder

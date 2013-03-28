@@ -109,6 +109,7 @@
     <Compile Include="Services\IOrderPartService.cs" />
     <Compile Include="Services\IPaypalCheckoutService.cs" />
     <Compile Include="Services\OrderPartService.cs" />
+    <Compile Include="Enums\OrderStatus.cs" />
     <Compile Include="Services\PaypalCheckoutService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -133,9 +134,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\OrderAdmin\List.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\OrderAdmin\ListOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Paypal\Success.cshtml" />

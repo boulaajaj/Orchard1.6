@@ -3,10 +3,14 @@ using Orchard.Core.Common.Models;
 using Orchard.Core.Title.Models;
 using Orchard.Services;
 using Richinoz.Paypal.Controllers;
+using Richinoz.Paypal.Enums;
 using Richinoz.Paypal.Helpers;
 using Richinoz.Paypal.Models;
 
 namespace Richinoz.Paypal.Services {
+
+    //strings mus be no longer than 10 chars!
+
     public class OrderService : IOrderService {
         private readonly IOrderPartService _orderPartService;
         private readonly IClock _clock;
@@ -42,10 +46,11 @@ namespace Richinoz.Paypal.Services {
             return order;
         }
 
-        public void Save(IOrder order) {
+        public void Save(IOrder order, OrderStatus orderStatus) {
             var contentItem = _orderPartService.Get(order.UniqueId);
             var orderPart = contentItem.As<OrderPart>();
 
+            orderPart.Status = orderStatus.ToString();
             orderPart.Details = _serialisation.SerializeToXml(order);
             orderPart.TransactionId = order.TransactionId;
             orderPart.Amount = order.AmountPaid;                                    

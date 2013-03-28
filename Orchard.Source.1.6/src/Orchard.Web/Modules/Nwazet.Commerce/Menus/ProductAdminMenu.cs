@@ -23,11 +23,11 @@ namespace Nwazet.Commerce.Menus {
                     .Position("2")
                     .LinkToFirstChild(true)
 
-                    .Add(subItem => subItem
-                        .Caption(T("Products"))
-                        .Position("2.0")
-                        .Action("List", "ProductAdmin", new { area = "Nwazet.Commerce" })
-                    )
+                    //.Add(subItem => subItem
+                    //    .Caption(T("Products"))
+                    //    .Position("2.0")
+                    //    .Action("List", "ProductAdmin", new { area = "Nwazet.Commerce" })
+                    //)
                 );
         }
     }

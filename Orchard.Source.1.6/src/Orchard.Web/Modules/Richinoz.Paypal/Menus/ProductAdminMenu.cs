@@ -24,10 +24,15 @@ namespace Richinoz.Paypal.Menus {
         {
           
             menu.Add(subItem => subItem
-                                    .Caption(T("Orders"))
+                                    .Caption(T("All Orders"))
                                     .Position("2.0")
                                     .Action("List", "OrderAdmin", new {area = "Richinoz.Paypal"}));
 
+            menu.Add(subItem => subItem
+                                    .Caption(T("Orders"))
+                                    .Position("3.0")
+                                    .Action("ListOrder", "OrderAdmin", new { area = "Richinoz.Paypal" }));
+            
         }
 
         //public void GetNavigation(NavigationBuilder builder) {
