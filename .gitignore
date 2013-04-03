@@ -109,3 +109,6 @@ UpgradeLog*.XML
 *.ReSharper
 
 /Orchard.Source.1.6/src/Orchard.Web/App_Data_OLD/*.*
+/Orchard.Source.1.6/*
+/Orchard.Source.1.6/*
+/Orchard.Source.1.6/*

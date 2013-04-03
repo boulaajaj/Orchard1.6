@@ -630,8 +630,8 @@
   </Dependency>
   <Dependency>
     <ModuleName>PrettyGallery</ModuleName>
-    <VirtualPath>~/Modules/PrettyGallery/bin/PrettyGallery.dll</VirtualPath>
-    <LoaderName>PrecompiledExtensionLoader</LoaderName>
+    <VirtualPath>~/Modules/PrettyGallery/PrettyGallery.csproj</VirtualPath>
+    <LoaderName>DynamicExtensionLoader</LoaderName>
     <References>
       <Reference>
         <Name>Orchard.Media</Name>
@@ -771,15 +771,9 @@
   </Dependency>
   <Dependency>
     <ModuleName>SysCache</ModuleName>
-    <VirtualPath>~/Modules/SysCache/bin/SysCache.dll</VirtualPath>
-    <LoaderName>PrecompiledExtensionLoader</LoaderName>
-    <References>
-      <Reference>
-        <Name>NHibernate.Caches.SysCache2</Name>
-        <LoaderName>PrecompiledExtensionLoader</LoaderName>
-        <VirtualPath>~/Modules/SysCache/bin/NHibernate.Caches.SysCache2.dll</VirtualPath>
-      </Reference>
-    </References>
+    <VirtualPath>~/Modules/SysCache/SysCache.csproj</VirtualPath>
+    <LoaderName>DynamicExtensionLoader</LoaderName>
+    <References />
   </Dependency>
   <Dependency>
     <ModuleName>Szmyd.Orchard.Modules.Menu</ModuleName>
@@ -818,8 +812,8 @@
   </Dependency>
   <Dependency>
     <ModuleName>TinyMce</ModuleName>
-    <VirtualPath>~/Modules/TinyMce/bin/TinyMce.dll</VirtualPath>
-    <LoaderName>PrecompiledExtensionLoader</LoaderName>
+    <VirtualPath>~/Modules/TinyMce/TinyMce.csproj</VirtualPath>
+    <LoaderName>DynamicExtensionLoader</LoaderName>
     <References />
   </Dependency>
   <Dependency>
@@ -830,8 +824,8 @@
   </Dependency>
   <Dependency>
     <ModuleName>UpgradeTo16</ModuleName>
-    <VirtualPath>~/Modules/UpgradeTo16/bin/UpgradeTo16.dll</VirtualPath>
-    <LoaderName>PrecompiledExtensionLoader</LoaderName>
+    <VirtualPath>~/Modules/UpgradeTo16/UpgradeTo16.csproj</VirtualPath>
+    <LoaderName>DynamicExtensionLoader</LoaderName>
     <References>
       <Reference>
         <Name>Orchard.Alias</Name>
@@ -842,21 +836,6 @@
         <Name>Orchard.Autoroute</Name>
         <LoaderName>PrecompiledExtensionLoader</LoaderName>
         <VirtualPath>~/Modules/Orchard.Autoroute/bin/Orchard.Autoroute.dll</VirtualPath>
-      </Reference>
-      <Reference>
-        <Name>Orchard.Scripting</Name>
-        <LoaderName>PrecompiledExtensionLoader</LoaderName>
-        <VirtualPath>~/Modules/Orchard.Scripting/bin/Orchard.Scripting.dll</VirtualPath>
-      </Reference>
-      <Reference>
-        <Name>Orchard.Themes</Name>
-        <LoaderName>PrecompiledExtensionLoader</LoaderName>
-        <VirtualPath>~/Modules/Orchard.Themes/bin/Orchard.Themes.dll</VirtualPath>
-      </Reference>
-      <Reference>
-        <Name>Orchard.Tokens</Name>
-        <LoaderName>PrecompiledExtensionLoader</LoaderName>
-        <VirtualPath>~/Modules/Orchard.Tokens/bin/Orchard.Tokens.dll</VirtualPath>
       </Reference>
       <Reference>
         <Name>Orchard.Widgets</Name>

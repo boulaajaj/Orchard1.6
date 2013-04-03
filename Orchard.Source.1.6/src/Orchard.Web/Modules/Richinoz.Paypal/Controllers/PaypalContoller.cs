@@ -13,6 +13,7 @@ using Orchard.Core.Title.Models;
 using Orchard.Logging;
 using Orchard.Services;
 using Orchard.UI.Admin;
+using Richinoz.Paypal.Enums;
 using Richinoz.Paypal.Helpers;
 using Richinoz.Paypal.Models;
 using Richinoz.Paypal.Services;
@@ -135,9 +136,9 @@ namespace Richinoz.Paypal.Controllers
                         order.TransactionId = transactionID;
                         order.AmountPaid = amountPaid;
 
-                        _orderService.Save(order);
+                        _orderService.Save(order, OrderStatus.Paid);
 
-                        Logger.Information("{0}{1}", "IPN Order successfully transacted:", orderId);
+                        Logger.Information("{0}{1}", "IPN Order transaction successful:", orderId);
 
                         return View("Success");
                     }

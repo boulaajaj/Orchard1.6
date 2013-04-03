@@ -21,6 +21,12 @@ namespace Richinoz.Paypal.Models {
             set { Record.TransactionId = value; }
         }
 
+        public virtual string Status
+        {
+            get { return Record.Status; }
+            set { Record.Status = value; }
+        }
+
         public Order Order { get; set; }
 
     }

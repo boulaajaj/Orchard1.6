@@ -11,12 +11,12 @@ namespace Richinoz.Paypal.Models
     {
         public Order()
         {
-            OrderItems = new List<IOrderItem>();
+            OrderItems = new List<OrderItem>();
         }
         public int UniqueId { get; set; }
 
-        public List<IOrderItem> OrderItems { get; set; }
-        public IAddress Address { get; set; }
+        public List<OrderItem> OrderItems { get; set; }
+        public Address Address { get; set; }
 
         public decimal OriginalAmount { get; set; }
         public decimal AmountPaid { get; set; }
