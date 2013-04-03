@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RobotTest
 {
-    public interface IPersist<TKey, TVal>
-    {
-        Dictionary<TKey, TVal> Fetch();
-        void Add(TKey key, TVal value);
+    public interface IPersist<T>
+    {        
+        void Add(T value);
+
+        IQueryable<T> Query();
     }
 }

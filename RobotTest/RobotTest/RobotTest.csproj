@@ -49,6 +49,7 @@
     <Compile Include="CommandProcessor.cs" />
     <Compile Include="CommandProcessorFactory.cs" />
     <Compile Include="Commands\ForwardCommand.cs" />
+    <Compile Include="CommandProcessorRobotWorldEdge.cs" />
     <Compile Include="ICommandInterpreter.cs" />
     <Compile Include="IPersist.cs" />
     <Compile Include="Mars.cs" />

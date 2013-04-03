@@ -1,29 +1,34 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RobotTest
 {
-    public class Persist : IPersist<Location, Command>
+    public class Persist : IPersist<Edge>
     {
-        private Dictionary<Location, Command> _store;
+        //private Dictionary<Location, Edge> _store;
+        private List<Edge> _store; 
         public Persist()
         {
             //get from DB here
-            _store= new Dictionary<Location, Command>();
+            _store = new List<Edge>();
         }
-        public Dictionary<Location, Command> Fetch()
+        //public Dictionary<Location, Edge> Fetch()
+        //{
+        //    //fetch from DB here
+        //    Console.WriteLine("fetching from storage");
+        //    return _store;
+        //}
+
+        public void Add(Edge value)
         {
-            //fetch from DB here
-            Console.WriteLine("fetching from storage");
-            return _store;
+            _store.Add(value);
+            Console.WriteLine(string.Format("adding value {0} to storage",value));
         }
 
-        public void Add(Location key, Command value)
-        {
-            _store.Add(key,value);
-            Console.WriteLine(string.Format("adding value {0} to storage with key {1}",value, key));
+        public IQueryable<Edge> Query()
+        {            
+            return _store.AsQueryable();
         }
-
-     
     }
 }
