@@ -7,7 +7,7 @@ namespace RobotTest
          {
              //DI allows addition of new commands
              var commandInterpreter = DependencyResolver.GetInstance<CommandInterpreter>();
-             var storage = DependencyResolver.GetInstance<IPersist<Edge>>(); 
+             var storage = DependencyResolver.GetInstance<IPersist<WorldEdge>>(); 
              //var storage2 = DependencyResolver.GetInstance<IPersist<string, Edge>>(); 
 
              return new CommandProcessorRobotWorld(commandInterpreter, world, storage);

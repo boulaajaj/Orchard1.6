@@ -43,13 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandProcessorRobotWorld.cs" />
+    <Compile Include="CommandProcessorRobotWorld2.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="CommandInterpreter.cs" />
     <Compile Include="CommandProcessor.cs" />
     <Compile Include="CommandProcessorFactory.cs" />
     <Compile Include="Commands\ForwardCommand.cs" />
-    <Compile Include="CommandProcessorRobotWorldEdge.cs" />
+    <Compile Include="CommandProcessorRobotWorld.cs" />
     <Compile Include="ICommandInterpreter.cs" />
     <Compile Include="IPersist.cs" />
     <Compile Include="Mars.cs" />
@@ -60,6 +60,7 @@
     <Compile Include="Commands\TurnRightCommand.cs" />
     <Compile Include="Commands\TurnLeftCommand.cs" />
     <Compile Include="World.cs" />
+    <Compile Include="WorldEdge.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
