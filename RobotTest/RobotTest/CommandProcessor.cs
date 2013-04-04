@@ -4,10 +4,10 @@ namespace RobotTest
 {
     public abstract class CommandProcessor
     {
-        private readonly CommandInterpreter _commandInterpreter;
+        private readonly ICommandInterpreter _commandInterpreter;
         protected readonly World _world;        
 
-        protected CommandProcessor(CommandInterpreter commandInterpreter, World world)
+        protected CommandProcessor(ICommandInterpreter commandInterpreter, World world)
         {
             _commandInterpreter = commandInterpreter;
             _world = world;

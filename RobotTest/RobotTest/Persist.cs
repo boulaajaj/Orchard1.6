@@ -4,23 +4,23 @@ using System.Linq;
 
 namespace RobotTest
 {
-    public class Persist : IPersist<WorldEdge>
+    public class Persist<T> : IPersist<T>
     {
-        private List<WorldEdge> _store; 
+        private List<T> _store; 
         public Persist()
         {
             //get from DB here
-            _store = new List<WorldEdge>();
+            _store = new List<T>();
         }
        
 
-        public void Add(WorldEdge value)
+        public void Add(T value)
         {
             _store.Add(value);
             Console.WriteLine(string.Format("adding value {0} to storage",value));
         }
 
-        public IQueryable<WorldEdge> Query()
+        public IQueryable<T> GetAll()
         {            
             return _store.AsQueryable();
         }

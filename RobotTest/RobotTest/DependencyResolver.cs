@@ -18,8 +18,9 @@ namespace RobotTest
 
             // Register your types, for instance:      
             _container.Register<ICommandInterpreter, CommandInterpreter>();
-            _container.Register<IPersist<WorldEdge>, Persist>();            
-                       
+            _container.Register<IPersist<WorldEdgePoint>, Persist<WorldEdgePoint>>();
+            _container.Register<IPersist<WorldEdgeLine>, Persist<WorldEdgeLine>>();
+
             _container.RegisterAll<Command>(new ForwardCommand(), new TurnLeftCommand(), new TurnRightCommand());                        
         }
 

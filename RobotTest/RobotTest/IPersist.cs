@@ -7,6 +7,6 @@ namespace RobotTest
     {        
         void Add(T value);
 
-        IQueryable<T> Query();
+        IQueryable<T> GetAll();
     }
 }

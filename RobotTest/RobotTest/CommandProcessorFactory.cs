@@ -1,17 +1,24 @@
 ﻿
 namespace RobotTest
-{
+{    
     public class CommandProcessorFactory
     {
-         public CommandProcessor Build(World world)
+         public CommandProcessor BuildWorldEdgePointsProcessor(World world)
          {
              //DI allows addition of new commands
-             var commandInterpreter = DependencyResolver.GetInstance<CommandInterpreter>();
-             var storage = DependencyResolver.GetInstance<IPersist<WorldEdge>>(); 
-             //var storage2 = DependencyResolver.GetInstance<IPersist<string, Edge>>(); 
+             var commandInterpreter = DependencyResolver.GetInstance<ICommandInterpreter>();
+             var storage = DependencyResolver.GetInstance<IPersist<WorldEdgePoint>>();
 
              return new CommandProcessorRobotWorld(commandInterpreter, world, storage);
-             //return new CommandProcessorRobotWorldEdge(commandInterpreter, world, storage2);
+         }
+
+         public CommandProcessor BuildWorldEdgeLinesProcessor(World world)
+         {
+             //DI allows addition of new commands
+             var commandInterpreter = DependencyResolver.GetInstance<ICommandInterpreter>();
+             var storage = DependencyResolver.GetInstance<IPersist<WorldEdgeLine>>();
+
+             return new CommandProcessorRobotWorld2(commandInterpreter, world, storage);
          }
     }
 }

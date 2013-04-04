@@ -5,9 +5,9 @@ namespace RobotTest
 {
     public class CommandProcessorRobotWorld : CommandProcessor
     {
-        private readonly IPersist<WorldEdge> _store;
+        private readonly IPersist<WorldEdgePoint> _store;
 
-        public CommandProcessorRobotWorld(CommandInterpreter commandInterpreter, World world, IPersist<WorldEdge> store)
+        public CommandProcessorRobotWorld(ICommandInterpreter commandInterpreter, World world, IPersist<WorldEdgePoint> store)
             : base(commandInterpreter, world)
         {
             _store = store;
@@ -17,16 +17,16 @@ namespace RobotTest
         {
             foreach (var command in GetCommands(commandsString))
             {
-                var edges = _store.Query().Where(x => x.Location.Equals(robot.Location) && 
+                var edges = _store.GetAll().Where(x => x.Location.Equals(robot.Location) && 
                                             x.Command.CommandInstruction == command.CommandInstruction).ToList();                
-                if(edges.Count()>0)
+                if(edges.Any())
                     continue;
                 
                 var currentLocation = robot.Location;              
                 command.Execute(robot);
                 if (!RobotIsOnPlanet(robot))
                 {                    
-                    _store.Add( new WorldEdge(){Command = command, Location = currentLocation});
+                    _store.Add( new WorldEdgePoint(){Command = command, Location = currentLocation});
                     return string.Format("{0} {1}", currentLocation, "LOST");
                 }
             }

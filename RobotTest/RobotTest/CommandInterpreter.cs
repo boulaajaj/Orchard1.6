@@ -21,7 +21,7 @@ namespace RobotTest
         public IEnumerable<Command> Interpret(string commands)
         {
             if(!(commands.Length<100))
-                throw new ArgumentOutOfRangeException("commands cannot be larger than 100");
+                throw new ArgumentOutOfRangeException("Commands cannot be larger than 100", null as Exception);
 
             var instructions = commands.ToCharArray();
 

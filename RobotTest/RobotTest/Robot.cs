@@ -11,8 +11,8 @@ namespace RobotTest
     {
         public Point(int x, int y)
         {
-            if(x>50 || y>50)
-                throw new ArgumentOutOfRangeException("Co-oords cannot be larger than 50");
+            if (x > 50 || y > 50)
+                throw new ArgumentOutOfRangeException("Co-oords cannot be larger than 50", null as Exception);
             X = x;
             Y = y;
         }

@@ -112,3 +112,6 @@ UpgradeLog*.XML
 /Orchard.Source.1.6/*
 /Orchard.Source.1.6/*
 /Orchard.Source.1.6/*
+/Orchard.Source.1.6/buildtasks
+/Orchard.Source.1.6/artifacts
+/Orchard.Source.1.6/build
