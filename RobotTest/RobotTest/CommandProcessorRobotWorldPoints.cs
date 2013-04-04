@@ -3,11 +3,11 @@ using System.Linq;
 
 namespace RobotTest
 {
-    public class CommandProcessorRobotWorld : CommandProcessor
+    public class CommandProcessorRobotWorldPoints : CommandProcessor
     {
         private readonly IPersist<WorldEdgePoint> _store;
 
-        public CommandProcessorRobotWorld(ICommandInterpreter commandInterpreter, World world, IPersist<WorldEdgePoint> store)
+        public CommandProcessorRobotWorldPoints(ICommandInterpreter commandInterpreter, World world, IPersist<WorldEdgePoint> store)
             : base(commandInterpreter, world)
         {
             _store = store;

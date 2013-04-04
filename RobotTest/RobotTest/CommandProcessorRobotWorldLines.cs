@@ -8,11 +8,11 @@ namespace RobotTest
         public WorldEdgePoint WorldEdgePoint { get; set; }
         public string Key { get; set; }
     }
-    public class CommandProcessorRobotWorld2 : CommandProcessor
+    public class CommandProcessorRobotWorldLines : CommandProcessor
     {
         private readonly IPersist<WorldEdgeLine> _store;
 
-        public CommandProcessorRobotWorld2(ICommandInterpreter commandInterpreter, World world, IPersist<WorldEdgeLine> store)
+        public CommandProcessorRobotWorldLines(ICommandInterpreter commandInterpreter, World world, IPersist<WorldEdgeLine> store)
             : base(commandInterpreter, world)
         {
             _store = store;

@@ -9,7 +9,7 @@ namespace RobotTest
              var commandInterpreter = DependencyResolver.GetInstance<ICommandInterpreter>();
              var storage = DependencyResolver.GetInstance<IPersist<WorldEdgePoint>>();
 
-             return new CommandProcessorRobotWorld(commandInterpreter, world, storage);
+             return new CommandProcessorRobotWorldPoints(commandInterpreter, world, storage);
          }
 
          public CommandProcessor BuildWorldEdgeLinesProcessor(World world)
@@ -18,7 +18,7 @@ namespace RobotTest
              var commandInterpreter = DependencyResolver.GetInstance<ICommandInterpreter>();
              var storage = DependencyResolver.GetInstance<IPersist<WorldEdgeLine>>();
 
-             return new CommandProcessorRobotWorld2(commandInterpreter, world, storage);
+             return new CommandProcessorRobotWorldLines(commandInterpreter, world, storage);
          }
     }
 }
