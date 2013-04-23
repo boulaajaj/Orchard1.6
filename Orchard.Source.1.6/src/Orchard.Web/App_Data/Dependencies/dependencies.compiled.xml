@@ -349,6 +349,12 @@
     <Hash>48e7c66304c32598</Hash>
   </Dependency>
   <Dependency>
+    <ExtensionId>TinyMceDeluxe</ExtensionId>
+    <LoaderName>DynamicExtensionLoader</LoaderName>
+    <VirtualPath>~/Modules/TinyMceDeluxe/TinyMceDeluxe.csproj</VirtualPath>
+    <Hash>65c1b31d7cdab164</Hash>
+  </Dependency>
+  <Dependency>
     <ExtensionId>UpgradeTo16</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/UpgradeTo16/bin/UpgradeTo16.dll</VirtualPath>

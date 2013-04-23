@@ -811,6 +811,18 @@
     <References />
   </Dependency>
   <Dependency>
+    <ModuleName>TinyMceDeluxe</ModuleName>
+    <VirtualPath>~/Modules/TinyMceDeluxe/TinyMceDeluxe.csproj</VirtualPath>
+    <LoaderName>DynamicExtensionLoader</LoaderName>
+    <References>
+      <Reference>
+        <Name>Orchard.Themes</Name>
+        <LoaderName>PrecompiledExtensionLoader</LoaderName>
+        <VirtualPath>~/Modules/Orchard.Themes/bin/Orchard.Themes.dll</VirtualPath>
+      </Reference>
+    </References>
+  </Dependency>
+  <Dependency>
     <ModuleName>Title</ModuleName>
     <VirtualPath>~/Core/Title</VirtualPath>
     <LoaderName>CoreExtensionLoader</LoaderName>

@@ -310,6 +310,7 @@
     <Content Include="Themes\Bootstrap\Views\Web.config" />
     <Content Include="Themes\Bootstrap\Web.config" />
     <Content Include="Themes\Bootstrap\Views\Content-BlogPost.Summary.cshtml" />
+    <Content Include="Themes\Bootstrap\Views\Parts.Blogs.BlogPost.List.cshtml" />
     <None Include="Themes\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <None Include="Themes\obj\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
     <Content Include="Themes\SafeMode\Content\Web.config" />
