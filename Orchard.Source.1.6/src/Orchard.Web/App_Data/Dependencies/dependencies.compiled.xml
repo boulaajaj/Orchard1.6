@@ -34,7 +34,7 @@
     <ExtensionId>Nwazet.Commerce</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/Nwazet.Commerce/bin/Nwazet.Commerce.dll</VirtualPath>
-    <Hash>db9efc10c33d1947</Hash>
+    <Hash>db9f15f8a3497b03</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>Orchard.Alias</ExtensionId>
@@ -142,7 +142,7 @@
     <ExtensionId>Orchard.jPlayer</ExtensionId>
     <LoaderName>DynamicExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/Orchard.jPlayer/Orchard.jPlayer.csproj</VirtualPath>
-    <Hash>7d66da5f3947b781</Hash>
+    <Hash>7d670e2f2ffa4b49</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>Orchard.jQuery</ExtensionId>
@@ -322,13 +322,13 @@
     <ExtensionId>Richinoz.Paypal</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/Richinoz.Paypal/bin/Richinoz.Paypal.dll</VirtualPath>
-    <Hash>24f412e12c819ece</Hash>
+    <Hash>24f446b0ef1d1586</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>RichSite</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/RichSite/bin/RichSite.dll</VirtualPath>
-    <Hash>4b82cdbc3ed5a513</Hash>
+    <Hash>4b831b73e245d697</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>SysCache</ExtensionId>

@@ -129,7 +129,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Themes\Properties\AssemblyInfo.cs" />
     <Content Include="Config\log4net.config">
       <SubType>Designer</SubType>
     </Content>
@@ -143,102 +142,6 @@
     <Content Include="Global.asax" />
     <Content Include="Media\OrchardLogo.png" />
     <Content Include="Refresh.html" />
-    <Content Include="Themes\bin\Autofac.Configuration.dll" />
-    <Content Include="Themes\bin\Autofac.dll" />
-    <Content Include="Themes\bin\Autofac.xml" />
-    <Content Include="Themes\bin\Castle.Core.dll" />
-    <Content Include="Themes\bin\Castle.Core.xml" />
-    <Content Include="Themes\bin\Castle.DynamicProxy2.dll" />
-    <Content Include="Themes\bin\Castle.DynamicProxy2.xml" />
-    <Content Include="Themes\bin\ClaySharp.dll" />
-    <Content Include="Themes\bin\ClaySharp.pdb" />
-    <Content Include="Themes\bin\FluentNHibernate.dll" />
-    <Content Include="Themes\bin\FluentNHibernate.xml" />
-    <Content Include="Themes\bin\Iesi.Collections.dll" />
-    <Content Include="Themes\bin\Iesi.Collections.xml" />
-    <Content Include="Themes\bin\log4net.dll" />
-    <Content Include="Themes\bin\log4net.xml" />
-    <Content Include="Themes\bin\NHibernate.dll" />
-    <Content Include="Themes\bin\NHibernate.Linq.dll" />
-    <Content Include="Themes\bin\NHibernate.xml" />
-    <Content Include="Themes\bin\Orchard.Framework.dll" />
-    <Content Include="Themes\bin\Orchard.Framework.pdb" />
-    <Content Include="Themes\bin\System.Net.Http.dll" />
-    <Content Include="Themes\bin\System.Net.Http.Formatting.dll" />
-    <Content Include="Themes\bin\System.Net.Http.Formatting.xml" />
-    <Content Include="Themes\bin\System.Net.Http.xml" />
-    <Content Include="Themes\bin\System.Web.Http.dll" />
-    <Content Include="Themes\bin\System.Web.Http.WebHost.dll" />
-    <Content Include="Themes\bin\System.Web.Http.WebHost.xml" />
-    <Content Include="Themes\bin\System.Web.Http.xml" />
-    <Content Include="Themes\bin\Themes.dll" />
-    <Content Include="Themes\bin\Themes.pdb" />
-    <Content Include="Themes\Bootstrap\Bootstrap.csproj" />
-    <Content Include="Themes\Bootstrap\Content\alpha.png" />
-    <Content Include="Themes\Bootstrap\Content\glyphicons-halflings-white.png" />
-    <Content Include="Themes\Bootstrap\Content\glyphicons-halflings.png" />
-    <Content Include="Themes\Bootstrap\Content\hue.png" />
-    <Content Include="Themes\Bootstrap\Content\saturation.png" />
-    <Content Include="Themes\Bootstrap\Scripts\bootstrap.js" />
-    <Content Include="Themes\Bootstrap\Scripts\bootstrap.min.js" />
-    <Content Include="Themes\Bootstrap\Styles\bootstrap-responsive.css" />
-    <Content Include="Themes\Bootstrap\Styles\bootstrap-responsive.min.css" />
-    <Content Include="Themes\Bootstrap\Styles\bootstrap.css" />
-    <Content Include="Themes\Bootstrap\Styles\bootstrap.min.css" />
-    <Content Include="Themes\Bootstrap\Styles\site.css" />
-    <Content Include="Themes\Bootstrap\Theme.png" />
-    <Content Include="Themes\Bootstrap\Theme.txt" />
-    <Content Include="Themes\obj\Debug\Themes.csproj.FileListAbsolute.txt" />
-    <Content Include="Themes\obj\Debug\Themes.dll" />
-    <Content Include="Themes\obj\Debug\Themes.pdb" />
-    <Content Include="Themes\obj\Release\Themes.csproj.FileListAbsolute.txt" />
-    <Content Include="Themes\obj\Release\Themes.dll" />
-    <Content Include="Themes\obj\Release\Themes.pdb" />
-    <Content Include="Themes\SafeMode\Content\orchard.ico" />
-    <Content Include="Themes\SafeMode\Styles\ie6.css" />
-    <Content Include="Themes\SafeMode\Styles\images\backgroundHeader.gif" />
-    <Content Include="Themes\SafeMode\Styles\images\backgroundVines.gif" />
-    <Content Include="Themes\SafeMode\Styles\images\orchardLogo.gif" />
-    <Content Include="Themes\SafeMode\Styles\site.css" />
-    <Content Include="Themes\SafeMode\Theme.png" />
-    <Content Include="Themes\SafeMode\Theme.txt" />
-    <Content Include="Themes\TheAdmin\Scripts\admin.js" />
-    <Content Include="Themes\TheAdmin\Styles\ie.css" />
-    <Content Include="Themes\TheAdmin\Styles\ie7.css" />
-    <Content Include="Themes\TheAdmin\Styles\ie8.css" />
-    <Content Include="Themes\TheAdmin\Styles\images\adminNavBackground.gif" />
-    <Content Include="Themes\TheAdmin\Styles\images\backgroundGradient.gif" />
-    <Content Include="Themes\TheAdmin\Styles\images\backgroundHeader.gif" />
-    <Content Include="Themes\TheAdmin\Styles\images\icon-advisory.png" />
-    <Content Include="Themes\TheAdmin\Styles\images\icon-contribute.png" />
-    <Content Include="Themes\TheAdmin\Styles\images\icon-docs.png" />
-    <Content Include="Themes\TheAdmin\Styles\images\icon-friends.png" />
-    <Content Include="Themes\TheAdmin\Styles\images\icon-gallery.png" />
-    <Content Include="Themes\TheAdmin\Styles\images\icon-settings.png" />
-    <Content Include="Themes\TheAdmin\Styles\images\icons.png" />
-    <Content Include="Themes\TheAdmin\Styles\images\info.gif" />
-    <Content Include="Themes\TheAdmin\Styles\images\menu-default.png" />
-    <Content Include="Themes\TheAdmin\Styles\images\menu-glyph.png" />
-    <Content Include="Themes\TheAdmin\Styles\images\menuClosed.gif" />
-    <Content Include="Themes\TheAdmin\Styles\images\menuClosedHover.gif" />
-    <Content Include="Themes\TheAdmin\Styles\images\menuOpen.gif" />
-    <Content Include="Themes\TheAdmin\Styles\images\menuOpenHover.gif" />
-    <Content Include="Themes\TheAdmin\Styles\images\orchardLogo.gif" />
-    <Content Include="Themes\TheAdmin\Styles\images\tableHeaderBackgroundRed.gif" />
-    <Content Include="Themes\TheAdmin\Styles\images\vinesBackgroundBottom.gif" />
-    <Content Include="Themes\TheAdmin\Styles\site.css" />
-    <Content Include="Themes\TheAdmin\Theme.png" />
-    <Content Include="Themes\TheAdmin\Theme.txt" />
-    <Content Include="Themes\Themes.csproj" />
-    <Content Include="Themes\Themes.csproj.user" />
-    <Content Include="Themes\TheThemeMachineWithPaypalForMageliaWebStore\Styles\Site.css" />
-    <Content Include="Themes\TheThemeMachineWithPaypalForMageliaWebStore\Theme.png" />
-    <Content Include="Themes\TheThemeMachineWithPaypalForMageliaWebStore\Theme.txt" />
-    <Content Include="Themes\TheThemeMachineWithPaypalForMageliaWebStore\ThemeZonePreview.png" />
-    <Content Include="Themes\TheThemeMachine\Styles\Site.css" />
-    <Content Include="Themes\TheThemeMachine\Theme.png" />
-    <Content Include="Themes\TheThemeMachine\Theme.txt" />
-    <Content Include="Themes\TheThemeMachine\ThemeZonePreview.png" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -266,90 +169,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Themes\Bootstrap\Styles\less\" />
-    <Folder Include="Themes\obj\Debug\TempPE\" />
-    <Folder Include="Themes\obj\Release\TempPE\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Themes\Bootstrap\Content\Web.config" />
-    <None Include="Themes\Bootstrap\Placement.info" />
-    <Content Include="Themes\Bootstrap\Scripts\Web.config" />
-    <Content Include="Themes\Bootstrap\Styles\Web.config" />
-    <Content Include="Themes\Bootstrap\Views\BadgeOfHonor.cshtml" />
-    <Content Include="Themes\Bootstrap\Views\Branding.cshtml" />
-    <Content Include="Themes\Bootstrap\Views\CommentMetadata.cshtml" />
-    <Content Include="Themes\Bootstrap\Views\Content.cshtml" />
-    <Content Include="Themes\Bootstrap\Views\Content.Summary.cshtml" />
-    <Content Include="Themes\Bootstrap\Views\Layout-fluid.cshtml" />
-    <Content Include="Themes\Bootstrap\Views\Layout.cshtml" />
-    <Content Include="Themes\Bootstrap\Views\ListOfComments.cshtml" />
-    <Content Include="Themes\Bootstrap\Views\LogOn.cshtml" />
-    <Content Include="Themes\Bootstrap\Views\Menu.cshtml" />
-    <Content Include="Themes\Bootstrap\Views\MenuItem.cshtml" />
-    <Content Include="Themes\Bootstrap\Views\MenuItemLink.cshtml" />
-    <Content Include="Themes\Bootstrap\Views\MenuItemLinkdd.cshtml" />
-    <Content Include="Themes\Bootstrap\Views\Message.cshtml" />
-    <Content Include="Themes\Bootstrap\Views\Pager.CurrentPage.cshtml" />
-    <Content Include="Themes\Bootstrap\Views\Pager.First.cshtml" />
-    <Content Include="Themes\Bootstrap\Views\Pager.Last.cshtml" />
-    <Content Include="Themes\Bootstrap\Views\Pager.Next.cshtml" />
-    <Content Include="Themes\Bootstrap\Views\Pager.Previous.cshtml" />
-    <Content Include="Themes\Bootstrap\Views\Parts.Comments.Count.cshtml" />
-    <Content Include="Themes\Bootstrap\Views\Parts.Comments.cshtml" />
-    <Content Include="Themes\Bootstrap\Views\Parts.Common.Body.Summary-BlogPost.cshtml">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="Themes\Bootstrap\Views\Parts.Common.Body.Summary.cshtml" />
-    <Content Include="Themes\Bootstrap\Views\Parts.Common.Metadata.cshtml" />
-    <Content Include="Themes\Bootstrap\Views\Parts.Common.Metadata.Summary.cshtml" />
-    <Content Include="Themes\Bootstrap\Views\Parts.Title_Summary.cshtml" />
-    <Content Include="Themes\Bootstrap\Views\Parts\Tags.ShowTags.cshtml" />
-    <Content Include="Themes\Bootstrap\Views\Register.cshtml" />
-    <Content Include="Themes\Bootstrap\Views\SearchNav.cshtml" />
-    <Content Include="Themes\Bootstrap\Views\User.cshtml" />
-    <Content Include="Themes\Bootstrap\Views\Web.config" />
-    <Content Include="Themes\Bootstrap\Web.config" />
-    <Content Include="Themes\Bootstrap\Views\Content-BlogPost.Summary.cshtml" />
-    <Content Include="Themes\Bootstrap\Views\Parts.Blogs.BlogPost.List.cshtml" />
-    <None Include="Themes\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <None Include="Themes\obj\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <Content Include="Themes\SafeMode\Content\Web.config" />
-    <Content Include="Themes\SafeMode\Styles\Web.config" />
-    <Content Include="Themes\SafeMode\Views\Document.cshtml" />
-    <Content Include="Themes\SafeMode\Views\Layout.cshtml" />
-    <Content Include="Themes\TheAdmin\Scripts\Web.config" />
-    <None Include="Themes\TheAdmin\Styles\images\icons.psd" />
-    <Content Include="Themes\TheAdmin\Styles\Web.config" />
-    <Content Include="Themes\TheAdmin\Views\ErrorPage.cshtml" />
-    <Content Include="Themes\TheAdmin\Views\Header.cshtml" />
-    <Content Include="Themes\TheAdmin\Views\Layout.cshtml" />
-    <Content Include="Themes\TheAdmin\Views\LocalMenu.cshtml" />
-    <Content Include="Themes\TheAdmin\Views\Menu.cshtml" />
-    <Content Include="Themes\TheAdmin\Views\OrchardVersion.cshtml" />
-    <Content Include="Themes\TheAdmin\Views\Pager.cshtml" />
-    <Content Include="Themes\TheAdmin\Views\Title.cshtml" />
-    <Content Include="Themes\TheAdmin\Views\User.cshtml" />
-    <None Include="Themes\TheThemeMachineWithPaypalForMageliaWebStore\Placement.info" />
-    <Content Include="Themes\TheThemeMachineWithPaypalForMageliaWebStore\Styles\Web.config" />
-    <Content Include="Themes\TheThemeMachineWithPaypalForMageliaWebStore\Views\BadgeOfHonor.cshtml" />
-    <Content Include="Themes\TheThemeMachineWithPaypalForMageliaWebStore\Views\Branding.cshtml" />
-    <Content Include="Themes\TheThemeMachineWithPaypalForMageliaWebStore\Views\DisplayTemplates\Checkout\ProceedToPayment.cshtml" />
-    <Content Include="Themes\TheThemeMachineWithPaypalForMageliaWebStore\Views\Layout.cshtml" />
-    <Content Include="Themes\TheThemeMachineWithPaypalForMageliaWebStore\Views\Pager.cshtml" />
-    <Content Include="Themes\TheThemeMachineWithPaypalForMageliaWebStore\Views\Pager.First.cshtml" />
-    <Content Include="Themes\TheThemeMachineWithPaypalForMageliaWebStore\Views\Pager.Last.cshtml" />
-    <None Include="Themes\TheThemeMachine\Placement.info" />
-    <Content Include="Themes\TheThemeMachine\Styles\Web.config" />
-    <Content Include="Themes\TheThemeMachine\Views\BadgeOfHonor.cshtml" />
-    <Content Include="Themes\TheThemeMachine\Views\Branding.cshtml" />
-    <Content Include="Themes\TheThemeMachine\Views\Layout.cshtml" />
-    <Content Include="Themes\TheThemeMachine\Views\Pager.cshtml" />
-    <Content Include="Themes\TheThemeMachine\Views\Pager.First.cshtml" />
-    <Content Include="Themes\TheThemeMachine\Views\Pager.Last.cshtml" />
-    <Content Include="Themes\TheThemeMachine\Views\Parts.Common.Body.Summary-BlogPost.cshtml">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="Themes\Web.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,15 @@
+
+@{var items = Model.Items;}
+
+
+<div class="row-fluid">
+    @foreach (var item in items)
+    {
+    
+        <div class="span2">
+            @Display(item)
+        </div>
+   
+    }
+</div>
+
