@@ -7,6 +7,12 @@
     <Hash>48eea20abe0db314</Hash>
   </Dependency>
   <Dependency>
+    <ExtensionId>Contrib.ProjectionLayouts</ExtensionId>
+    <LoaderName>PrecompiledExtensionLoader</LoaderName>
+    <VirtualPath>~/Modules/Contrib.ProjectionLayouts/bin/Contrib.ProjectionLayouts.dll</VirtualPath>
+    <Hash>dbd3c6d684665920</Hash>
+  </Dependency>
+  <Dependency>
     <ExtensionId>Contrib.Taxonomies</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/Contrib.Taxonomies/bin/Contrib.Taxonomies.dll</VirtualPath>
@@ -328,7 +334,7 @@
     <ExtensionId>RichSite</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/RichSite/bin/RichSite.dll</VirtualPath>
-    <Hash>4b831b73e245d697</Hash>
+    <Hash>4b831c3f039a6e5e</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>SysCache</ExtensionId>
