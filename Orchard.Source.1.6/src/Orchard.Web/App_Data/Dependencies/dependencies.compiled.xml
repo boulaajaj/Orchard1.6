@@ -10,7 +10,7 @@
     <ExtensionId>Contrib.ProjectionLayouts</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/Contrib.ProjectionLayouts/bin/Contrib.ProjectionLayouts.dll</VirtualPath>
-    <Hash>dbd3c6d684665920</Hash>
+    <Hash>dbd3e2254a911f2a</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>Contrib.Taxonomies</ExtensionId>
@@ -82,7 +82,7 @@
     <ExtensionId>Orchard.Comments</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/Orchard.Comments/bin/Orchard.Comments.dll</VirtualPath>
-    <Hash>9259506c8b01f193</Hash>
+    <Hash>92596bc251c2c388</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>Orchard.ContentPermissions</ExtensionId>
@@ -220,7 +220,7 @@
     <ExtensionId>Orchard.Projections</ExtensionId>
     <LoaderName>PrecompiledExtensionLoader</LoaderName>
     <VirtualPath>~/Modules/Orchard.Projections/bin/Orchard.Projections.dll</VirtualPath>
-    <Hash>dbad6c1f5b25be95</Hash>
+    <Hash>dbad876e2150849f</Hash>
   </Dependency>
   <Dependency>
     <ExtensionId>Orchard.PublishLater</ExtensionId>
