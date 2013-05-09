@@ -3,9 +3,9 @@ namespace RobotTest
 {    
     public class CommandProcessorFactory
     {
-        public CommandProcessor BuildWorldEdgeProcessor<TProcessor>(World world) where TProcessor : CommandProcessor
+        public CommandProcessor Build<TProcessor>(World world) where TProcessor : CommandProcessor
          {
-             var cmdProcessor = DependencyResolver.GetInstance<TProcessor>();
+            var cmdProcessor = DependencyResolver.GetInstance<TProcessor>();
              cmdProcessor.World = world;
              return cmdProcessor;
          }

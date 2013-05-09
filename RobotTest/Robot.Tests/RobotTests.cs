@@ -16,7 +16,7 @@ namespace Robot.Tests
         public void Perform_Full_Test_Using_Edge_Points()
         {
             var commandProcessorFactory = new CommandProcessorFactory();
-            var commandProcessorRobotWorld = commandProcessorFactory.BuildWorldEdgeProcessor<CommandProcessorRobotWorldPoints>(new Mars(_worldCoords));
+            var commandProcessorRobotWorld = commandProcessorFactory.Build<CommandProcessorRobotWorldPoints>(new Mars(_worldCoords));
 
             var robot1 = new RobotTest.Robot(new Location(new Point(1, 1), Direction.East));
             var robot2 = new RobotTest.Robot(new Location(new Point(3, 2), Direction.North));
@@ -41,7 +41,7 @@ namespace Robot.Tests
         {
 
             var commandProcessorFactory = new CommandProcessorFactory();
-            var commandProcessorRobotWorld = commandProcessorFactory.BuildWorldEdgeProcessor<CommandProcessorRobotWorldLines>(new Mars(_worldCoords));
+            var commandProcessorRobotWorld = commandProcessorFactory.Build<CommandProcessorRobotWorldLines>(new Mars(_worldCoords));
 
             var robot1 = new RobotTest.Robot(new Location(new Point(1, 1), Direction.East));
             var robot2 = new RobotTest.Robot(new Location(new Point(3, 2), Direction.North));
@@ -61,7 +61,7 @@ namespace Robot.Tests
         public void subsequent_robots_should_not_fall_off_planet_at_same_point()
         {
             var commandProcessorFactory = new CommandProcessorFactory();
-            var commandProcessorRobotWorld = commandProcessorFactory.BuildWorldEdgeProcessor<CommandProcessorRobotWorldPoints>(new Mars(_worldCoords));
+            var commandProcessorRobotWorld = commandProcessorFactory.Build<CommandProcessorRobotWorldPoints>(new Mars(_worldCoords));
 
             var robot = new RobotTest.Robot( new Location(new Point(3, 2), Direction.North));
             var robotLocation = commandProcessorRobotWorld.ExecuteCommands("FRRFLLFFRRFLL", robot);
