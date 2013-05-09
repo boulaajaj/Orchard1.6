@@ -21,7 +21,10 @@ namespace RobotTest
             _container.Register<IPersist<WorldEdgePoint>, Persist<WorldEdgePoint>>();
             _container.Register<IPersist<WorldEdgeLine>, Persist<WorldEdgeLine>>();
 
-            _container.RegisterAll<Command>(new ForwardCommand(), new TurnLeftCommand(), new TurnRightCommand());                        
+            _container.RegisterAll<Command>(new ForwardCommand(), new TurnLeftCommand(), new TurnRightCommand());
+
+            _container.Register(() => new CommandProcessorRobotWorldPoints(GetInstance<ICommandInterpreter>(), null, GetInstance<IPersist<WorldEdgePoint>>()));
+            _container.Register(() => new CommandProcessorRobotWorldLines(GetInstance<ICommandInterpreter>(), null, GetInstance<IPersist<WorldEdgeLine>>()));
         }
 
         public static TService GetInstance<TService>() where TService : class

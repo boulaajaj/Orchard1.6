@@ -54,11 +54,11 @@ namespace RobotTest
 
         public string RobotIsOnPlanet(Robot robot)
         {
-            if (robot.Location.Point.X > _world.Point.X)
+            if (robot.Location.Point.X > World.Point.X)
                 return "XMax";
             if (robot.Location.Point.X < 0)
                 return "XMin";
-            if (robot.Location.Point.Y > _world.Point.Y)
+            if (robot.Location.Point.Y > World.Point.Y)
                 return "YMax";
             if (robot.Location.Point.Y < 0)
                 return "YMin";

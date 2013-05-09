@@ -36,11 +36,11 @@ namespace RobotTest
 
         public bool RobotIsOnPlanet(Robot robot)
         {
-            if (robot.Location.Point.X > _world.Point.X)
+            if (robot.Location.Point.X > World.Point.X)
                 return false;
             if (robot.Location.Point.X < 0)
                 return false;
-            if (robot.Location.Point.Y > _world.Point.Y)
+            if (robot.Location.Point.Y > World.Point.Y)
                 return false;
             if (robot.Location.Point.Y < 0)
                 return false;

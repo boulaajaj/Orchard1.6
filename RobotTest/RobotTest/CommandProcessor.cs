@@ -5,12 +5,12 @@ namespace RobotTest
     public abstract class CommandProcessor
     {
         private readonly ICommandInterpreter _commandInterpreter;
-        protected readonly World _world;        
+        internal World World { get; set; }        
 
         protected CommandProcessor(ICommandInterpreter commandInterpreter, World world)
         {
             _commandInterpreter = commandInterpreter;
-            _world = world;
+            World = world;
         }
 
         public abstract string ExecuteCommands(string commandsString, Robot robot);
