@@ -64,6 +64,8 @@
     <Content Include="Bootstrap\Styles\bootstrap-responsive.min.css" />
     <Content Include="Bootstrap\Styles\bootstrap.css" />
     <Content Include="Bootstrap\Styles\bootstrap.min.css" />
+    <Content Include="Bootstrap\Styles\images\DeleteRed.png" />
+    <Content Include="Bootstrap\Styles\images\DeleteRed_small.png" />
     <Content Include="Bootstrap\Styles\site.css" />
     <Content Include="Bootstrap\Theme.png" />
     <Content Include="Bootstrap\Theme.txt" />

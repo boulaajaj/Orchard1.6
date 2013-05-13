@@ -102,3 +102,19 @@ ol li ol.childlist .comment-des { float: right; width: 89%; }
 .pager a,
 .pager span { padding: 4px 12px; border: 1px solid #ddd; border-left-width: 0; display: inline-block; *float: left; background: #fff; margin-right: -1px; -webkit-border-radius: 0 !important; -moz-border-radius: 0 !important; border-radius: 0 !important; }
 .ie7 .pager span { margin-right: 5px; }
+
+
+/* Rich Specific */
+
+.quantity
+{
+    width:5em
+}
+
+.delete 
+{
+    display:inline-block;
+    width:32px;
+    height:32px;
+    background-image:url(images/deleteRed_small.png);    
+}

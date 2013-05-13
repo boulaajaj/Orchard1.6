@@ -3,4 +3,12 @@
   <Place Parts_PaypalCheckout_Settings="Content:1"/>
   <Place Parts_Order_Edit="Content:3.1"/>
   <Place Parts_Order="Content:3.1"/>
+
+  <!--<Match ContentType="Product">
+    <Match DisplayType="Detail">
+      <Place Parts_Product="ProductDetails"/>
+      <Place Parts_Product_Price="Content:10"/>
+    </Match>
+   
+  </Match>-->
 </Placement>

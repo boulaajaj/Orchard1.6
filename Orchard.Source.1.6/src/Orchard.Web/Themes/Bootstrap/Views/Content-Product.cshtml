@@ -1,5 +1,4 @@
 ﻿@using Orchard.Utility.Extensions;
-@using Orchard.Media.Helpers;
 
 @{
     if (Model.Title != null) {
@@ -12,8 +11,9 @@
     <header>
         @Display(Model.Header)
     </header>
+	
+	
     @Display(Model.Content)
-
     @if (Model.Meta != null) {
         <div class="post-meta">
             @Display(Model.Meta)
