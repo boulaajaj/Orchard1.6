@@ -1,17 +1,16 @@
 ﻿@using Orchard.Utility.Extensions;
-
 @{
     if (Model.Title != null) {
         Layout.Title = Model.Title;
     }
-
+	Orchard.ContentManagement.ContentItem contentItem = Model.ContentItem;
     var contentTypeClassName = ((string)Model.ContentItem.ContentType).HtmlClassify();
 }
 <article class="post post-page content-item @contentTypeClassName">
     <header>
         @Display(Model.Header)
     </header>
-	
+	@Html.ItemDisplayLink(T("Read More...").ToString(), contentItem)
 	
     @Display(Model.Content)
     @if (Model.Meta != null) {
