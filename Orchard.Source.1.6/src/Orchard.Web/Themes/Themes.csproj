@@ -106,6 +106,27 @@
     <Content Include="TheAdmin\Views\Menu.cshtml" />
     <Content Include="TheThemeMachine\Views\Branding.cshtml" />
     <Content Include="TheThemeMachine\Views\BadgeOfHonor.cshtml" />
+    <Content Include="WiseWords\Content\img\glyphicons-halflings-white.png" />
+    <Content Include="WiseWords\Content\img\glyphicons-halflings.png" />
+    <Content Include="WiseWords\Content\img\icons32px.png" />
+    <Content Include="WiseWords\Content\img\poweredByOrchard.png" />
+    <Content Include="WiseWords\Content\img\threedots.png" />
+    <Content Include="WiseWords\Content\img\wwlogo.png" />
+    <Content Include="WiseWords\Scripts\bootstrap.js" />
+    <Content Include="WiseWords\Scripts\bootstrap.min.js" />
+    <Content Include="WiseWords\Scripts\theme.js" />
+    <Content Include="WiseWords\Scripts\tinynav.js" />
+    <Content Include="WiseWords\Scripts\tinynav.min.js" />
+    <Content Include="WiseWords\Styles\bootstrap-responsive.css" />
+    <Content Include="WiseWords\Styles\bootstrap-responsive.min.css" />
+    <Content Include="WiseWords\Styles\bootstrap.css" />
+    <Content Include="WiseWords\Styles\bootstrap.min.css" />
+    <Content Include="WiseWords\Styles\socialicons.css" />
+    <Content Include="WiseWords\Styles\theme.css" />
+    <Content Include="WiseWords\Theme.png" />
+    <Content Include="WiseWords\Theme.txt" />
+    <Content Include="WiseWords\ThemeZonePreview.png" />
+    <Content Include="WiseWords\thumbnail.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="TheAdmin\Styles\images\icons.png" />
@@ -209,6 +230,25 @@
     <Content Include="Bootstrap\Views\User.cshtml" />
     <Content Include="Bootstrap\Views\Web.config" />
     <Content Include="Bootstrap\Web.config" />
+    <Content Include="WiseWords\Content\Web.config" />
+    <None Include="WiseWords\Placement.info" />
+    <Content Include="WiseWords\Scripts\Web.config" />
+    <Content Include="WiseWords\Styles\Web.config" />
+    <Content Include="WiseWords\Views\CommentMetadata.cshtml" />
+    <Content Include="WiseWords\Views\Content.cshtml" />
+    <Content Include="WiseWords\Views\Content.Summary.cshtml" />
+    <Content Include="WiseWords\Views\Layout.cshtml" />
+    <Content Include="WiseWords\Views\Menu.cshtml" />
+    <Content Include="WiseWords\Views\MenuItem.cshtml" />
+    <Content Include="WiseWords\Views\MenuItemLink.cshtml" />
+    <Content Include="WiseWords\Views\MenuItemLinkDropdown.cshtml" />
+    <Content Include="WiseWords\Views\NotFound.cshtml" />
+    <Content Include="WiseWords\Views\Parts\Common.Metadata.cshtml" />
+    <Content Include="WiseWords\Views\Parts\Common.Metadata.Summary.cshtml" />
+    <Content Include="WiseWords\Views\Parts\Search.SearchForm.cshtml" />
+    <Content Include="WiseWords\Views\Web.config" />
+    <Content Include="WiseWords\Views\Widget-Navigation.cshtml" />
+    <Content Include="WiseWords\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Bootstrap\Styles\less\" />

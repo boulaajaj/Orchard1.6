@@ -1,0 +1,17 @@
+@{
+    var buildShapes = Model.BuildShapes;
+}
+
+<div class="row-fluid">
+@foreach (dynamic shape in buildShapes()) {
+	
+	
+	<div class="span4">
+		@Display(shape)    
+	</div>
+}
+</div>
+
+
+
+

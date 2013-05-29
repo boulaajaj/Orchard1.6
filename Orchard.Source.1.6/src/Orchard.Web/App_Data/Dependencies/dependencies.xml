@@ -883,6 +883,12 @@
     </References>
   </Dependency>
   <Dependency>
+    <ModuleName>WiseWords</ModuleName>
+    <VirtualPath>~/Theme/WiseWords</VirtualPath>
+    <LoaderName>RawThemeExtensionLoader</LoaderName>
+    <References />
+  </Dependency>
+  <Dependency>
     <ModuleName>XmlRpc</ModuleName>
     <VirtualPath>~/Core/XmlRpc</VirtualPath>
     <LoaderName>CoreExtensionLoader</LoaderName>
