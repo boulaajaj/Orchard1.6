@@ -7,6 +7,8 @@
     var body = new HtmlString(Html.Excerpt(bodyHtml, 500).ToString().Replace(Environment.NewLine, "</p>" + Environment.NewLine + "<p>")); 
 }
 <div class="post-description">
-    <p>@body</p>
+    <p>@Model.Html</p>
 </div>
+
+hello!
 @Html.ItemDisplayLink(T("Read More...").ToString(), contentItem)

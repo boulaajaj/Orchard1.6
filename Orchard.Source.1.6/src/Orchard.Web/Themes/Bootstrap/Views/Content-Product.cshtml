@@ -6,6 +6,7 @@
 	Orchard.ContentManagement.ContentItem contentItem = Model.ContentItem;
     var contentTypeClassName = ((string)Model.ContentItem.ContentType).HtmlClassify();
 }
+IN Content-Product.cshtml
 <article class="post post-page content-item @contentTypeClassName">
     <header>
         @Display(Model.Header)
